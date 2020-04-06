@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/train/Dockerfile
+    image: tfg
+    volumes:
+    - ./src:/app/src:Z
+    - ./data:/app/data:Z
+    - ./config:/app/config:Z
+    - ./log/:/app/log:Z
+    command: "bash"
+    tty: true
+    stdin_open: true

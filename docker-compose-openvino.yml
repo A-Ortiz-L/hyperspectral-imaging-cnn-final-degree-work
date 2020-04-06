@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  app-openvino:
+    build:
+      context: .
+      dockerfile: ./docker/openvino/Dockerfile
+    image: tfg-openvino
+    volumes:
+    - ./src:/app/src:Z
+    - ./data:/app/data:Z
+    - ./config:/app/config:Z
+    - ./log/:/app/log:Z
+    command: "bash"
+    tty: true
+    stdin_open: true
