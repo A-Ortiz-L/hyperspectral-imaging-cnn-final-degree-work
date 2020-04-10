@@ -1,15 +1,16 @@
 version: '3.3'
 
 services:
-  app-openvino:
+  app:
     build:
       context: .
-      dockerfile: ./docker/openvino/Dockerfile
-    image: openvino
+      dockerfile: docker/tensorflow-serve/Dockerfile
+    image: tensorflow-serve
     ports:
       - 8080:8080
+      - 8501:8501
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /app/config/key.json
+      GOOGLE_APPLICATION_CREDENTIALS: ./config/key.json
     volumes:
     - ./src:/app/src:Z
     - ./data:/app/data:Z

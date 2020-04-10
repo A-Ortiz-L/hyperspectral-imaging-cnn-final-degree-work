@@ -11,6 +11,7 @@ from config.cfg import data_dir, pickle_dir
 import time
 from logging import getLogger
 from sklearn.model_selection import train_test_split
+
 log = getLogger(__name__)
 
 
@@ -59,12 +60,9 @@ class KerasModel:
         self.model.add(Activation("relu"))
         self.model.add(Flatten())
         self.model.add(Dense(64))
-        self.model.add(Dense(1))
-        self.model.add(Activation("sigmoid"))
+        self.model.add(Dense(1, activation="sigmoid"))
         optimizer = Adam(learning_rate=0.0008)
         self.model.compile(loss="binary_crossentropy", optimizer=optimizer, metrics=['accuracy'])
-        #x = np.array(x)
-        #y = np.array(y)
         self.model.fit(x, y, batch_size=32, epochs=200, validation_split=0.2, shuffle=True)
         end = time.time()
         log.info(f'Training complete in {start - end}')
@@ -72,11 +70,14 @@ class KerasModel:
         log.info('Accuracy: %.2f' % (accuracy * 100))
         self.save_model_h5(self.model)
 
-    @staticmethod
-    def prepare_file(file_route):
+    def process_image(self, file_route):
+        start = time.time()
         img_array = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
         new_array = cv2.resize(img_array, (128, 128))
-        return new_array.reshape(-1, 128, 128, 1)/255.0
+        img = new_array.reshape(-1, 128, 128, 1) / 255.0
+        res = self.model.predict(np.float32(img))
+        predict = True if res[0][0] >= 0.5 else False
+        return predict, (time.time() - start)
 
     def create_training_data(self):
         for category in self.categories:
@@ -91,16 +92,16 @@ class KerasModel:
     def load_model(self):
 
         self.model = tf.keras.models.load_model(f'{pickle_dir}128CNN.h5')
-        # self.model.load_weights(f'{pickle_dir}128CNN_weights.h5')
+        self.model.load_weights(f'{pickle_dir}128CNN_weights.h5')
 
     @staticmethod
     def save_model_h5(model):
         log.info(f'Saving model on {pickle_dir}')
         model.save(f'{pickle_dir}128CNN.h5', include_optimizer=True)
-        # model.save_weights(f'{pickle_dir}128CNN_weights.h5')
+        model.save_weights(f'{pickle_dir}128CNN_weights.h5')
 
     @staticmethod
-    def freeze_session(session, keep_var_names=None, output_names=None, clear_devices=True):
+    def save_model_tf(session, keep_var_names=None, output_names=None, clear_devices=True):
         graph = session.graph
         with graph.as_default():
             freeze_var_names = list(

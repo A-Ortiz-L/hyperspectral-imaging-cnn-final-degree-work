@@ -8,6 +8,7 @@ venv
 *.bin
 *.mapping
 *.xml
+key.json
 # C extensions
 *.so
 *.idea

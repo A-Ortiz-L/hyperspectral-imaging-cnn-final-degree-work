@@ -4,8 +4,10 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/train/Dockerfile
-    image: tfg
+      dockerfile: docker/tensorflow-training/Dockerfile
+    image: tensorflow-train
+    ports:
+      - 8080:8080
     volumes:
     - ./src:/app/src:Z
     - ./data:/app/data:Z

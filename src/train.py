@@ -1,7 +1,7 @@
 from logging import getLogger
 import tensorflow as tf
 from tensorflow.python.framework import graph_io
-from src.entity.KerasModel import KerasModel
+from src.entity.keras_model import KerasModel
 import logging
 from datetime import datetime
 from tensorflow.python.util import deprecation
@@ -16,7 +16,7 @@ logging.basicConfig(
     datefmt='%H:%M:%S'
 )
 log = getLogger(__name__)
-
+TRAIN = False
 if __name__ == '__main__':
     deprecation._PRINT_DEPRECATION_WARNINGS = False
     sess = tf.compat.v1.Session()
@@ -24,20 +24,15 @@ if __name__ == '__main__':
     s = tf.compat.v1.keras.backend.get_session()
 
     keras = KerasModel()
-    # keras.train_model()
+    keras.load_model()
+    if TRAIN:
+        keras.train_model()
     model = keras.model
+    tf.keras.models.save_model(
+        model,
+        filepath='/app/data/model/',
+        save_format='tf'
+    )
 
-    for file in os.listdir('/app/data/damaged/'):
-        f = keras.prepare_file('/app/data/damaged/' + file)
-        f = np.float32(f)
-        res = model.predict(f)
-        print(res)
-        predict = 1 if res[0][0] >= 0.5 else 0
-        print(predict)
-    for file in os.listdir('/app/data/undamaged/'):
-        f = keras.prepare_file('app/data/undamaged' + file)
-        res = model.predict(f)
-        predict = 1 if res[0][0] >= 0.5 else 0
-        print(predict)
-    graph = keras.freeze_session(session=s, output_names=[out.op.name for out in model.outputs])
+    graph = keras.save_model_tf(session=s, output_names=[out.op.name for out in model.outputs])
     graph_io.write_graph(graph, "model", "model.pb", as_text=True)
