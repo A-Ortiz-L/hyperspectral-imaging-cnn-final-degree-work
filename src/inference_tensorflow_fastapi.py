@@ -1,15 +1,18 @@
 from src.service.api import Api
 from fastapi import FastAPI
 from src.service.tensorflow_network import TensorflowNetwork
+from src.service.system_track import SystemTrack
 
 app = FastAPI()
 api = Api(
-    docker=True,
-    cloud=True,
-    processor_unit='CPU',
-    inference_engine='tensorflow',
+    sys=SystemTrack(
+        docker=True,
+        cloud=True,
+        processor_unit='CPU',
+        inference_engine='tensorflow',
+        web_engine='FastApi'
+    ),
     net=TensorflowNetwork(),
-    web_engine='FastApi'
 )
 
 

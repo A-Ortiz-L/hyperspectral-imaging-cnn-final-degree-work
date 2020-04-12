@@ -1,15 +1,18 @@
 from src.service.openvino_network import OpenVinoNetwork
 from src.service.api import Api
 from flask import Flask, request
+from src.service.system_track import SystemTrack
 
 app = Flask(__name__)
 api = Api(
-    docker=True,
-    cloud=True,
-    processor_unit='CPU',
-    inference_engine='openvino',
-    net=OpenVinoNetwork(),
-    web_engine='Flask'
+    sys=SystemTrack(
+        docker=True,
+        cloud=True,
+        processor_unit='CPU',
+        inference_engine='openvino',
+        web_engine='Flask'
+    ),
+    net=OpenVinoNetwork()
 )
 
 

@@ -1,15 +1,18 @@
 from src.service.openvino_network import OpenVinoNetwork
 from src.service.api import Api
 from fastapi import FastAPI
+from src.service.system_track import SystemTrack
 
 app = FastAPI()
 api = Api(
-    docker=True,
-    cloud=True,
-    processor_unit='CPU',
-    inference_engine='openvino',
-    net=OpenVinoNetwork(),
-    web_engine='FastApi'
+    sys=SystemTrack(
+        docker=True,
+        cloud=True,
+        processor_unit='CPU',
+        inference_engine='openvino',
+        web_engine='FastApi'
+    ),
+    net=OpenVinoNetwork()
 )
 
 

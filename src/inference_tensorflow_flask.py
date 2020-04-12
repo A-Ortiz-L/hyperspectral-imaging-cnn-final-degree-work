@@ -1,20 +1,18 @@
 from src.service.api import Api
 from flask import Flask, request
 from src.service.tensorflow_network import TensorflowNetwork
+from src.service.system_track import SystemTrack
 
-import os
-
-os.system('tensorflow_model_server '
-          '--rest_api_port=8501 --model_name=model '
-          '--model_base_path=/app/data/models &')
 app = Flask(__name__)
 api = Api(
-    docker=True,
-    cloud=True,
-    processor_unit='CPU',
-    inference_engine='tensorflow',
+    sys=SystemTrack(
+        docker=True,
+        cloud=True,
+        processor_unit='CPU',
+        inference_engine='tensorflow',
+        web_engine='Flask'
+    ),
     net=TensorflowNetwork(),
-    web_engine='Flask'
 )
 
 

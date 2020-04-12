@@ -4,11 +4,13 @@ import cv2
 import requests
 import json
 from typing import Tuple
+import os
 
 
 class TensorflowNetwork:
     def __init__(self):
         self.model_uri = 'http://localhost:8501/v1/models/model:predict'
+        self.init_tensorflow_serve()
 
     @staticmethod
     def shape_image(file_route):
@@ -32,3 +34,9 @@ class TensorflowNetwork:
         predictions = json.loads(res.text)['predictions']
         predict = True if predictions[0][0] >= 0.5 else False
         return predict
+
+    @staticmethod
+    def init_tensorflow_serve():
+        os.system('tensorflow_model_server '
+                  '--rest_api_port=8501 --model_name=model '
+                  '--model_base_path=/app/data/models &')
