@@ -18,7 +18,15 @@ def hello():
     return 'Hello World'
 
 
+@app.get('/remoteImage')
+def remote_image(item: dict):
+    res = api.remote_image_request(item)
+    return {
+        'result': res
+    }
+
+
 @app.post('/image')
-def default(item: dict):
-    api.process_request(item)
+def cloud_storage_handler(item: dict):
+    api.cloud_storage_request(item)
     return '200'

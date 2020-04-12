@@ -3,24 +3,32 @@ import time
 import cv2
 import requests
 import json
+from typing import Tuple
 
 
 class TensorflowNetwork:
     def __init__(self):
-        pass
+        self.model_uri = 'http://localhost:8501/v1/models/model:predict'
 
     @staticmethod
-    def process_image(file_route):
-        start = time.time()
+    def shape_image(file_route):
         img_array = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
         new_array = cv2.resize(img_array, (128, 128))
         img = new_array.reshape(-1, 128, 128, 1) / 255.0
         img = np.float32(img).tolist()
+        return img
 
+    def process_image(self, file_route) -> Tuple[bool, float]:
+        start = time.time()
+        image = self.shape_image(file_route)
+        predict = self.network_request(image)
+        return predict, (time.time() - start)
+
+    def network_request(self, image) -> bool:
         headers = {"content-type": "application/json"}
-        data = json.dumps({"signature_name": "serving_default", "instances": img})
-        res = requests.post('http://localhost:8501/v1/models/model:predict', data=data,
+        data = json.dumps({"signature_name": "serving_default", "instances": image})
+        res = requests.post(self.model_uri, data=data,
                             headers=headers)
         predictions = json.loads(res.text)['predictions']
         predict = True if predictions[0][0] >= 0.5 else False
-        return predict, (time.time() - start)
+        return predict

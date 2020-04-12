@@ -18,8 +18,16 @@ def hello():
     return 'Hello my friend'
 
 
+@app.route('/imageRemote', methods=['POST'])
+def remote_image():
+    res = api.remote_image_request(request.json)
+    return {
+        'result': res
+    }
+
+
 @app.route('/image', methods=['POST'])
-def default():
+def cloud_storage_handler():
     item = request.json
-    api.process_request(item)
+    api.cloud_storage_request(item)
     return '200'

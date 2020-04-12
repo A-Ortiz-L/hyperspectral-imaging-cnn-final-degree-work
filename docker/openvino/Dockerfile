@@ -38,7 +38,12 @@ RUN echo "source /opt/intel/openvino/bin/setupvars.sh" >> /etc/bash.bashrc
 
 RUN mkdir /app/data
 ENV PYTHONPATH=$PYTHONPATH:/opt/intel/openvino/python/python3.6
-ENV LD_LIBRARY_PATH=/opt/intel/openvino_2020.1.023/opencv/lib:/opt/intel/openvino_2020.1.023/deployment_tools/ngraph/lib:/opt/intel/opencl:/opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/hddl/lib:/opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/gna/lib:/opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/mkltiny_lnx/lib:/opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/tbb/lib:/opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/lib/intel64:
+ENV LD_LIBRARY_PATH='/opt/intel/openvino_2020.1.023/opencv/lib:/opt/intel/openvino_2020.1.023/deployment_tools/ngraph/lib:/opt/intel/opencl: \
+    /opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/hddl/lib: \
+    /opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/gna/lib: \
+    /opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/mkltiny_lnx/lib: \
+    /opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/external/tbb/lib: \
+    /opt/intel/openvino_2020.1.023/deployment_tools/inference_engine/lib/intel64:'
 ENV APP_PORT 8080
 ENV APP_HOST 0.0.0.0
 ENV LC_ALL=C.UTF-8

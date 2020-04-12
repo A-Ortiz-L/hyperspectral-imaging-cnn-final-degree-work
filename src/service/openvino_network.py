@@ -15,13 +15,22 @@ class OpenVinoNetwork:
         self.input_blob = next(iter(self.net.inputs))
         self.out_blob = next(iter(self.net.outputs))
         self.net.batch_size = 1
+        self.image_shape = 128
 
-    def process_image(self, image_path, shape) -> Tuple[bool, float]:
+    def process_image(self, image_path) -> Tuple[bool, float]:
         start = time.time()
-        image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-        image = cv2.resize(image, (shape, shape))
-        image = image.reshape(shape, shape) / 255.0
+        image = self.shape_image(image_path)
+        res = self.network_request(image)
+        return res, time.time() - start
+
+    def shape_image(self, file_route):
+        image = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
+        image = cv2.resize(image, (self.image_shape, self.image_shape))
+        image = image.reshape(self.image_shape, self.image_shape) / 255.0
+        return image
+
+    def network_request(self, image) -> bool:
         res = self.exec_net.infer(inputs={self.input_blob: image})
         res = res[self.out_blob]
         res = False if res < 0.5 else True
-        return res, time.time() - start
+        return res

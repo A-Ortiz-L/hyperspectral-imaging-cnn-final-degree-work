@@ -1,8 +1,6 @@
-import os
 from src.service.api import Api
 from flask import Flask, request
 from src.service.tensorflow_network import TensorflowNetwork
-import subprocess
 
 import os
 
@@ -25,8 +23,16 @@ def hello():
     return 'Hello friend'
 
 
+@app.route('/imageRemote', methods=['POST'])
+def remote_image():
+    res = api.remote_image_request(request.json)
+    return {
+        'result': res
+    }
+
+
 @app.route('/image', methods=['POST'])
-def default():
+def cloud_storage_handler():
     item = request.json
-    api.process_request(item)
+    api.cloud_storage_request(item)
     return '200'

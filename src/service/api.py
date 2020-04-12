@@ -5,9 +5,6 @@ from src.service.google_big_query import GoogleBigQuery
 import psutil
 import platform
 import os
-import cv2
-import requests
-import numpy as np
 
 
 class Api:
@@ -23,7 +20,7 @@ class Api:
         self.__sys_information = platform.uname()
         self.__net = net
 
-    def process_request(self, item: dict):
+    def cloud_storage_request(self, item: dict):
         start = time.time()
         image_name = item['name']
         size = item['size']
@@ -58,15 +55,8 @@ class Api:
         self.__big_query.insert_row(row)
         os.remove(image_path)
 
-    def shape_image(self, file_route):
-        start = time.time()
-        img_array = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
-        new_array = cv2.resize(img_array, (128, 128))
-        img = new_array.reshape(-1, 128, 128, 1) / 255.0
-        res = requests.post('localhost:8500', data=img)
-        print(res)
-        predict = True if res[0][0] >= 0.5 else False
-        return predict, (time.time() - start)
+    def remote_image_request(self, item: dict):
+        pass
 
     @staticmethod
     def __get_size(num_bytes, suffix="B"):

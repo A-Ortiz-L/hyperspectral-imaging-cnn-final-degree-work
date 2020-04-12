@@ -1,7 +1,8 @@
-FROM tensorflow/serving:latest-devel
+FROM tensorflow/serving:latest
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nano \
+    libgtk2.0-dev \
     python3-pip \
     python3 \
     python3-dev \
@@ -17,7 +18,7 @@ RUN pip3 install -U setuptools
 COPY /docker/tensorflow-serve/requirements.txt /app/requirements.txt
 RUN pip3 install -r requirements.txt
 RUN mkdir data
-COPY /model/tensorflow_serve /app/model
+COPY /model/tensorflow_serve /app/model/1
 ENV PYTHONPATH=$PYTHONPATH:/app/
 COPY ./config config
 COPY ./src src
