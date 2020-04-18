@@ -9,6 +9,7 @@ venv
 *.mapping
 *.xml
 key.json
+.vscode
 # C extensions
 *.so
 *.idea
