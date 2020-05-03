@@ -39,4 +39,4 @@ class TensorflowNetwork:
     def init_tensorflow_serve():
         os.system('tensorflow_model_server '
                   '--rest_api_port=8501 --model_name=model '
-                  '--model_base_path=/app/data/models &')
+                  '--model_base_path=/app/model &')

@@ -3,7 +3,7 @@ from config.cfg import data_dir, bucket
 from src.service.google_storage import GoogleStorage
 from src.service.google_big_query import GoogleBigQuery
 from src.service.system_track import SystemTrack
-
+import os
 
 class Api:
     def __init__(self, net, sys: SystemTrack):

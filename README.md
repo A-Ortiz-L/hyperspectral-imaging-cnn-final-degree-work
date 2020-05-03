@@ -12,3 +12,8 @@ gsutil notification create -t openvino -f json -e OBJECT_FINALIZE gs://tfg-andre
 
 
 tensorflow_model_server --rest_api_port=8501 --model_name=model --model_base_path=/app/data/models &
+
+-m parallel  
+gsutil -m cp source gs://dst
+
+uvicorn --port 8080 --host 0.0.0.0 --workers=8 src.inference_openvino_fastapi:app

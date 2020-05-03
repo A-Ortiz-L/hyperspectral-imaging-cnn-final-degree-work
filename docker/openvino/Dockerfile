@@ -50,7 +50,7 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 EXPOSE 8080
 
-COPY /model /app/model/
+COPY /model/openvino /app/model/
 COPY /src/ /app/src
 COPY /config/ /app/config
 CMD gunicorn --bind :$APP_PORT src.inference_openvino:app --workers=4 --threads=4
