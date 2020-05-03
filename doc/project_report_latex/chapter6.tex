@@ -1,0 +1,36 @@
+\cleardoublepage
+%\newpage
+%\thispagestyle{empty}
+\mbox{}
+
+\chapter{Conclusiones y trabajo futuro}
+\label{ch:chapte6}
+
+\section{Conclusiones}
+
+En este Trabajo de Fin de Grado se ha llevado a cabo el diseño y la implementación del algoritmo ATDCA-GS, que utiliza la ortogonalización de Gram Schmidt con el objetivo de optimizar y mejorar el rendimiento de operaciones complejas como es el caso del cálculo de la inversa de una matriz. Se han empleado los lenguajes de programación VHDL y OpenCL y se han evaluado los resultados de su ejecución en FPGA para posteriormente realizar una comparación de rendimiento entre ambas alternativas.
+
+Como parte del diseño, se ha realizado una adaptación del algoritmo adecuándolo al flujo habitual de un diseño específico hardware, minimizando lo máximo posible la cantidad de recursos a emplear y paralelizando las operaciones llevadas a cabo durante la ejecución del algoritmo.
+
+Para realizar una comparativa en cuanto al rendimiento en tiempo de las dos implementaciones, se ha teniendo en cuenta la aceleración de una respecto a la otra haciendo uso de imágenes reales y sintéticas. Además, se ha verificado que, excepto la implementación en OpenCL para imágenes de gran tamaño, el procesamiento en ambas alternativas no supera el tiempo límite (máximo) y por tanto se puede realizar el análisis en tiempo real, cumpliendo uno de los objetivos principales de este trabajo.
+
+Las pruebas de rendimiento en cuanto a recursos empleados en cada implementación han desvelado que el porcentaje de recursos utilizados aumenta linealmente con el número de bandas. También revela que para un número elevado de las mismas (256) el recurso de mayor uso apenas alcanza un 86\% de utilización en VHDL y un 48\% en OpenCL, por lo que se concluye que el rendimiento es adecuado.
+
+% restultados tras analizar los tiempos de ejecución de las dos implementaciones con la imagen de Cuprite prestando atención para ello a la frecuencia de reloj
+
+% resultados tras establecer una comparativa entre el tiempo teórico máximo alcanzable y el tiempo real que tarda en ejecutarse el algoritmo en los lenguajes VHDL y OpenCL con la penalización de E/S
+
+\section{Trabajo futuro}
+
+En primer lugar, sería conveniente mejorar las optimizaciones de la implementación en OpenCL para que permita un análisis en tiempo real al igual que las demás alternativas. Además, dado que la tendencia del tamaño de las imágenes es continuar creciendo cada vez más, la opción de trabajo futuro que parece más evidente es la de conseguir procesar otras imágenes reales de un tamaño aún mayor.
+
+Una posible vía de trabajo futuro para este trabajo sería desarrollar el algoritmo convirtiendo la aritmética de punto flotante a aritmética entera. De esta manera se conseguiría un mejor rendimiento ya que los cálculos serían aún más sencillos y, por lo tanto, el número de recursos necesarios disminuiría a la vez que aumentaría la frencuencia de reloj.
+
+Otro posible camino de continuación podría ser la modificación de la plataforma de test para utilizar el bus PCIe 3x8. De esta manera se reducirían las penalizaciones debidas a la E/S.
+
+Por último, se podría optar por analizar si los kernels de la implementación en OpenCL pueden seguir un modelo de programación paralela a nivel de tarea, de modo que la tarea se refiera a la ejecución de un kernel con un work-group que contenga un work-item y, así, el compilador intente acelerar el único work-item para conseguir un rendimiento mejor.
+
+%\cleardoublepage
+%\newpage
+%\thispagestyle{empty}
+%\mbox{}

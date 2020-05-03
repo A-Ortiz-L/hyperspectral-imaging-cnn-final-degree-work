@@ -1,0 +1,46 @@
+%\cleardoublepage
+\newpage
+
+\chapter{Introduction}
+\label{Appendix:Introduccion}
+
+\section{Motivation}
+
+A hyperspectral image is a high spectral resolution image obtained through sensors capable of obtaining hundreds or even thousands of images on the same terrestrial area but corresponding to different wavelength channels. The set of spectral bands is not strictly limited to the visible spectrum but also covers the infrared and the ultraviolet.
+
+At present, the use of hyperspectral images is increasing considerably due to the launching of new satellites and the interest in remote observation of the Earth, which has utility in areas as diverse as defense, precision agriculture, geology (detection of mineral deposits) , valuation of environmental impacts or even artificial vision.
+
+During the last years there have been many advances with regard to sensor technology, which has revolutionized the collection, handling and analysis of the data collected. This evolution has managed to go from having a few tens of bands to having hundreds and the tendency is for the number to continue increasing. Institutions such as National Aeronautics and Space Administration (NASA) or the European Space Agency (ESA) are continuously obtaining a large amount of data that needs to be processed. As a result, new challenges have arisen in the processing of data.
+
+If we add to the increase in the amount of information collected, many current and future remote observation applications require real-time processing capabilities (in the same time or less than the satellite takes to capture the data) or close to this real-time, it is essential to use parallel architectures for the efficient \cite{HPC_aplaza} and fast processing of this type of images.
+
+The main problem in the processing of hyperspectral images lies in the spectral mixture, that is to say, the existence of mixed pixels in which several different materials coexist at the subpixel level. This type of pixels are the most common in hyperspectral images and for their analysis it is necessary to use complex algorithms with a high computational cost, which makes the execution of the demixing algorithms slow and requires acceleration or parallelization.
+
+To address this type of tasks, parallel computing has been widely used through multi-core processors, GPUs (Graphics Processing Units) or dedicated hardware such as FPGAs (Field-Programmable Gate Arrays). Of all the alternatives, the latter present an efficient option in terms of performance, offering reduced times, in addition to a lesser use of resources, being the few alternatives that can be adapted in a sensor to perform on-board processing in space missions such as Mars Pathfinder or Mars Surveyor \cite{biblio:TFG_Esquembri}.
+
+On the one hand, VHDL or Verilog are the native ways to program this type of devices, at a low level and more optimal. On the other hand, there is an alternative in OpenCL that allows a high level programming, faster and allowing its execution in a variety of architectures but less optimal at the level of hardware resources than in FPGAs devices.
+
+\section{Objectives}
+
+The general objective of this work is the parallel implementation on FPGA of the Automatic Target Detection and Classification Algorithm \cite{ATDCA, 298007} making use of the Gram Schmidt Orthogonalization and the programming languages VHDL and OpenCL. This will allow a very interesting comparison between a native language for said platform (VHDL) and another paradigm of parallel programming at a high level (OpenCL) that can be ported to other platforms such as multi-core processors, GPUs or other accelerators.
+
+The achievement of the general objective is carried out in the present memory by addressing a series of specific objectives, which are listed below:
+
+\begin{itemize}
+    \item Design of individual modules in VHDL that serve to perform all the operations that are needed for the implementation of the ATDCA-GS algorithm.
+    \item Elaboration of a state machine and implementation of the algorithm using the individual modules.
+    \item Analysis and optimization of a previous parallel implementation in OpenCL of the algorithm.
+    \item Obtaining results and performance comparisons between both programming languages.
+\end{itemize}
+
+\section{Organization of this memory}
+
+Bearing in mind the previous specific objectives, we proceed to describe the organization of the rest of this report, structured in a series of chapters whose contents are described below:
+
+\begin{itemize}
+    \item \textbf{Hyperspectral analysis}: the hyperspectral image concept and the linear mixing model are defined; some hyperspectral sensors (AVIRIS and EO-1 Hyperion) and some spectral libraries (USGS and ASTER) are mentioned; and finally, the need for parallelization and platforms that can be used to address the problem of performance improvement is presented.
+    \item \textbf{FPGAs technologies}: FPGA technologies are defined in a short way.
+    \item \textbf{Implementation}: the algorithm ATDCA-GS in series is defined and the parallelization and optimization that has been carried out in both VHDL and OpenCL languages is explained.
+    \item \textbf{Results}: the results obtained after the implementation and execution of the algorithm in FPGAs devices are presented.
+    \item \textbf{Conclusions and future work}: the main conclusions of the aspects addressed in the work that have been reached and also some possible lines of future work that can be performed in relation to this work are presented.
+\end{itemize}

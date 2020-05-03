@@ -1,0 +1,185 @@
+\cleardoublepage
+\newpage
+\mbox{}
+
+\chapter{Reparto de trabajo}
+\label{Appendix:Reparto}
+
+\section{Orueta Moreno, Carlos}
+
+La primera reunión que tuvimos con nuestros directores de proyecto fue a finales de Junio, donde nos hablaron acerca del proyecto, los términos generales del mismo. Tras esta reunión ya nos decidimos por este proyecto, ya que nos parecía muy interesante e innovadora la materia, y un campo en continuos avances.
+
+En la siguiente reunión, ya en Julio, nos proporcionaron documentación, y el primer algoritmo a paralelizar, el algoritmo \textit{SGA}. A lo largo del verano me documenté sobre las imágenes hiperespectrales, ya que para poder empezar con el proyecto, necesitaba tener una base consolidada de lo que ibamos a tratar. Una vez tuve unas bases acerca de las imágenes, era el momento de ponerse con el algoritmo. Éste estaba escrito en código \textit{matlab}, a pesar de que lo habíamos visto en una asigntura, tanto mi compañero como yo tuvimos que ampliar los conocimientos de dicho lenguaje para poder comprender el algoritmo para su futuro tratamiento.
+
+Cuando terminó el verano tuvimos otra reunión en la cual presentamos el código del algoritmo \textit{SGA} en lenguaje \textit{C}, después de esta reunión se propusieron objetivos a corto plazo. Estos objetivos consistían en paralelizar este algoritmo con el uso del lenguaje \textit{Opencl}. Tuve que refrescar los conocimientos en \textit{Opencl}, este lenguaje lo habíamos utilizado ya en una optativa. Con los conocimientos refrescados, comence con la paralelización. La primera implementación en opencl propuso algunas dificultades, como fue el cálculo del determinante, personalmente yo tuve muchos problemas con la reducción, dado que no terminaba de comprenderla. Finalmente, tras documentarme en diferentes páginas de internet, foros dedicados a \textit{opencl} y largas conversaciones con mi compañero, conseguí tener una reducción, aunque esta fuera muy simple. En navidades entregamos el código del algoritmo \textit{SGA}, el cual iba a ser enviado a un congreso. Este fue uno de los objetivos parciales del proyecto, lograr tener resultados funcionales capaces de tener un buen rendimiento con el fin de presentarlo en este congreso (explicado en el apartado de publicaiones).
+
+En la reunión de diciembre, en la que presentamos el algoritmo \textit{SGA} paralelizado, se nos propuso el siguiente algoritmo de la cadena. El algoritmo \textit{SCLSU} encargado de la estimación de abundancias, para este caso ibamos a hacer uso de librerias basadas en \textit{Opencl}, mas en concreto \textit{ViennaCL} y \textit{clMAGMA}. Este algoritmo estaba escrito en lenguaje \textit{c} y ya hacía uso de librerias, de \textit{BLAS}. En navidades estuve documentandome acerca de dichas librerias y realizando pruebas para comprobar el funcionamiento de las mismas.
+
+Después de finalizar los exámenes de febrero, retomé el desarrollo del algoritmo \textit{SCLSU}, como mi compañero habia desarrollado el algoritmo en \textit{ViennaCL}, pasé a la implementación en \textit{clMAGMA}, encontre ciertas dificultades en las reservas de memoria. Tras consultar ejemplos de \textit{clMAGMA} fuí capaz de solventar.
+
+En otra reunión se abordó el rendimiento de este algoritmo, que era muy pobre en imágenes pequeñas, con lo cual se nos proporcionó otra implementación en código \textit{C} del mismo.
+
+Por último, para comlpetar la cadena de desmezclado nos quedaba un algoritmo, el algoritmo \textit{GENE}, el de estimación de número de endmembers en la imagen hiperespectral. Se nos proporcionó una implementación en serie y otra en paralelo, la versión en paralelo estaba implementada en \textit{CUDA} y haciendo uso de librerias, con el fin de que pudieramos realizar comparaciones de rendimiento. En este caso, el objetivo era implementar el algoritmo mezclando el lenguaje \textit{Opencl} y la libreria \textit{clMagma}. La mayor dificultad que nos surgió en esta paralelización fue la de reservar en memoria variables capaces de poder ser utilizadas tanto por los kernel como por las librerias, es decir que tuvieran un contexto común. Se optaron por dos opciones: implementar la función de las librerias en \textit{Opencl} o crear un contexto común. Aquí yo me encargué de crear el kernel, mientras mi compañero se encargaba de crear el contexto común. Finalmente, en un foro nos proporcionaron una solución con contexto común, la cual obtenía mejor rendimiento. Asi que optamos por esa solución.
+
+Ya solo nos quedaba la memoria, la cual redactamos a medias, revisando las partes escritas por el otro. Consiguiendo así corregirnos las faltas ortográficas o problemas de redacción que cometieramos.
+
+\newpage
+
+\section{Rodríguez Navarro, Miguel}
+\label{Appendix:C1}
+
+En esta sección voy a explicar las tareas que he realizado durante el desarrollo del proyecto.
+
+Durante la primera reunión, a principios de Julio 2015, se nos entregaron documentación de lo que seria el proyecto, es decir empezamos ya en verano a trabajar sobre la materia, para tener una base solida de que es lo que íbamos a realizar y empezar a pensar formas de realizarlo. En principio durante el verano solo se realizaron estudios de documentación, lectura de una tesis para aprender los conceptos básicos.
+
+En primer lugar se nos entregaron dos algoritmos, el primero (\textbf{SGA}) estaba escrito en lenguaje de programación de \textbf{Matlab}. Particularmente yo nunca había tocado este lenguaje así que hubo que mirar documentación antes de ponerse a traducir este algoritmo. Es bastante intuitivo después de consultar varios ejemplos, se pudo empezar a traducir primero a lenguaje C y posteriormente a OpenCl. Uno de los primeros escollos que me encontré es el calculo de determinantes de una matriz de tamaño variable en la que el tamaño máximo sería el numero de endmembers. Por tanto tuve que buscar información ya que \textit{Matlab} utiliza funciones que no tengo acceso a su código fuente. Encontré que la mejor forma de atacar el problema es con la descomposición LU (explicada en el apartado \ref{sub:psga}).
+
+Un vez traducido el código a C, el siguiente paso fue rápido, la traducción a OpenCl era bastante sencilla. Ya teníamos experiencia programando \textit{OpenCl}, pero no utilizando \textit{memoria local} así que en la primera versión no se utilizo memoria local. Con una mejora en los tiempos entorno a 6x.
+
+En una de las siguientes reuniones, en torno a diciembre 2015, entregamos a los profesores el primer código OpenCl de SGA para su revisión, entonces se nos encomendó empezar a mirar el uso de las librerías, \textit{ViennaCl} y \textit{ClMagma}, ya que serian estas las que utilizaríamos para traducir el segundo algoritmo, \textbf{SCLSU}. Con una documentación muy extensa pero de escasos ejemplos prácticos, la única forma de de aprender fue probando. La primera librería que probé fue \textit{ViennaCl} ya que me resultó más sencillo a la hora de ejecutarlo. Hasta el momento no tenia mucha experiencia creando \textit{Makefiles} así que también tuve que buscar información al respecto. Uno de los problemas que surgieron entonces fue que no coincidían los resultados respecto al código original. El algoritmo que teníamos que traducir estaba escrito en \textbf{C} y usaba la librería \textit{Blas}. Algo que no esta del todo claramente explicado y que tarde bastante en darme cuenta fue que la librería \textit{Blas} utilizaba ordenación por columnas mientras que \textit{ViennaCl} utiliza ordenación por filas, por eso no coincidían los resultados.
+
+Pasadas vacaciones de navidad en la siguiente reunión los profesores nos comentaron que podíamos mejorar el algoritmo de \textit{SGA} usando memoria local. En este campo solo se puede abordar con pruebas de ensayo y error, tuve la suerte de encontrar una solución que usando memoria local, paralelizaba mucho el código. También encontré una librería llamada \textit{OpenCv} que me ayudo bastante a la hora de visualizar los resultados.
+
+Al mismo tiempo seguía el desarrollo del algoritmo \textit{SCLSU}, fue entonces cuando se encontró que no se podía mejorar el algoritmo original con las librerías propuestas ya que las matrices que manejaba eran demasiado pequeñas. Se nos entrego un nuevo algoritmo que abordaba el mismo problema pero desde una óptica diferente. Como ya tenia bastante experiencia en ambas librerías la traducción fue bastante rápida.
+
+Cuando ya tuvimos ambos algoritmos paralelizados, se nos propuso completar la cadena de desmezclado incorporando un tercer algoritmo, de esta forma quedaría el trabajo más completo. El problema más complicado con el que tuve que lidiar fue crear un \textit{contexto} común a la librería \textit{ClMagma} y a un kernel \textit{OpenCl}
+
+Esto es solo un ligero esbozo de todas las horas que le he dedicado a este proyecto, pero creo que el resultado a merecido la pena y hemos aprendido mucho.
+
+
+
+
+
+%A continuación, voy a explicar mi contribución personal al trabajo, en orden cronológico.\\
+%\\
+%Participé en una investigación preliminar sobre el mercado actual de dispositivos sensores 3D, 
+%donde encontramos los dispositivos \textit{Leap Motion} y \textit{Kinect} adecuados para
+%una implementación de una pizarra digital. También se investigaron distintas soluciones y aproximaciones
+%al problema del posicionamiento de un puntero (sensores 2D). Fueron explorados distintos softwares existentes
+%que emulan el comportamiento de una pizarra y evaluado su posible uso para nuestro proyecto. Se investigaron
+%y evaluaron las distintas soluciones comerciales existentes en base al precio, funcionalidad, que aparecen en el
+%capítulo~\ref{ch:chapter2}.\\
+%\\
+%Participé en la evaluación de una solución existente para emular una pizarra digital usando un dispositivo
+%\textit{Wiimote}, a partir del artículo referenciado en \cite{diy-wiimotewhiteboard} y que se profundiza en
+%la sección~\ref{makereference3.1}, para el cual se montó el dispositivo en un trípode, se montó el resto del
+%equipo necesario (proyector), y se realizaron pruebas de visibilidad de la cámara infrarroja del \textit{Wiimote},
+%de precisión, manejabilidad... (también descritas en la sección~\ref{makereference3.1}).\\
+%\\
+%Participé en la evaluación de una solución comercial existente para emular una pizarra digital usando
+%un dispositivo \textit{Kinect}, comercializado por la empresa %\textit{Ubi Interactive}, y que se describe en
+%profundidad en la sección~\ref{makereference3.2}. Se montó el equipo necesario (proyector, \textit{Kinect}) y
+%se procedió a realizar pruebas de fiabilidad, precisión... (descritas en la sección mencionada).\\
+%\\
+%Después de toda la investigación preliminar y evaluación de soluciones existentes, participé en una evaluación
+%global de todos los dispositivos investigados y soluciones software en la que se decidió explorar una solución
+%propia (que se menciona en el capítulo~\ref{ch:chapter4}). Se decidió explorar el uso de un dispositivo \textit{Leap Motion}
+%para el reconocimiento de gestos, el desarrollo de una solución propia para el posicionamiento del puntero
+%basado en tecnología infrarroja y ultrasónica, y la prueba en conjunto del software desarrollado para el \textit{Leap Motion}
+%y la solución evaluada que hacía uso del \textit{Wiimote} (que se describe en la sección~\ref{makereference4.3}).\\
+%\\
+%Después de esta evaluación, se decidió repartir trabajo, y yo me encargué de la parte orientada al software y al
+%uso y programación del dispositivo \textit{Leap Motion} (que se describe en la sección~\ref{makereference4.1}).\\
+%\\
+%Diseñé la aplicación de pizarra digital, para la cual utilicé el lenguaje de programación \textit{Java} con la librería
+%\textit{Processing} y el \textit{SDK} de \textit{Leap Motion} para %\textit{Java}. Consideré el uso de \textit{Processing}
+%por facilitar mucho la programación de entornos que tienen una interfaz gráfica donde el usuario puede pintar, y abstrae
+%toda la programación haciendo uso de \textit{OpenGL} que sería necesaria.\\
+%Para la parte orientada a la programación del \textit{Leap Motion}, utilicé como referencias el \textit{Leap Motion API reference}\cite{leapapi}
+%y el libro \textit{``Leap Motion Development Essentials''}, escrito por M. Spiegelmock\cite{leapmotiondevel}. Toda esta parte está profundizada en la sección~\ref{makereference4.1}.\\
+%Para la parte orientada a la programación de la propia aplicación pizarra me guié por la \textit{Processing reference}\cite{procpapi} y
+%por conocimientos propios aprendidos en la asignatura de Informática Gráfica impartida como opcional en estre grado. Toda esta parte está
+%descrita en~\ref{makereference4.1}.\\
+%Todo el código generado en esta parte está disponible en  un repositorio online en \textit{GitHub}\footnote{\url{http://github.com/valenbg1/protoboard}}.\\
+%\\
+%Después del diseño de la aplicación, participé en una evaluación de la experiencia de uso del \textit{Leap Motion}, en la que se probó
+%la aplicación sobre un entorno real (con proyector, \textit{Leap Motion} instalado en la parte de abajo de la pizarra). Se evaluaron
+%los distintos gestos que propuse para la aplicación, su facilidad de uso y aprendizaje. Se evaluó también la experiencia de uso global
+%y la respuesta del programa a gestos mal realizados. A partir de estas pruebas se recogieron datos y mejoras posibles para el programa
+%que después incluí.\\
+%\\
+%Por último, participé en la evaluación de mi aplicación desarrollada junto con la solución evaluada que hacía uso del \textit{Wiimote} (solución
+% descrita en~\ref{makereference3.1}), la cual se profundiza en la sección~\ref{makereference4.3}. Probamos posibles interferencias que se
+% pudieran producir entre el \textit{Leap Motion} y el \textit{Wiimote}, y el comportamiento general de mi aplicación en conjunto con un emulador
+% de puntero infrarrojo. A partir de estas pruebas se sacaron conclusiones de uso y mejoras para la aplicación que posteriormente las incluí.
+
+%\newpage
+
+%\section{Sampedro Ruiz, Raúl}
+%\label{Appendix:C2}
+
+%En este apéndice voy a explicar cuales son mis principales aportaciones a este
+%proyecto.\\
+%\\
+%En el proceso de consolidación del proyecto participé en la realización de un
+%estudio de mercado, donde pude observar las distintas tecnologías de pizarras
+%digitales y sus fundamentos. En ese estudio, redactado mayoritariamente en el
+%capítulo~\ref{ch:chapter2} y~\ref{ch:chapter3}, pude observar distintas
+%soluciones comerciales de bajo coste basadas en diversas tecnologías como son el
+%caso de: \textit{Ubi
+%Interactive}\footnote{\url{http://www.ubi-interactive.com/}} usando un
+%\textit{Kinect}, o el trabajo desarrollado  por D.
+%Schouten\cite{diy-wiimotewhiteboard} usando un \textit{Wiimote}. A partir de
+%estos datos partimos de la idea de intentar reducir los costes excesivos de
+%otras soluciones comerciales a costes más parecidos a las soluciones de bajo
+%coste sin reducir la precisión.\\
+%\\
+%Queríamos poder emular un ratón con un lápiz digital. Para ello me dediqué a
+%diseñar y teorizar previamente una estrategia de posicionamiento basada en una
+%baliza móvil (que es nuestro lápiz) y una barra de sensores fija para detectar
+%la posición de la baliza. La idea de la solución que apliqué consiste en emitir
+%en la baliza un pulso de ultrasonidos a la vez que se emite un pulso de
+%infrarrojos. Aprovechando la diferencia de velocidades entre la luz y el sonido,
+%comprobé teóricamente que era factible la medida de distancia de la baliza al
+%sensor con una precisión suficiente para la escritura.\\
+%\\
+%Con estos resultados resultaba prometedor continuar con el diseño de la
+%estrategia de posicionamiento, teorizando ahora el método de seguimiento de la
+%baliza. Como ya había comprobado teóricamente que se podía medir distancias con
+%el método antes descrito, mi idea fue replicar periódicamente este
+%comportamiento, consiguiendo así un seguimiento de la posición de la baliza en
+%el tiempo.\\
+%\\
+%En esta nueva aproximación descubrí problemas que se podrían presentar en una
+%posible implementación, como son el caso de los rebotes de ultrasonidos o la
+%máxima distancia que se puede llegar a medir. Estos problemas están comentados y
+%explicados en la sección~\ref{makereference4.2.3}. Dichos problemas, pese a reducir las
+%posibilidades de la solución inicial, no limitaban lo suficiente la funcionalidad
+%de la solución cómo para tener que replantearla, por lo que decidí seguir
+%adelante con una primera implementación del prototipo.\\
+%\\
+%Para esta implementación inicial necesitaba una pequeña formación en electrónica
+%analógica para poder diseñar los circuitos necesarios. Tras ella diseñé el
+%circuito del lápiz digital (o baliza) que consiste en dos osciladores
+%\textit{LM555} encadenados en modo \textit{aestable} que generan cada 33 ms (30
+%Hz) un pulso a 40 KHz para el emisor de ultrasonidos y el de infrarrojos. Este
+%circuito está descrito en la figura~\ref{circuito:emisor}. Tras comprobar el
+%correcto funcionamiento del emisor con un osciloscopio, empece a diseñar el
+%circuito de recepción, una primera implementación sin etapa de amplificación, 
+%con su posterior comprobación de funcionamiento. Posteriormente se añadió la 
+%etapa de amplificación para dar lugar a un prototipo más funcional como el
+%que se puede ver en la figura~\ref{circuito:receptor}\\
+%\\
+%Con estos dos circuitos ya terminados pude empezar a programar un
+%micro-controlador (una placa de desarrollo \textit{STM32VlDiscovery}) para detectar las
+%señales de la baliza. Esta placa es programada en \textit{bare metal}, es decir
+%sin sistema operativo, para aprovechar al máximo el rendimiento del
+%micro-controlador. Para ello, tras montar un entorno de desarrollo adecuado para
+%la programación en \textit{bare metal}, implementé la descripción del
+%comportamiento del microcontrolador que se encuentra en la
+%sección~\ref{makereference4.2.5}. El código relativo a esta implementación se
+%puede encontrar aquí\footnote{Código microcontrolador -
+%\url{http://github.com/rsrdesarrollo/STM32Pencil}}.\\
+%\\
+%\\
+%Tras ello implementé un pequeño prototipo\footnote{Medida de distancia %-
+%\url{http://gist.github.com/rsrdesarrollo/f41755a86bb92eab6236}} en %\textit{Processing} para comprobar el correcto  funcionamiento de la %solución.
+%En esta primera implementación fue donde pude observar los problemas descritos
+%en la sección~\ref{makereference5.2} y plantear posibles soluciones.\\
+%\\
+%Con ello y una vez demostrado que es factible en la práctica el posicionamiento
+%en el que se basa mi solución, participé en una prueba de evaluación de usuario
+%con la aplicación de pizarra mencionada en la sección~\ref{makereference4.1}, 
+%conjugando el uso de un \textit{Leap Motion} junto con un \textit{Wiimote}, con 
+%el fin de evaluar las interferencias que podrían causarse entre ellos. Los
+%resultados de estas pruebas quedan reflejados en la sección~\ref{makereference4.3}.

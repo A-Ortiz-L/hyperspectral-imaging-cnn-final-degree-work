@@ -10,6 +10,7 @@ venv
 *.xml
 key.json
 .vscode
+.DS_STORE
 # C extensions
 *.so
 *.idea
