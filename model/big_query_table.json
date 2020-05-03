@@ -1,0 +1,102 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "image_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "image_size",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "file_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_time",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "damaged",
+    "type": "BOOLEAN"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "inference_time",
+    "type": "FLOAT"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "total_execution_time",
+    "type": "FLOAT"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "physical_core",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "total_core",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "system",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "processor",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "system_memory",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "system_memory_available",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "so_version",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "so_release",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "inference_engine",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "web_engine",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "processor_unit",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "docker",
+    "type": "BOOLEAN"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "cloud",
+    "type": "BOOLEAN"
+  }
+]
