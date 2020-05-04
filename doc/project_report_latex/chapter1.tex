@@ -1,44 +1,24 @@
 \cleardoublepage
+
+
 \chapter{Introducción}
 \label{ch:chapter1}
 
+
 \section{Motivación}
 
-Una imagen hiperespectral es una imagen de gran resolución espectral que se obtiene a través de sensores capaces de obtener cientos o incluso miles de imágenes sobre el mismo área terrestre pero correspondientes a diferentes canales de longitud de onda. El conjunto de bandas espectrales no está limitado estrictamente al espectro visible sino que también abarca el infrarrojo y el ultravioleta.
+Una imagen hiperespectral es una imagen de gran resolución espectral que se obtiene a través de sensores capaces de obtener cientos o incluso miles de imágenes sobre el mismo área terrestre
+pero correspondientes a diferentes canales de longitud de onda.
+El conjunto de bandas espectrales no está limitado estrictamente al espectro visible sino que también abarca el infrarrojo y el ultravioleta.
 
-En la actualidad, el uso de imágenes hiperespectrales está aumentando considerablemente debido al lanzamiento de nuevos satélites y el interés en la observación remota de la Tierra, que tiene utilidad en ámbitos tan diversos como defensa, agricultura de precisión, geología (detección de yacimientos minerales), valoración de impactos ambientales o incluso visión artificial.
-
-Durante los últimos años se han producido numerosos avances con respecto a la tecnología de los sensores, lo cual ha revolucionado la obtención, la manipulación y el análisis de los datos recopilados. Esta evolución ha conseguido que se pase de tener unas decenas de bandas a tener cientos y la tendencia es que el número siga aumentando. Instituciones como National Aeronautics and Space Administration (NASA) o la European Space Agency (ESA) están continuamente obteniendo una gran cantidad de datos que necesitan ser procesados. Como consecuencia, han surgido nuevos desafíos en el procesamiento de los datos.
-
-%Para la observación remota de la Tierra, se han elaborado sensores de última generación que son ubicados en satélites y en plataformas aéreas para capturar datos de alta dimensionalidad.
-
-Si al aumento de la cantidad de información recopilada le sumamos que muchas aplicaciones actuales y futuras de observación remota requieren capacidades de procesamiento en tiempo real (en el mismo tiempo o menos que lo que tarda el satélite en capturar los datos) o cercano a este tiempo real, se hace imprescindible el uso de arquitecturas paralelas para el procesamiento eficiente \cite{HPC_aplaza} y rápido de este tipo de imágenes.
-
-El problema principal en el procesamiento de las imágenes hiperespectrales reside en la mezcla espectral, es decir, la existencia de píxeles mezcla en los que cohabitan varios materiales distintos a nivel de subpixel. Estos píxeles conforman la mayor parte de las imágenes hiperespectrales y para su análisis es preciso el uso de algoritmos complejos de alto coste computacional, que hacen que la ejecución de los algoritmos de desmezclado sea lenta y necesite una aceleración o paralelización.
-
-Para abordar este tipo de tareas ha sido ampliamente utilizada la computación paralela a través de procesadores multi-cores, GPUs (Graphics Processing Units) o hardware dedicado como las FPGAs (Field-Programmable Gate Arrays). De todas las alternativas estas últimas presentan una opción eficiente en cuanto a rendimiento ofreciendo tiempos reducidos, además de una menor utilización de recursos siendo de las pocas alternativas que se pueden adaptar en un sensor para poder realizar un procesamiento a bordo en misiones espaciales como Mars Pathfinder o Mars Surveyor \cite{biblio:TFG_Esquembri}.
-
-Por un lado, VHDL o Verilog son las maneras nativas de programar este tipo de dispositivos, a bajo nivel y más óptimas. Por otro lado, existe una alternativa en OpenCL que permite una programación a alto nivel, más rápida y permitiendo su ejecución en una variedad de arquitecturas pero menos óptima a nivel de recursos hardware que en los dispositivos FPGAs.
-
-%[CARLOS - INICIO]
-%Las ideas que deben aparacer aquí serían las siguientes:
-    
-%\begin{itemize}
-    %\item Explicar muy brevemente qué son las imágenes hiperespectrales.
-    %\item Cada vez se utilizan más las imágenes hiperespectrales. (se corresponde bien con tu primer párrafo pero podría ampliarse un poco y sobre todo poner referencias).
-    %\item los sensores han evolucionado mucho y hemos pasado de tener unas decenas de bandas a tener cientos de bandas y la tendencia es que siga aumentando el número de bandas. (se corresponde bien con tu primer párrafo pero podría ampliarse un poco y sobre todo poner referencias).
-    %\item Como consecuencia de este enorme aumento en la cantidad de información recopilada han surgido nuevos desafíos en el procesamiento de estos datos.
-    %\item Hablar de la necesidad de ciertas aplicaciones de realizar el procesamiento en tiempo real (en el mismo tiempo o menos que lo que tarda el satélite en capturar los datos) o cercano a este tiempo real.
-    %\item hablar del problema de la mezcla espectral y de que la ejecución de los algoritmos de análisis de desmezclado es lenta y necesita aceleración/paralelización.
-    %\item Hablar de las ventajas de las FPGAs sobre otras tecnologías para procesar este tipo de imágenes y del modelo tradicional de programación en VHDL frente al uso de OpenCL. [Sergio-ini](Aquí puedes comentar que VHDL o Verilog es la manera nativa de programar este tipo de dispositivos, a bajo nivel y más óptima. Por otro lado, tienes OpenCL que permite una programación a alto nivel, más rápida, permitiendo su ejecución en una variedad de arquitecturas pero menos óptima a nivel de recursos hardware usados en un dispositivo FPGA.) [Sergio-fin]. 
-%\end{itemize}
-%[CARLOS - FIN]
+En la actualidad, el uso de imágenes hiperespectrales está aumentando considerablemente debido al lanzamiento de nuevos satélites y el interés en la observación remota de la Tierra,
+que tiene utilidad en ámbitos tan diversos como defensa, agricultura de precisión, geología (detección de yacimientos minerales), valoración de impactos ambientales o incluso visión artificial.
 
 \section{Objetivos}
 
-El objetivo general de este trabajo es la implementación paralela sobre FPGA del algoritmo Automatic Target Detection and Classification Algorithm \cite{ATDCA,298007} haciendo uso de la ortogonalización de Gram Schmidt y de los lenguajes de programación VHDL y OpenCL. Esto permitirá una comparativa muy interesante entre un lenguaje nativo para dicha plataforma (VHDL) y otro paradigma de programación paralela a alto nivel (OpenCL) que podrá ser portado a otras plataformas como procesadores multi-cores, GPUs u otros aceleradores.
-
-La consecución del objetivo general anteriormente mencionado se lleva a cabo en la presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a continuación:
+El objetivo principal de este proyecto reside en dos puntos clave.
+Por una parte la optimización del tiempo de inferencia en un modelo de machine learning usado para detectar desastres naturales mediante Openvino.
+Finalmente el despliegue del modelo en un entorno cloud donde pueda funcionar como un servicio capaz de soportar miles de llamadas concurrentes.
 
 \begin{itemize}
     \item Diseño de módulos individuales en VHDL que sirvan para realizar todas las operaciones que se necesitan para la implementación del algoritmo ATDCA-GS.
@@ -54,10 +34,11 @@ La consecución del objetivo general anteriormente mencionado se lleva a cabo en
 %La consecución del objetivo general anteriormente mencionado se lleva a cabo en la presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a continuación:
 
 %\begin{itemize}
-    %\item
+%\item
 %\end{itemize}
 
 %[CARLOS - FIN]
+
 
 \section{Organización de esta memoria}
 
@@ -76,7 +57,7 @@ Teniendo presentes los anteriores objetivos concretos, se procede a describir la
 %Teniendo presentes los anteriores objetivos concretos, se procede a describir la organización del resto de esta memoria, estructurada en una serie de capítulos cuyos contenidos se describen a continuación:
 
 %\begin{itemize}
-    %\item
+%\item
 %\end{itemize}
 
 %[CARLOS - FIN]

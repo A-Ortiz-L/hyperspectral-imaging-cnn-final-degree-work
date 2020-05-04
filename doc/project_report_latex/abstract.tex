@@ -1,51 +1,36 @@
-% +--------------------------------------------------------------------+
-% | Copyright Page
-% +--------------------------------------------------------------------+
-
-%\cleardoublepage 
-%\newpage
-%\thispagestyle{empty}
-
 \begin{center}
 {\bf \Huge Abstract}
 
-  \end{center}
+\end{center}
 
-The remote observation of the Earth has always been an object of interest for the human being. Over the years, the methods used for this purpose have evolved until, at present, the analysis of hyperspectral images constitutes a very active line of research, especially to monitor fires or prevent and monitoring natural disasters, chemical discharges or other types of environmental pollution.
+The remote observation of the Earth has always been an object of interest for the human being.
+Over the years, the methods used for this purpose have evolved until, at present, the analysis of hyperspectral images constitutes a very active line of research, especially
+to monitor fires or prevent and monitoring natural disasters, chemical discharges or other types of environmental pollution.
 
-Due to the way in which materials appear in the natural environment, it is very common to cohabit different materials in the same portion of space, however small it may be. This means that the vast majority of pixels analyzed are not always constituted by the presence of a single material, but are formed by different pure materials at the sub-pixel level.
+Satellite images in a world where machine learning and data processing have advanced so much opens up the possibility of building models capable of recognizing areas where a natural
+disaster has occurred and be able to act accordingly.
 
-Traditionally, spectral demixing techniques are used for their analysis, which require two complex stages: the first is based on the extraction of pure spectral signatures, also called endmembers, and the second consists of estimating the percentage of abundance of said endmembers at the level of sub-pixel. Both stages involve a high computational cost and this is a problem when you want to analyze hyperspectral images in real time.
+With the current computing power we can make data processing in real time so we can made decision to minimize damage, distribute emergency teams and optimize all the resources we have.
+In recent years the field of data science has been able to create accurate models in sectors such as banking, industry, technology.
+But the circle can only be complete if we can manage to place these models in an environment where they can be consumed productively and be useful outside the development and research scenario.
 
-The algorithms of classification and detection of targets have some operating principles very similar to the detection algorithms of endmembers and therefore, they are usually used for this purpose despite their high computational cost. FPGAs (Field Programmable Gate Array) offer sufficient performance to make this processing as well as flexibility, small size and low consumption. All this together with the fact that they can be hardened for use in the space make this a very viable option for the objective pursued.
+Maintaining all the hardware and software infrastructure to run our application is expensive, in the same way that hiring people with the necessary
+knowledge to install and configure all these components.
+The world has evolved so that it is no longer necessary to follow this behavior and we can choose suppliers that facilitate all these components as well as their maintenance, the cloud.
 
-In this End-of-Degree Project, the FPGA implementation of the Automatic Target Detection and Classification Algorithm - Gram Schmidt known as ATDCA-GS, which uses the concept of orthogonal projection of a subspace, is carried out, using the orthogonalization of Gram Schmidt to simplify complex operations.
-
-To achieve this proyect, the algorithm has been implemented in the hardware description language VHDL (Very High Speed Integrated Circuit Hardware Description Language) and in addition, another previous implementation under the OpenCL parallel programming paradigm was analyzed and optimized. Subsequently, both implementations optimized in terms of accuracy and performance have been compared on reconfigurable hardware platforms such as FPGAs.
-
+In this final degree project, the optimization in inference times of a machine learning model used to detect natural disasters with Openvino is carried out at the same time that the
+deploy of the model in a google cloud environment, so that our service supports miles of requests per minute.
 %\vspace{1cm}
 
-
-
 \vspace{0.8cm}
-
-% +--------------------------------------------------------------------+
-% | On the line below, replace Fecha
-% |
-% +--------------------------------------------------------------------+
-
 \begin{center}
 
 {\bf \Large Keywords}
 
-   \end{center}
+\end{center}
 
-Hyperspectral images, ATDCA-GS, target detection, Gram Schmidt, FPGA, VHDL, OpenCL
+Hyperspectral images, Openvino, Tensorflow, Docker, Google Cloud
 
-   \vspace{0.5cm}
-  
-% Interactive whiteboard, 3D sensor device, human interface device, 2D positioning, signal processing, gesture recognition, microcontroller.
-   
-%\newpage
-%\thispagestyle{empty}
+\vspace{0.5cm}
+
 \mbox{}

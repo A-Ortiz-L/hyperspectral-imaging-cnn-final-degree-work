@@ -1,0 +1,93 @@
+\documentclass[final, 12pt, oneside, openright]{class_diss}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+\selectlanguage{spanish}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage{cancel}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{      amsmath}
+\usepackage{     graphicx}
+\usepackage{amsxtra}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage[usenames]{color}
+\usepackage[table]{xcolor}
+\definecolor{  Pink}{rgb}{1.0, 0.5, 0.5}
+\definecolor{Maroon}{rgb}{0.8, 0.0, 0.0}
+\usepackage[sort&compress]{natbib}
+\usepackage[pdftex, plainpages=false, pdfpagelabels]{hyperref}
+\usepackage{url}
+
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true,
+    bookmarks=true,
+    citecolor=blue,
+    urlcolor=blue,https://www.overleaf.com/project/5db83b575ef1b30001f7a93f
+    linkcolor=Maroon,
+    citebordercolor={1 0 0},
+    urlbordercolor={1 0 0},
+    linkbordercolor={.7 .8 .8},
+    breaklinks=true,
+    pdfpagelabels=true,
+}
+
+\topmargin      = -0.56in
+\textheight     = 8.60in
+\textwidth      = 6.46in
+\oddsidemargin  = 0.02in
+
+\begin{document}
+    \setcounter{page}{-1}
+    \input{title.tex}
+    \pdfbookmark[0]{Cover}{PDFCoverPage}
+    \newpage\leavevmode\thispagestyle{empty}\newpage
+    \input{acknowledgment.tex}
+    \input{copyRight.tex}
+    \phantomsection
+    \newpage\leavevmode\thispagestyle{empty}\newpage
+    \newpage
+    \pagenumbering{roman}
+    \setcounter{page}{1}
+    \cleardoublepage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{Índice general}
+    \tableofcontents
+    \listoffigures
+    \listoftables
+    \vspace{11cm}
+    \newpage
+    \input{summary.tex}
+    \addcontentsline{toc}{chapter}{Resumen}
+    \pdfbookmark[0]{Summary}{PDFSummaryPage}
+    \newpage
+    \input{abstract.tex}
+    \addcontentsline{toc}{chapter}{Abstract}
+    \pdfbookmark[0]{Abstract}{PDFAbstractPage}
+    \vfill
+    \newpage
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+
+    \input{chapter1.tex}
+    \input{chapter2.tex}
+    \input{chapter3.tex}
+    \input{chapter4.tex}
+    \input{chapter5.tex}
+    \input{chapter6.tex}
+    \bibliographystyle{unsrt}
+    \bibliography{references}
+    \addcontentsline{toc}{chapter}{Bibliografía}
+    \cleardoublepage
+    \appendix
+    \cleardoublepage
+    \input{appendixA.tex}
+    \input{appendixB.tex}
+\end{document}
