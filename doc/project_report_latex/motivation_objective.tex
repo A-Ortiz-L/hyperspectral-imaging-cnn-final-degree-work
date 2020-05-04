@@ -1,0 +1,57 @@
+\cleardoublepage
+
+
+\chapter{Introducción}
+\label{ch:chapter1}
+
+
+\section{Motivación}
+
+Una imagen hiperespectral es una imagen de gran resolución espectral que se obtiene a través de sensores capaces de obtener cientos o incluso miles de imágenes sobre el mismo área terrestre
+pero correspondientes a diferentes canales de longitud de onda.
+El conjunto de bandas espectrales no está limitado estrictamente al espectro visible sino que también abarca el infrarrojo y el ultravioleta.
+
+En la actualidad, el uso de imágenes hiperespectrales está aumentando considerablemente debido al lanzamiento de nuevos satélites y el interés en la observación remota de la Tierra,
+que tiene utilidad en ámbitos tan diversos como defensa, agricultura de precisión, geología (detección de yacimientos minerales), valoración de impactos ambientales o incluso visión artificial.
+
+El área del machine learning ha avanzado de manera que hoy en día podemos tener modelos predictivos capaces de procesar imágenes y clasificarlas según sus características primarias.
+Esto abre una puerta para la explotación de estos modelos en un entorno real de manera que los mismos pueden ser cruciales a la hora de detectar incendios, terremotos y todo tipo de
+desastres naturales.
+Para usar de manera productiva estos modelos tenemos que tener una infraestructura capaz de soportar la fiabilidad en cuanto a robustez y velocidad que este tipo de servicio requiere, el requisito de
+procesamiento en tiempo real se vuelve algo indispensable, de modo que se puedan optimizar recursos de emergencia dirigir los equipos a las zonas del desastre más afectadas en un tiempo
+capaz de ayudar a la mayor gente posible y prevenir posibles riesgos.
+
+
+\section{Objetivos}
+
+El objetivo principal de este proyecto reside en dos puntos clave.
+Por una parte la optimización del tiempo de inferencia en un modelo de machine learning usado para detectar desastres naturales mediante Openvino.
+Finalmente el despliegue del modelo en un entorno cloud donde pueda funcionar como un servicio capaz de soportar miles de llamadas concurrentes.
+La consecución del objetivo general anteriormente mencionado se lleva a cabo en la
+presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a
+continuación:
+\begin{itemize}
+    \item Conversión de un modelo de tensorflow a uno de Openvino para aumentar la velocidad de inferencia del mismo.
+    \item Codificación de una aplicación capaz de hacer uso de los distintos sistemas de inferencia de Tensorflow y Openvino.
+    \item Codificación de una aplicación web apta para exponer todos los servicios en un entorno productivo.
+    \item Encapsulación de los distintos entornos de producción haciendo uso de Docker.
+    \item Preparación de una arquitectura de Google cloud capaz de soportar tráfico concurrente en tiempos óptimos para el servicio.
+    \item Despliegue de la aplicación y pruebas de carga
+    \item Obtención de resultados y realización de comparativas de rendimiento entre los distintos sistemas de inferencia, hardware y servidores web.
+\end{itemize}
+
+
+\section{Organización de esta memoria}
+
+Teniendo presentes los anteriores objetivos concretos, se procede a describir la organización del resto de esta memoria, estructurada en una serie de capítulos cuyos contenidos se
+describen a continuación:
+
+\begin{itemize}
+    \item \textbf{Análisis hiperespectral}: se define el concepto de imagen hiperespectral.
+    \item \textbf{Tecnología Openvino}: se define el propósito de la herramienta de Intel Openvino así como la transformación de un modelo de tensorflow usando esta tecnología.
+    \item \textbf{Codificación de los distintos entornos de inferencia}: se preparan los distintos entornos de inferencia de Openvino y Tensorflow haciendo uso del lenguaje de programación Python.
+    \item \textbf{Codificación de los servidores web}: se preparan los distintos servidores web que van a ser puestos a prueba haciendo uso del lenguaje de programación Python.
+    \item \textbf{Encapsulación de entorno con Docker}: se presenta la actual encapsulación de los entornos de inferencia y web en un mismo sitio usando la tecnología de contenedores Docker.
+    \item \textbf{Arquitectura cloud}: se presenta la arquitectura de Google Cloud diseñada para soportar toda la infraestructura de la aplicación y se explica la puesta en producción del servicio.
+    \item \textbf{Conclusiones y trabajo futuro}: se presentan los resultados obtenidos mediante las pruebas de carga y también algunas posibles líneas de trabajo futuro que se pueden desempeñar en relación al presente trabajo.
+\end{itemize}
