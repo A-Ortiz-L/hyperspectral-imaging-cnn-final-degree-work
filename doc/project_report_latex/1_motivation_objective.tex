@@ -5,56 +5,79 @@
 \label{ch:chapter1}
 
 
-\section{Motivación y Objetivos}
+\section{Motivación y Objetivos}\label{sec:motivación-y-objetivos}
 
-Una imagen hiperespectral es una imagen de gran resolución espectral que se obtiene a través de sensores capaces de obtener cientos o incluso miles de imágenes sobre el mismo área terrestre
-pero correspondientes a diferentes canales de longitud de onda.
-El conjunto de bandas espectrales no está limitado estrictamente al espectro visible sino que también abarca el infrarrojo y el ultravioleta.
-
-En la actualidad, el uso de imágenes hiperespectrales está aumentando considerablemente debido al lanzamiento de nuevos satélites y el interés en la observación remota de la Tierra,
-que tiene utilidad en ámbitos tan diversos como defensa, agricultura de precisión, geología (detección de yacimientos minerales), valoración de impactos ambientales o incluso visión artificial.
-
-El área del machine learning ha avanzado de manera que hoy en día podemos tener modelos predictivos capaces de procesar imágenes y clasificarlas según sus características primarias.
-Esto abre una puerta para la explotación de estos modelos en un entorno real de manera que los mismos pueden ser cruciales a la hora de detectar incendios, terremotos y todo tipo de
+El área del deep learning ha avanzado de manera que hoy en día podemos tener modelos predictivos capaces de procesar imágenes y clasificarlas según sus características primarias.
+Esto abre una puerta para la explotación de estos modelos en un entorno real, de manera que los mismos pueden ser cruciales a la hora de detectar incendios, terremotos y todo tipo de
 desastres naturales.
-Para usar de manera productiva estos modelos tenemos que tener una infraestructura capaz de soportar la fiabilidad en cuanto a robustez y velocidad que este tipo de servicio requiere, el requisito de
+Para usar de manera productiva estos modelos tenemos que tener una infraestructura capaz de soportar la fiabilidad en cuanto a robustez y velocidad que este tipo de servicio necesita, el requisito de
 procesamiento en tiempo real se vuelve algo indispensable, de modo que se puedan optimizar recursos de emergencia, dirigir los equipos a las zonas del desastre más afectadas en un tiempo
 capaz de ayudar a la mayor gente posible y prevenir posibles riesgos.
 
 El objetivo principal de este proyecto reside en dos puntos clave.
-Por una parte la optimización del tiempo de inferencia en un modelo de machine learning usado para detectar desastres naturales mediante Openvino.
+La aceleración del tiempo de entrenamiento de un modelo de deep learning usando una gpu en el servicio de Google Colab.
+Por otra parte la optimización del tiempo de inferencia del modelo mediante Openvino.
 Finalmente el despliegue del modelo en un entorno cloud donde pueda funcionar como un servicio capaz de soportar miles de llamadas concurrentes.
 La consecución del objetivo general anteriormente mencionado se lleva a cabo en la
 presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a
 continuación:
 \begin{itemize}
+    \item Mejora en los tiempos de entrenamiento de un modelo de deep learning usando una gpu del servicio de Google Colab.
     \item Conversión de un modelo de tensorflow a uno de Openvino para aumentar la velocidad de inferencia del mismo.
+    \item Preparación de una arquitectura de Google cloud capaz de soportar tráfico concurrente en tiempos óptimos para el servicio.
     \item Codificación de una aplicación capaz de hacer uso de los distintos sistemas de inferencia de Tensorflow y Openvino.
     \item Codificación de una aplicación web apta para exponer todos los servicios en un entorno productivo.
     \item Encapsulación de los distintos entornos de producción haciendo uso de Docker.
-    \item Preparación de una arquitectura de Google cloud capaz de soportar tráfico concurrente en tiempos óptimos para el servicio.
     \item Despliegue de la aplicación y pruebas de carga.
     \item Obtención de resultados y realización de comparativas de rendimiento entre los distintos sistemas de inferencia, hardware y servidores web.
 \end{itemize}
 
-\section{Concepto Deep Learning}
-CONCEPTO DE DEEP LEARNING
-\subsection{Estado del arte}
-Estado del arte
-\subsection{Redes neuronales en el tratamiento de imágenes}
-Redes neuronales en el tratamiento de imágenes
-(Cómo se utilizan las redes neuronales en nuestro problema concreto de clasificación)
-\section{Organización de esta memoria}
+
+\section{Concepto Deep Learning}\label{sec:concepto-deep-learning}
+La inteligencia artificial actualmente se compone de varias ramas tales como machine learning, natural language processing, etcétera.
+Una de ellas es el deep learning.
+El deep learning es una tecnología que busca el aprendizaje y clasificación de una variedad de problemas haciendo uso de sus propios algoritmos.
+Estos algoritmos basan su estructura en redes neuronales artificiales, imitando el comportamiento que tienen las del ser humano y su sistema nervioso central.
+
+
+\subsection{Estado del arte}\label{subsec:estado-del-arte}
+En la actualidad los algoritmos de deep learning son usados para todo tipo de problemas y los mismos abarcan muchos sectores dentro de la industria, los gobiernos y la propia sociedad.
+La digitalización y expansión de internet provee de innumerables fuentes de datos capaces de ser procesadas y analizadas por este tipo de algoritmos y usadas para distintos fines.
+Los gobiernos poseen sus propios sistemas de reconocimiento de imágenes para la clasificación de sus ciudadanos,
+sistemas de recomendación tanto para las empresas que buscan aumentar sus ventas como para bancos que buscan gente apta para préstamos o incluso sirve como sesgo para evitar
+contenido indeseable en plataformas a través de la red.
+En general la cantidad masiva de datos ha creado una necesidad de explotación a través de los mismos y el deep learning es una apuesta sobre seguro para dar valor
+a todas las interacciones que están ocurriendo casi de manera permanente en cada sistema tecnológico del planeta.
+
+
+\subsection{Redes neuronales en el tratamiento de imágenes}\label{subsec:redes-neuronales-en-el-tratamiento-de-imágenes}
+La unidad básica de procesamiento de las redes neuronales es el perceptrón, a partir del cual
+se desarrolla un algoritmo capaz de generar un criterio para seleccionar un sub-grupo a partir de un grupo de componentes más grande.
+Este conjunto de neuronas pasará a formar parte de las distintas capas que componen por completo la red neuronal.
+Cada neurona tiene recibe una entrada, ya sea de una fuente externa o de otra neurona.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.6\textwidth]{images/chapter1/perceptron.png}
+  \caption{Ejemplo de perceptrón.}
+  \label{fig:Perceptrón}
+\end{figure}
+A partir de aquí cada neurona aplica una función de cálculo a partir de los pesos mediante la cual acaba propagando el resultado a las capas posteriores y finalmente
+a la capa de salida, mediante la cual podremos obtener nuestra clasificación final.
+En nuestro problema en concreto estamos clasificando imágenes multiespectrales.
+Una imagen multiespectral es la que captura datos de imágenes dentro de rangos de longitud de onda específicos a través del espectro electromagnético.
+Nuestro conjunto de imágenes multiespectrales peternece a una zona parcialmente destruida por un desastre natural.
+El objetivo de nuestro algoritmo de deep learning es tener la capacidad de clasificar dichas imágenes dependiendo si la zona está dañada o por el contrario está en buenas condiciones.
+
+\section{Organización de esta memoria}\label{sec:organización-de-esta-memoria}
 
 Teniendo presentes los anteriores objetivos concretos, se procede a describir la organización del resto de esta memoria, estructurada en una serie de capítulos cuyos contenidos se
 describen a continuación:
 
 \begin{itemize}
-    \item \textbf{Análisis hiperespectral y modelo de deep learning}: se define el concepto de imagen hiperespectral y se presenta el modelo de deep learning que se va a usar.
-    \item \textbf{Tecnología Openvino}: se define el propósito de la herramienta de Intel Openvino así como la transformación de un modelo de tensorflow para que sea compatible con openvino.
-    \item \textbf{Codificación de los distintos entornos de inferencia}: se preparan los distintos entornos de inferencia de Openvino y Tensorflow haciendo uso del lenguaje de programación Python.
-    \item \textbf{Codificación de los servidores web}: se preparan los distintos frameworks web que van a ser puestos a prueba haciendo uso del lenguaje de programación Python.
-    \item \textbf{Encapsulación de entorno con Docker}: se presenta la actual encapsulación de los entornos de inferencia y web en un mismo sitio usando la tecnología de contenedores Docker.
-    \item \textbf{Arquitectura cloud}: se presenta la arquitectura de Google Cloud diseñada para soportar toda la infraestructura de la aplicación y se explica la puesta en producción del servicio.
-    \item \textbf{Conclusiones y trabajo futuro}: se presentan los resultados obtenidos mediante las pruebas de carga y también algunas posibles líneas de trabajo futuro que se pueden desempeñar en relación al presente trabajo.
+    \item \textbf{Entrenamiento del modelo mediante Google colab}: Se define el proceso de entrenamiento y aumento de la velocidad del mismo usando la plataforma Google colab
+    \item \textbf{Tecnología Openvino}: Se define el propósito de la herramienta de Intel Openvino así como la transformación de un modelo de tensorflow para que sea compatible con openvino.
+    \item \textbf{Arquitectura Cloud propuesta}: Se presenta la arquitectura de Google Cloud diseñada para soportar toda la infraestructura de la aplicación y se explica la puesta en producción del servicio.
+    \item \textbf{Resultados experimentales}: Se preparan los distintos frameworks web que van a ser puestos a prueba haciendo uso del lenguaje de programación Python.
+    \item \textbf{Conclusiones y trabajo futuro}: Se presentan los resultados obtenidos mediante las pruebas de carga y también algunas posibles líneas de trabajo futuro que se pueden desempeñar en relación al presente trabajo.
 \end{itemize}

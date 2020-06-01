@@ -3,9 +3,25 @@
 
 \chapter{Entrenamiento del modelo mediante Google Colab}
 \label{ch:chapter2}
+Uno de los parámetros más importantes dentro dentro del entrenamiento de modelos de deep learning es la velocidad.
+La velocidad de entrenamiento es de vital importancia ya que los modelos pueden requerir entradas de tamaño masivo, por lo que la capacidad de cómputo
+va a ser clave para acelerar este proceso y poder enfocarnos plenamente a la mejora del rendimiento de nuestro modelo, sin tener como cuello de botella la espera
+que nos pueda producir volver a reentrenar el mismo con distintos parámetros.
+De este modo podemos reajustar constantemente nuestro modelo para encontrar el punto óptimo de manera ágil.
+En este trabajo vamos a entrenar nuestro modelo haciendo uso del framework de código abierto de Tensorflow, el cual incluye una API de deep learning llamada Keras, que será la que utilicemos.
 
+El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes y los propios procedimientos que realizan las redes neuronales
+para hacer sus cálculos son operaciones matriciales.
+Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU nos puede dar en este tipo de operaciones gracias
+a su arquitectura de paralelización, ya que es la idónea para este tipo de trabajo.
+La ventaja que nos da frente a la cpu es la capacidad de cómputo, gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
 
-\section{Modelo propuesto}
+https://www.nvidia.com/es-la/drivers/what-is-gpu-computing/
+
+\section{Modelo propuesto}\label{sec:modelo-propuesto}
 Modelo propuesto
-\section{Entorno Google Colab}
-Entorno Google Colab
+\section{Entorno Google Colab}\label{sec:entorno-google-colab}
+La plataforma de Google Colab es un servicio gratuito de google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación python.
+La ventaja de hacer uso de este medio es podemos configurar nuestro entorno para hacer uso de de herramientas industriales tales como una GPU Tesla K80.
+Las características principales de nuestro principal unidad de cómputo son las siguientes :
+4992 núcleos de NVIDIA CUDA con diseño de dos GPU
