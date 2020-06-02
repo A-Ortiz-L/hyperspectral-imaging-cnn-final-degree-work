@@ -21,8 +21,27 @@ https://www.nvidia.com/es-la/drivers/what-is-gpu-computing/
 \section{Modelo propuesto}\label{sec:modelo-propuesto}
 Modelo propuesto
 \section{Entorno Google Colab}\label{sec:entorno-google-colab}
+En esta parte del trabajo se pretende conseguir la máxima velocidad de entrenamiento posible manteniendo unos niveles de precisión elevados en la predicción.
 La plataforma de Google Colab es un servicio gratuito de google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación python.
 La ventaja de hacer uso de este medio es podemos configurar nuestro entorno para hacer uso de de herramientas industriales tales como una GPU Tesla K80.
 Las características principales de nuestro principal unidad de cómputo son las siguientes :
 
-4992 núcleos de NVIDIA CUDA con diseño de dos GPU
+\begin{itemize}
+\item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU
+\item Hasta 2,91 teraflops de rendimiento en operaciones de precisión doble con NVIDIA GPU Boost.
+\item 24 GB de memoria GDDR5
+\item 480 GB/s de ancho de banda de memoria agregado.
+\item Hasta 8,73 teraflops de rendimiento en operaciones de precisión simple con NVIDIA GPU Boost.
+\end{itemize}
+
+Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar el proceso de forma general.
+
+\begin{itemize}
+    \item \textbf{Uso de variables de 16 bits en vez de 32 bits}: Una de las posibilidades que nos brinda el uso de una GPU es reducir a la mitad el uso en memoria de las variables del proceso.
+    Usaremos esto siempre y cuando no afecte al rendimiento en cuanto a predicción.
+    \item \textbf{Uso del compilador XLA}: El compilador XLA (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
+    \item \textbf{Valores altos del parámetro de entrenamiento BatchSize}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
+\end{itemize}
+
+El uso de este tipo de herramientas en esta plataforma es extrapolable a otras nubes sin las restricciones en cuanto al número de unidades de procesamiento que necesitamos,
+la interoperabilidad de sus elementos con otros componentes externos, tales como servidores o respositorios de código y la configuración explícita de cada uno de los entornos de ejecución.
