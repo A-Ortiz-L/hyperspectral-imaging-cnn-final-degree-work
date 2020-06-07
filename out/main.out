@@ -8,8 +8,8 @@
 \BOOKMARK [0][-]{PDFAbstractPage.0}{Abstract}{}% 8
 \BOOKMARK [0][-]{chapter.1}{Introducci\363n}{}% 9
 \BOOKMARK [1][-]{section.1.1}{Motivaci\363n y Objetivos}{chapter.1}% 10
-\BOOKMARK [1][-]{section.1.2}{Concepto Deep Learning}{chapter.1}% 11
-\BOOKMARK [2][-]{subsection.1.2.1}{Estado del arte}{section.1.2}% 12
+\BOOKMARK [1][-]{section.1.2}{Estado del arte}{chapter.1}% 11
+\BOOKMARK [2][-]{subsection.1.2.1}{Concepto Deep Learning}{section.1.2}% 12
 \BOOKMARK [2][-]{subsection.1.2.2}{Redes neuronales en el tratamiento de im\341genes}{section.1.2}% 13
 \BOOKMARK [1][-]{section.1.3}{Organizaci\363n de esta memoria}{chapter.1}% 14
 \BOOKMARK [0][-]{chapter.2}{Entrenamiento del modelo mediante Google Colab}{}% 15

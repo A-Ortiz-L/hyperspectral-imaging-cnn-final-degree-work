@@ -7,36 +7,36 @@
 \contentsline {chapter}{Abstract}{\es@scroman {viii}}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivación y Objetivos}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Concepto Deep Learning}{2}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Estado del arte}{3}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Redes neuronales en el tratamiento de imágenes}{3}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Organización de esta memoria}{4}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Entrenamiento del modelo mediante Google Colab}{6}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Modelo propuesto}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Entorno Google Colab}{7}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Tecnología Openvino}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Herramientas que lo componen}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Inferencias. Tensorflow vs OpenVINO}{10}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Implementación}{12}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descripción del entorno y sus diferentes componentes}{12}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{12}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{12}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Framework Flask}{12}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Encapsulación de entorno con Docker}{12}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Resultados experimentales}{13}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Dataset usado}{13}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{13}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Ren dimiento en fase de inferencias}{13}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Costes del proyecto}{13}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{15}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Conclusiones}{15}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Trabajo futuro}{16}{section.6.2}%
-\contentsline {chapter}{Bibliografía}{16}{section.6.2}%
-\contentsline {chapter}{\numberline {A}Introduction}{17}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Motivation}{17}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Objectives}{18}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Organization of this memory}{19}{section.Alph1.3}%
-\contentsline {chapter}{\numberline {B}Conclusions and future work}{22}{appendix.Alph2}%
-\contentsline {section}{\numberline {B.1}Conclusions}{22}{section.Alph2.1}%
-\contentsline {section}{\numberline {B.2}Lines of future work}{23}{section.Alph2.2}%
+\contentsline {section}{\numberline {1.2}Estado del arte}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Concepto Deep Learning}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Redes neuronales en el tratamiento de imágenes}{6}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Organización de esta memoria}{7}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Entrenamiento del modelo mediante Google Colab}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modelo propuesto}{10}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Entorno Google Colab}{12}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Tecnología Openvino}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Herramientas que lo componen}{15}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Inferencias. Tensorflow vs OpenVINO}{16}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Implementación}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción del entorno y sus diferentes componentes}{18}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{18}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{18}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Framework Flask}{18}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Encapsulación de entorno con Docker}{18}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Resultados experimentales}{19}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Dataset usado}{19}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{19}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Ren dimiento en fase de inferencias}{19}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Costes del proyecto}{19}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{21}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Conclusiones}{21}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Trabajo futuro}{22}{section.6.2}%
+\contentsline {chapter}{Bibliografía}{22}{section.6.2}%
+\contentsline {chapter}{\numberline {A}Introduction}{23}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Motivation}{23}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Objectives}{24}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Organization of this memory}{25}{section.Alph1.3}%
+\contentsline {chapter}{\numberline {B}Conclusions and future work}{28}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Conclusions}{28}{section.Alph2.1}%
+\contentsline {section}{\numberline {B.2}Lines of future work}{29}{section.Alph2.2}%

@@ -1,10 +1,14 @@
 \babel@toc {spanish}{}
 \babel@toc {spanish}{}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Ejemplo de perceptrón.}}{4}{figure.1.1}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Encuesta sobre lenguajes de programación usados en StackOverflow 2019.}}{4}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Encuesta sobre frameworks usados en StackOverflow 2019.}}{5}{figure.1.2}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Ejemplo de perceptrón.}}{6}{figure.1.3}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Arquitectura de paralelización de una GPU.}}{10}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Función de activación Relu.}}{12}{figure.2.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura de optimización de modelos con Openvino}}{10}{figure.3.1}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura de optimización de modelos con Openvino}}{16}{figure.3.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

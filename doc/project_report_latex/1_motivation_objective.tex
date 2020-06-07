@@ -30,14 +30,11 @@ continuación:
     \item Obtención de resultados y realización de comparativas de rendimiento entre los distintos sistemas de inferencia, hardware y servidores web.
 \end{itemize}
 
-
-\section{Concepto Deep Learning}\label{sec:concepto-deep-learning}
+\section{Estado del arte}\label{sec:estado-del-arte}
 La inteligencia artificial actualmente se compone de varias ramas tales como machine learning, natural language processing, entre otras.
-Una de ellas es el deep learning. Esta arquitectura de aprendizaje profundo persigue el aprendizaje y clasificación de una variedad de problemas
+Una de ellas es el deep learning.
+Esta arquitectura de aprendizaje profundo persigue el aprendizaje y clasificación de una variedad de problemas
 haciendo uso de sus propios algoritmos;
-algoritmos que basan su estructura en redes neuronales artificiales, imitando el comportamiento que tienen las del ser humano y su sistema nervioso central.
-
-\subsection{Estado del arte}\label{subsec:estado-del-arte}
 En la actualidad, los algoritmos de deep learning son usados para todo tipo de problemas que abarcan multitud de sectores dentro de la industria, los gobiernos, y en definitiva, de la propia sociedad.
 La digitalización y expansión de internet provee de innumerables fuentes de datos capaces de ser procesadas y analizadas por este tipo de algoritmos, que son usadas para distintos fines.
 Los gobiernos poseen sus sistemas personales de reconocimiento de imágenes para la clasificación de sus ciudadanos, sistemas de recomendación tanto para las empresas que buscan aumentar sus ventas como para bancos que buscan gente apta para préstamos e
@@ -45,6 +42,43 @@ incluso sirve como sesgo para evitar contenido indeseable en plataformas a trav�
 En general, la cantidad masiva de datos ha creado una necesidad de explotación a
 través de los mismos , por lo que el deep learning se sitúa como una herramienta fiable para dar valor a todas las interacciones que están ocurriendo casi de manera permanente
 en cada sistema tecnológico del planeta.
+Todo este estímulo lleva consigo la creación de miles de nuevos puestos de trabajo en el sector tecnológico dedicados en exclusiva a la aplicación de algoritmos de aprendizaje automático, de igual manera que al aumento de la enseñanza de los mismos.
+Esto ha abierto la posibilidad a profesionales que anteriormente no tenían un hueco claro en el sector tecnológico a ser indispensables dentro de el.
+Estudios como matemáticas, estadística y relacionados
+se ven beneficiados ya que la capacidad de análisis y el perfil matemático que poseen son aptitudes muy valorables para realizar este tipo de tareas.
+Lenguajes de programación han visto impulsado su uso debido a este nuevo perfil de profesionales, debido a que su uso y curva de aprendizaje es mucho más sencillo que lenguajes como Java o C++ .
+También ha fomentado la creación de nuevas herramientas de desarrollo, como Jupyter, Tensorflow, Scikit-learn, PyTorch, todas ellas gratuitas y de código abierto.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{images/chapter1/stackoverflow_language.png}
+    \caption{Encuesta sobre lenguajes de programación usados en StackOverflow 2019.}
+    \label{fig:Encuesta sobre lenguajes de programación en StackOverflow 2019}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{images/chapter1/stackoverflow_tool.png}
+    \caption{Encuesta sobre frameworks usados en StackOverflow 2019.}
+    \label{fig:Encuesta sobre frameworks usados StackOverflow 2019}
+\end{figure}
+
+
+
+\subsection{Concepto Deep Learning}\label{subsec:concepto-deep-learning}
+El deep learning lleva consigo como principal actuador algoritmos que basan su estructura en redes neuronales artificiales, imitando el comportamiento que tienen las del ser humano y su sistema nervioso central.
+La fuerza que ha proporcionado el surgimiento del Big Data ha conseguido que tecnologías que solían funcionar con un objeto de estudio se conviertan en una práctica
+diaria.
+Una de las claves de los algoritmos de deep learning es en la capacidad de aprendizaje que reside en ellos.
+Esto nos brinda la posibilidad de poder lidiar con problemas del mundo real,
+en el que las combinaciones de posibilidades y reconocimiento de patrones se queda fuera de nuestros cálculos.
+Para poder materializar todos estos algoritmos de aprendizaje automático disponemos de servicios de grandes empresas como Google, Amazon, Ibm, los cuales
+implementan sus propias soluciones comerciales.
+Pero también podemos optar por herramientas de código abierto tales como Tensorflow, una de las librerías más famosas de deep learning desarrollada por los ingenieros de Google en primera instancia y posteriormente liberada bajo licencia Apache.
+También disponemos de otras como PyTorch, Keras.
+Todas las mencionadas anteriormente originalmente desarrolladas para el lenguaje de programación Python, el cual ha visto aumentado su porcentaje de uso debido a esta corriente de
+machine learning.
+
 
 \subsection{Redes neuronales en el tratamiento de imágenes}\label{subsec:redes-neuronales-en-el-tratamiento-de-imágenes}
 La unidad básica de procesamiento de las redes neuronales es el perceptrón, a partir del cual se desarrolla un algoritmo capaz de generar un criterio para seleccionar un sub-grupo a partir de un grupo de componentes más grande.
@@ -57,6 +91,7 @@ Cada neurona recibe una entrada, ya sea de una fuente externa o de otra neurona.
     \caption{Ejemplo de perceptrón.}
     \label{fig:Perceptrón}
 \end{figure}
+
 A partir de aquí cada neurona aplica una función de cálculo a partir de los pesos mediante la cual acaba propagando el resultado a las capas posteriores, y
 finalmente a la capa de salida mediante la que podremos obtener nuestra clasificación final.
 En este problema concreto, nos centramos en clasificar imágenes multiespectrales,
