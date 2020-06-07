@@ -28,7 +28,8 @@ La ventaja que nos da frente a la cpu es la capacidad de cómputo, gracias a su 
 En esta parte del trabajo se pretende conseguir la máxima velocidad de entrenamiento posible manteniendo unos niveles de precisión elevados en la predicción.
 Nuestro modelo tiene como cometido primordial poder clasificar distintas imágenes según el estado del terreno que aparece en la fotografía, siendo las opciones : terreno dañado y
 terreno en buenas condiciones.
-Para ello disponemos de un dataset de 268 imágenes multiespectrales ( describir dataset, procedencia ee imagen multiespectral).
+Para ello disponemos de un dataset de 268 imágenes multiespectrales ( describir dataset, procedencia).
+Una imagen multiespectral es la que captura datos de imágenes dentro de rangos de longitud de onda específicos a través del espectro electromagnético
 Como framework principal para realizar el entrenamiento nos ayudaremos de Tensorflow que incluye la librería de deep learning Keras, la cual simplifica mucho la implementación de este tipo de algoritmos de
 aprendizaje automático gracias a que sus objetos y funciones están construidos de una manera intuitiva.
 La distribución a efectuar sobre el conjunto de datos en entrenamiento y test es del 70 y 30 por ciento respectivamente.
@@ -40,16 +41,25 @@ Para la construcción de este algoritmo haremos uso de las siguientes capas, sob
     El filtro atraviesa la imagen en dos dimensiones.
     Tiene como requisitos una imagen en tres dimensiones, el número de filtros que vamos a aplicar sobre la imagen.
     Aplicaremos sobre esta capa una configuración de 64 filtros y un tamaño de Kernel de 3x3 ya que nuestras imágenes son de 128x128 píxeles para ayudar a nuestro modelo a mejorar su aprendizaje con filtros de mayor tamaño.
-    \item \textbf{Activación Relu ( Recitified Linear Unit )}: En redes neuronales, una función de activación es la responsable de transformar la entrada. Sus principales funciones son detectar posibles correlaciones entre dos variables distintas dependiendo de sus valores y ayudar al modelo a tener en cuanta efectos no lineales, lo que significa ( clarificar efectos no lineales.)
+    \item \textbf{Activación Relu ( Recitified Linear Unit )}: En redes neuronales, una función de activación es la responsable de transformar la entrada.
+    Sus principales funciones son detectar posibles correlaciones entre dos variables distintas dependiendo de sus valores y ayudar al modelo a tener en cuanta efectos no lineales, lo que significa ( clarificar efectos no lineales.)
     Como podemos observar en la figura~\ref{fig:Función de activación Relu} la función de activación Relu se comporta devolviendo un 0 para valores de entrada negativos y en caso contrario devolviendo el propio valor de entrada. (razones por las que funciona bien)
-    \item \textbf{MaxPooling2D}: Se presenta la arquitectura de Google Cloud diseñada para soportar toda la infraestructura de la aplicación y se explica la puesta en producción del servicio.
-    \item \textbf{Dropout}: Se preparan los distintos frameworks web que van a ser puestos a prueba haciendo uso del lenguaje de programación Python.
-    \item \textbf{Flatten}: Se presentan los resultados obtenidos mediante las pruebas de carga y también algunas posibles líneas de trabajo futuro que se pueden desempeñar en relación al presente trabajo.
-    \item \textbf{Dense}:
-    \item \textbf{Optimizador Adam}:
-    \item \textbf{Hiperparámetros}:
+    \item \textbf{MaxPooling2D}: Es una capa que sigue un proceso de discretización basado en muestras, su objetivo es reducir la muestra de una representación de entrada mediante la reducción de sus dimensiones.
+    En nuestro modelo aplicaremos una reducción a matrices de 2x2
+    \item \textbf{Dropout}: Es una capa cuyo cometido es ignorar ciertas neuronas de forma aleatoria para no incluirlas en el entrenamiento, de modo que las neuronas restantes serán las encargadas de representar las predicciones de la red.
+    De esta manera también reducimos la complejidad de nuestra red y la posibilidad de sobreentrenamiento.
+    \item \textbf{Flatten}: Capa de aplanamiento usada para reducir a uno el número de dimensiones de nuestra matriz de entrada.
+    \item \textbf{Dense}: Es una de las capas más utilizadas en la API de keras, es la manera de efectuar multiplicaciones matriciales.
+    \item \textbf{Optimizador Adam}: Es un algoritmo de optimización diseñado especialmente para redes neuronales, este aprovecha el poder de los métodos de tasas de aprendizaje adaptativo para encontrar tasas de aprendizaje individuales para cada parámetro.
 \end{itemize}
 
+El siguiente figura~\ref{fig:Topología de la red del modelo de redes neuronales.} podemos observar el conjunto de capas utilizado para crear la topología de la red de nuestro modelo.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/chapter2/model.png}
+    \caption{Topología de la red del modelo de redes neuronales.}
+    \label{fig:Topología de la red del modelo de redes neuronales.}
+\end{figure}
 
 \begin{figure}
     \centering
@@ -66,7 +76,57 @@ Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar e
     \item \textbf{Valores altos del parámetro de entrenamiento BatchSize}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
 \end{itemize}
 
+El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precición en el mínimo tiempo posible.
+\begin{itemize}
+    \item \textbf{175 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93 por cierto sobre el conjunto de datos de entrenamiento.
+    \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85 por ciento sobre el conjunto de datos de entrenamiento.
+    \item \textbf{200 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 29.94 segundos y una precisión del 87 por ciento sobre el conjunto de datos de entrenamiento.
+\end{itemize}
+\iffalse
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_175_epoch.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_175_epoch_loss.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs, }
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_100_epoch.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_100_epoch_loss.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs, }
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_200_epoch.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 200 epochs}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_200_epoch_loss.png}
+    \caption{Función de activación Relu.}
+    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs, }
+\end{figure}
+
+
+\fi
 \section{Entorno Google Colab}\label{sec:entorno-google-colab}
 La plataforma de Google Colab es un servicio gratuito de google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación python.
 Una de las grandes ventajas de trabajar con este tipo entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
