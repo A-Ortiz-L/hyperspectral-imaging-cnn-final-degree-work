@@ -3,18 +3,18 @@
 
 \chapter{Entrenamiento del modelo mediante Google Colab}
 \label{ch:chapter2}
-Uno de los parámetros más importantes dentro dentro del entrenamiento de modelos de deep learning es la velocidad.
+Uno de los parámetros más importantes dentro del entrenamiento de modelos de deep learning es la velocidad.
 La velocidad de entrenamiento es de vital importancia ya que los modelos pueden requerir entradas de tamaño masivo, por lo que la capacidad de cómputo
 va a ser clave para acelerar este proceso y poder enfocarnos plenamente a la mejora del rendimiento de nuestro modelo, sin tener como cuello de botella la espera
 que nos pueda producir volver a entrenar el mismo con distintos parámetros.
 De este modo podemos reajustar constantemente nuestro modelo para encontrar el punto óptimo de manera ágil.
-En este trabajo vamos a entrenar nuestro modelo haciendo uso del framework de código abierto de Tensorflow, el cual incluye una API de deep learning llamada Keras, que será la que utilicemos.
+En este trabajo vamos a entrenar nuestro modelo haciendo uso del framework de código abierto de TensorFlow, el cual incluye una API de deep learning llamada Keras, que será la que utilicemos.
 
 El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes y los propios procedimientos que realizan las redes neuronales
 para hacer sus cálculos son operaciones matriciales.
 Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU nos puede dar en este tipo de operaciones gracias
 a su arquitectura de paralelización, ya que es la idónea para este tipo de trabajo.
-La ventaja que nos da frente a la cpu es la capacidad de cómputo, gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
+La ventaja que nos da frente a la CPU es la capacidad de cómputo con un mayor número de núcleos o cores (ver Figura \ref{fig:Arquitectura de paralelización de una GPU}), gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
 
 \begin{figure}
     \centering
@@ -26,14 +26,14 @@ La ventaja que nos da frente a la cpu es la capacidad de cómputo, gracias a su 
 
 \section{Modelo propuesto}\label{sec:modelo-propuesto}
 En esta parte del trabajo se pretende conseguir la máxima velocidad de entrenamiento posible manteniendo unos niveles de precisión elevados en la predicción.
-Nuestro modelo tiene como cometido primordial poder clasificar distintas imágenes según el estado del terreno que aparece en la fotografía, siendo las opciones : terreno dañado y
+Nuestro modelo tiene como cometido primordial poder clasificar distintas imágenes según el estado del terreno que aparece en la fotografía, siendo las opciones: terreno dañado y
 terreno en buenas condiciones.
-Para ello disponemos de un dataset de 268 imágenes multiespectrales ( describir dataset, procedencia).
+Para ello disponemos de un dataset de 268 imágenes multiespectrales (describir dataset, procedencia).
 Una imagen multiespectral es la que captura datos de imágenes dentro de rangos de longitud de onda específicos a través del espectro electromagnético
-Como framework principal para realizar el entrenamiento nos ayudaremos de Tensorflow que incluye la librería de deep learning Keras, la cual simplifica mucho la implementación de este tipo de algoritmos de
+Como framework principal para realizar el entrenamiento nos ayudaremos de TensorFlow que incluye la librería de deep learning Keras, la cual simplifica mucho la implementación de este tipo de algoritmos de
 aprendizaje automático gracias a que sus objetos y funciones están construidos de una manera intuitiva.
 La distribución a efectuar sobre el conjunto de datos en entrenamiento y test es del 70 y 30 por ciento respectivamente.
-Para la construcción de este algoritmo haremos uso de las siguientes capas, sobre las que Tensorflow nos da una API para tener control total sobre su configuración.
+Para la construcción de este algoritmo haremos uso de las siguientes capas, sobre las que TensorFlow nos da una API para tener control total sobre su configuración.
 
 \begin{itemize}
     \item \textbf{Conv2D}: Capa convolucional cuyo principal objetivo es extraer características de la imagen de entrada o partes de la misma.
@@ -41,11 +41,13 @@ Para la construcción de este algoritmo haremos uso de las siguientes capas, sob
     El filtro atraviesa la imagen en dos dimensiones.
     Tiene como requisitos una imagen en tres dimensiones, el número de filtros que vamos a aplicar sobre la imagen.
     Aplicaremos sobre esta capa una configuración de 64 filtros y un tamaño de Kernel de 3x3 ya que nuestras imágenes son de 128x128 píxeles para ayudar a nuestro modelo a mejorar su aprendizaje con filtros de mayor tamaño.
-    \item \textbf{Activación Relu ( Recitified Linear Unit )}: En redes neuronales, una función de activación es la responsable de transformar la entrada.
-    Sus principales funciones son detectar posibles correlaciones entre dos variables distintas dependiendo de sus valores y ayudar al modelo a tener en cuanta efectos no lineales, lo que significa ( clarificar efectos no lineales.)
-    Como podemos observar en la figura~\ref{fig:Función de activación Relu} la función de activación Relu se comporta devolviendo un 0 para valores de entrada negativos y en caso contrario devolviendo el propio valor de entrada. (razones por las que funciona bien)
+    \item \textbf{Activación Relu (Recitified Linear Unit)}: En redes neuronales, una función de activación es la responsable de transformar la entrada.
+    Sus principales funciones son detectar posibles correlaciones entre dos variables distintas dependiendo de sus valores y ayudar al modelo a tener en cuenta funciones no lineales, lo que significa, que la red neuronal es capaz de realizar microajustes para capturar relaciones no lineales entre entradas y salidas.
+    Como podemos observar en la figura~\ref{fig:Función de activación Relu} la función de activación Relu se comporta devolviendo un 0 para valores de entrada negativos y en caso contrario devolviendo el propio valor de entrada.
+    Esta función de activación conserva los valores que contienen algún patrón en la imagen y los transfiere a la siguiente capa, mientras que los pesos negativos no son importantes y son establecidos con el valor 0.
+    Mientras que otras funciones de activación como la función Sigmoide o Tanh modifican todos los valores de entrada, la función Relu mantendrá los valores de peso para las capas posteriores.
     \item \textbf{MaxPooling2D}: Es una capa que sigue un proceso de discretización basado en muestras, su objetivo es reducir la muestra de una representación de entrada mediante la reducción de sus dimensiones.
-    En nuestro modelo aplicaremos una reducción a matrices de 2x2
+    En nuestro modelo aplicaremos una reducción a matrices de 2x2.
     \item \textbf{Dropout}: Es una capa cuyo cometido es ignorar ciertas neuronas de forma aleatoria para no incluirlas en el entrenamiento, de modo que las neuronas restantes serán las encargadas de representar las predicciones de la red.
     De esta manera también reducimos la complejidad de nuestra red y la posibilidad de sobreentrenamiento.
     \item \textbf{Flatten}: Capa de aplanamiento usada para reducir a uno el número de dimensiones de nuestra matriz de entrada.
@@ -53,7 +55,7 @@ Para la construcción de este algoritmo haremos uso de las siguientes capas, sob
     \item \textbf{Optimizador Adam}: Es un algoritmo de optimización diseñado especialmente para redes neuronales, este aprovecha el poder de los métodos de tasas de aprendizaje adaptativo para encontrar tasas de aprendizaje individuales para cada parámetro.
 \end{itemize}
 
-El siguiente figura~\ref{fig:Topología de la red del modelo de redes neuronales.} podemos observar el conjunto de capas utilizado para crear la topología de la red de nuestro modelo.
+En la Figura~\ref{fig:Topología de la red del modelo de redes neuronales.} podemos observar el conjunto de capas utilizado para crear la topología de la red de nuestro modelo.
 \begin{figure}
     \centering
     \includegraphics[width=0.2\textwidth]{images/chapter2/model.png}
@@ -71,16 +73,16 @@ Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar e
 
 \begin{itemize}
     \item \textbf{Uso de variables de 16 bits en vez de 32 bits}: Una de las posibilidades que nos brinda el uso de una GPU es reducir a la mitad el uso en memoria de las variables del proceso.
-    Usaremos esto siempre y cuando no afecte al rendimiento en cuanto a predicción.
+    Usaremos esto siempre y cuando no afecte a la calidad de la predicción.
     \item \textbf{Uso del compilador XLA}: El compilador XLA (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
     \item \textbf{Valores altos del parámetro de entrenamiento BatchSize}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
 \end{itemize}
 
 El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precición en el mínimo tiempo posible.
 \begin{itemize}
-    \item \textbf{175 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93 por cierto sobre el conjunto de datos de entrenamiento.
-    \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85 por ciento sobre el conjunto de datos de entrenamiento.
-    \item \textbf{200 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 29.94 segundos y una precisión del 87 por ciento sobre el conjunto de datos de entrenamiento.
+    \item \textbf{175 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento.
+    \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85\% sobre el conjunto de datos de entrenamiento.
+    \item \textbf{200 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 29.94 segundos y una precisión del 87\% sobre el conjunto de datos de entrenamiento.
 \end{itemize}
 \iffalse
 \begin{figure}
@@ -127,22 +129,24 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 
 
 \fi
+
+
 \section{Entorno Google Colab}\label{sec:entorno-google-colab}
-La plataforma de Google Colab es un servicio gratuito de google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación python.
-Una de las grandes ventajas de trabajar con este tipo entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
+La plataforma de Google Colab es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
+Una de las grandes ventajas de trabajar con este entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
 nuestro trabajo con otras personas.
-Estas características permiten a Google Colab convertirse en una utensilio muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso
+Estas características permiten a Google Colab convertirse en un entorno muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso
 de unas herramientas profesionales.
 En este trabajo haremos uso de la tarjeta gráfica Tesla K80.
-Las características primarias de nuestro principal unidad de cómputo son las siguientes :
+Las características primarias de nuestra principal unidad de cómputo son las siguientes :
 \begin{itemize}
-    \item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU
+    \item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU.
     \item Hasta 2,91 teraflops de rendimiento en operaciones de precisión doble con NVIDIA GPU Boost.
-    \item 24 GB de memoria GDDR5
+    \item 24 GB de memoria GDDR5.
     \item 480 GB/s de ancho de banda de memoria agregado.
     \item Hasta 8,73 teraflops de rendimiento en operaciones de precisión simple con NVIDIA GPU Boost.
 \end{itemize}
 El uso de este tipo de herramientas en esta plataforma es extrapolable a otras nubes sin las restricciones en cuanto al número de unidades de procesamiento que necesitamos,
 la interoperabilidad de sus elementos con otros componentes externos, tales como servidores o respositorios de código y la configuración explícita de cada uno de los entornos de ejecución.
-Una de las mejores faces que tiene poder usar un entorno como Google Colab es que el servicio se ejecuta de manera íntegra online, de modo que toda la carga computacional reside en la herramienta de google y no en
+Una de las principales ventajas que tiene poder usar un entorno como Google Colab es que el servicio se ejecuta de manera íntegra online, de modo que toda la carga computacional reside en la herramienta de Google y no en
 nuestro computador, permitiendo así poder trabajar de manera fluida realizando otro tipo de cometidos en nuestra máquina o simplemente ejecutando un proceso para el cual no tenemos suficiente potencia disponible.
