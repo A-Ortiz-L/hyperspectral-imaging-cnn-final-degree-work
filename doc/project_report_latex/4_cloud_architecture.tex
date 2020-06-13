@@ -127,7 +127,7 @@ Esta información consta de los siguientes campos :
 \end{itemize}
 
 
-\begin{lstlisting}[caption=Api, label=lst:api, float=t]
+\begin{lstlisting}[caption=Api, label=lst:api, float=h]
     class Api:
     def __init__(self, net, sys: SystemTrack):
         self.__storage = GoogleStorage()
@@ -165,7 +165,7 @@ La segunda refclase clase es la encargada de generar y recabar toda esta informa
 Se ha hecho uso de las librerías de psutil \footnote{ https://pypi.org/project/psutil/} y platform {https://docs.python.org/3/library/platform.html} para conseguir la información necesaria del sistema.
 Contamos de manera adicional con un método de conversión de unidades para normalizar los datos a un estándar preestablecido.
 Este objeto de tipo SystemTrack es el que será enviado por argumento a la clase Api, la cual procesará todos estos datos.
-\begin{lstlisting}[caption=Api, label=lst:system, float=t]
+\begin{lstlisting}[caption=Api, label=lst:system, float=h]
 class SystemTrack:
     def __init__(self, docker: bool, inference_engine: str, web_engine: str, cloud: bool, processor_unit: str):
         self.sys_information = platform.uname()
@@ -196,13 +196,15 @@ class SystemTrack:
 \subsection{Framework FastApi}\label{subsec:framework-fastapi}
 FastApi \footnote{https://fastapi.tiangolo.com/} es un framework web de alto rendimiento preparado para su puesta en producción.
 Las características principales de este framework son las siguientes :
+
 \begin{itemize}
     \item Desarrollo rápido debido a la arquitectura de componentes del framework.
     \item Documentación detallada para componente.
     \item Incorpora un sistema de tipado de objetos para su fácil identificación.
     \item Estándar OpenApi\footnote{https://github.com/OAI/OpenAPI-Specification} para la especificación del formato de las peticiones entrantes y las respuestas del servidor.
 \end{itemize}
-Para soportar este framework se usará Uvicorn \footnote{https://www.uvicorn.org/} como servidor ASGI \footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas, el cuál nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
+
+Para soportar este framework se usará Uvicorn \footnote{https://www.uvicorn.org/} como servidor ASGI \footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas, lo que proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
 entre los distintos nodos e hilos de la aplicación, adicionalmente se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la apliación dentro del host.
 Este servidor soporta actualmente el protcolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
 Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial
