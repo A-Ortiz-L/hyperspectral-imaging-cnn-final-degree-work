@@ -99,6 +99,7 @@ Para ello se ha elegido, como anteriormente, el lenguaje de programación Python
 de información sobre desarrollo con este lenguaje sea significativamente más alto que otros lenguajes.
 Se ha empleado un paradigma de programación orientado objetidos debido a la organización que proporciona con aplicaciones de un tamaño considerable y la dotación de intedidad que facilita a los distintos
 componentes.
+Debido a la multitud de framework web actuales se han elegido varios para su puesta a prueba en la aplicación.
 Para el procesamiento generalizado de imágenes y el sistema de recogia de metados se han codificado dos clases princpales.
 La primera\ref{lst:api}, encargada de la inicialización de los servicios de GoogleStorage y GoogleBigQuery, para los cuales se han codificado métodos para descarga y carga de información respectivamente.
 Se presenta un método principal para procesar las peticiones al servidor, el cual modela toda la información que va a ser incluida en la base datos.
@@ -193,12 +194,28 @@ class SystemTrack:
             num_bytes /= factor
 \end{lstlisting}
 \subsection{Framework FastApi}\label{subsec:framework-fastapi}
-ok
+FastApi es un framework web de alto rendimiento preparado para su puesta en producción.
+Las características principales de este framework son las siguientes :
+\begin{itemize}
+    \item Desarrollo rápido debido a la arquitectura de componentes del framework.
+    \item Documentación detallada para componente.
+    \item Incorpora un sistema de tipado de objetos para su fácil identificación.
+    \item Estándar OpenApi para la especificación del formato de las peticiones entrantes y las respuestas del servidor ( https://github.com/OAI/OpenAPI-Specification )
+\end{itemize}
+Para soportar este framework se usará Uvicorn como servidor ASGI(Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas, el cuál nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
+entre los distintos nodos e hilos de la aplicación, adicionalmente se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la apliación dentro del host.
+Este servidor soporta actualmente el protcolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
+Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial
 
 \subsection{Framework Flask}\label{subsec:framework-flask}
-oki
+Es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
+muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
+https://flask.palletsprojects.com/en/1.1.x/
+A diferencia de fastapi Flask se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
+Como servidor web se usará Gunicorn que sigue el estándar WSGI(Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
+Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
 
-
+En la siguiente figura podemos observa la arquitectura para ambos frameworks que se desplegarán en las máquinas virtuales de Google.
 \section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
 (Explicación de las distintas imágenes de Docker de la aplicación y cómo se han construido)
 Buscando la máxima

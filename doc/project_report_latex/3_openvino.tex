@@ -95,6 +95,7 @@ Se ha encontrado útil la opción de exportaciòn a texto plano ya que de esta m
 se puede observar la arquitectura de la red y los pesos pertenecientes a cada capa.
 Configuramos también el flag -b, esta opción determina el tamaño del batch que queremos especificar para la conversión, seleccionamos 1 porque en las entradas de nuestra red neuronal pueden propagarse valores
 negativos, los cuales no son válidos para su procesamiento en Openvino.
+
 \section{Inferencias. Tensorflow vs OpenVINO}\label{sec:inferencias.-tensorflow-vs-openvino}
 Como se ha mencionado anteriormente tensorflow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real.
 Esta sistema se lllama tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
