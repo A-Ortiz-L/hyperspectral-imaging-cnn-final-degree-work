@@ -204,8 +204,8 @@ Las características principales de este framework son las siguientes :
     \item Estándar OpenApi\footnote{https://github.com/OAI/OpenAPI-Specification} para la especificación del formato de las peticiones entrantes y las respuestas del servidor.
 \end{itemize}
 
-Para soportar este framework se usará Uvicorn \footnote{https://www.uvicorn.org/} como servidor ASGI \footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas,
-lo que proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
+Para soportar este framework se usará Uvicorn \footnote{https://www.uvicorn.org/} como servidor ASGI \footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas.
+Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
 entre los distintos nodos e hilos de la aplicación, adicionalmente se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la apliación dentro del host.
 Este servidor soporta actualmente el protcolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
 Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial
