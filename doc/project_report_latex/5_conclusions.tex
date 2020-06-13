@@ -6,7 +6,11 @@
 \label{ch:chapte5}
 
 \section{Dataset usado}
-
+En cuanto a los tiempos de inferencia, la diferencia es notable entre ambos sistemas.
+Los resultados se presentan haciendo uso de una mustra de 16.000 ejecuciones de inferencia en el entorno de producción de la aplicación, tanto para los entornos con Openvino, como para Tensorflow.
+La unidad de cálculo principal es el procesador, siendo su modelo un Intel Xeon (Cascada Lake) con una frecuencia de 2.8 GHz de base y un turbo hasta 3.4 GHz.
+Se han probado distintas configuraciones de este procesador, tanto en su versión de 2 núcleos físicos, 4 virtuales como en la de 4 núcleos físicos, 8 virtuales.
+La memoria ram utilizada varía de 4 GB en su primera versión junto con el procesador de 2 núcleos físicos a 8 GB en la versión de 4 núcleos físicos.
 ok
 \section{Rendimiento en fase de entrenamiento}
 ok

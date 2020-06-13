@@ -9,7 +9,9 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Función de activación Relu.}}{13}{figure.2.3}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura de optimización de modelos con Openvino}}{17}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Arquitectura de tensorflow serving}}{22}{figure.3.2}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Arquitectura Google Cloud}}{28}{figure.4.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

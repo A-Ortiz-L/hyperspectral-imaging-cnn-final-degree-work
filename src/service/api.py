@@ -5,6 +5,7 @@ from src.service.google_big_query import GoogleBigQuery
 from src.service.system_track import SystemTrack
 import os
 
+
 class Api:
     def __init__(self, net, sys: SystemTrack):
         self.__storage = GoogleStorage()
@@ -37,6 +38,3 @@ class Api:
         ]
         self.__big_query.insert_row(row)
         os.remove(image_path)
-
-    def remote_image_request(self, item: dict):
-        pass

@@ -1,16 +1,204 @@
 \cleardoublepage
 \mbox{}
 
+\lstset{
+language=Python,
+basicstyle=\small\sffamily,
+numbers=left,
+numberstyle=\tiny,
+frame=tb,
+columns=fullflexible,
+showstringspaces=false
+}
+
 \chapter{Implementación}
 \label{ch:chapter4}
+La implementación de la aplicación y la puesta en producción de esta se materializa en un entorno cloud, en concreto Google Cloud Platform
+Los servicios que proporciona Google Cloud son de especial utilidad para el problema debido a que muchos de ellos son mantenidos y actualizados por la propia
+plataforma, por lo que no hay que dedicar especial esfuerzo a configurar estos servicios, más que la primera vez que vayamos a utilizarlos o cuando se quiera
+modificar cualquier parámetro de configuración.
+Otra de las grandes ventajas de usar este tipo de implementación cloud es que podemos escalar nuestras
+aplicaciones casi de manera infinita según la demanda de nuestro aplicación.
+A diferencia del resto de aplicaciones mencionadas hasta el momento, los servicios de google son de pago, en muchos de ellos existe una modalidad gratuita pero los recursos de estas
+están limitadas en su capacidad de trabajo o en el tiempo que se pueden usar .
 
-\section{Descripción del entorno y sus diferentes componentes}
+
+\section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
+Las diferentes piezas que constituyen nuestra arquitectura cloud son las siguientes.
+
+\subsection{Google Storage}\label{subsec:storage}
+Es el sistema de almacenamiento de Google.
+Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha
+imagen en el pipeline del proceso principal y poder clasificarla, ya que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
+Las características principales que se han encontrado en el uso de esta aplicación para el trabajo son :
+\begin{itemize}
+    \item Escalabilidad practicamente infinita en el volumen de almacenamiento de los archivos.
+    \item Posibilidad de configurar distintas ubicaciones o múltiples para almacenar los datos, de modo que se pueden tener réplicas del historial en distintas partes del mundo de manera simultánea.
+    La replicación de los nodos a través de las distintas ubicaciones y su consistencia es una ventaja totalmente gestionada por Google.
+    \item Opción de carga en paralelo, la cual ha sido utilizada para los benchmark de la aplicación.
+    \item Encriptación de los datos y restricción de los accesos a los archivos de forma individual o colectiva.
+    \item Interoperabilidad con el resto de servicios cloud.
+\end{itemize}
+
+\subsection{Google BigQuery}\label{subsec:bigquery}
+Es una base de datos columnar y distribuida mantenida por Google, de modo que no hay que configurar su funcionamiento interno.
+En la aplicación de este trabajo BigQuery funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
+Las razones principales de su uso son :
+\begin{itemize}
+    \item Capacidad de análisis del orden de Petabytes en cuestión de segundos debido a los múltiples nodos que ejecutan las cargas de trabajo de manera distribuida.
+    \item Posibilidad de almacenar los distintos conjuntos de datos en ubicaciones distintas, reduciendo así la latencia dependiendo del sitio donde se ejecuten los trabajos.
+    \item Soporte para la ingesta de datos en tiempo real.
+    \item Acceso a distintas API en varios lenguajes de programación.
+\end{itemize}
+
+\subsection{Google Pub/Sub}\label{subsec:pubsub}
+Es un sistema de colas de mensajería diseñada para eventos,
+stá basado en el patrón de diseño productor/consumidor.
+En esta arquitectura cloud servirá de hilo conductor para las distintas partes de la aplicación cada vez que se produzca un evento como el de una nueva carga de imagen o la petición al servidor para realizar la clasificación.
+Sus caracteríscas se pueden enumerar en :
+
+\begin{itemize}
+    \item Se pueden configurar distintas colas de mensajes, separando así de manera lógica los eventos de la aplicación.
+    \item Este tipo de eventos está pensado para ser consumido en tiempo real, con la mínima latencia posible.
+    \item Soporte para la ingesta de datos en tiempo real.
+\end{itemize}
+
+\subsection{Google Compute Engine}\label{subsec:computeengine}
+Es el servicio principal de Google para proporcionar máquinas virtuales totalmente configurables, tanto en su capacidad de cálculo seleccionando el tipo de procesador, gpu y memoria ram que se necesite, como en el entorno
+en el que se va a ejecutar la aplicación, ya sea docker o las distintas distribuciones de sistemas operativos.
+Este servidor usará como aplicación principal una imagen de docker almacenada en el registro de contenedores.
+Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+
+\subsection{Google Cloud Function}\label{subsec:cloudfunction}
+Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible en una máquina virtual activada por eventos.
+Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre y están disponibles y no hay apenas latencia.
+En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento y el procesamiento de la petición al servidor con la información y metadatos correspondientes para realizar
+la clasificación.
+
+\subsection{Container Registry}\label{subsec:container-registry}
+Dado que todo el desarrollo de la aplicación y el versionado de esta ha sido efectuado mediante docker se ha usado
+un repositorio de imágenes para el almacenamiento y tagueado de estas.
+En este repositorio se almacenan las distintas imágenes de docker tanto para openvino como para tensorflow, ya que se han
+separado lógicamente para optimizar el tamaño de la imágen origen que tiene cada una de las aplicaciones.
+
+
+En la siguiente figura\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente y el flujo de trabajo
+que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos
+para su análisis.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/chapter4/cloud_architecture.png}
+    \caption{Arquitectura Google Cloud}
+    \label{fig:Arquitectura Google Cloud}
+\end{figure}
+
+\section{Codificación de los servidores web}\label{sec:codificación-de-los-servidores-web}
+Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para el su posterior análisis se necesita codificar un servidor web que realice todo este trabajo.
+Para ello se ha elegido, como anteriormente, el lenguaje de programación Python debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel
+de información sobre desarrollo con este lenguaje sea significativamente más alto que otros lenguajes.
+Se ha empleado un paradigma de programación orientado objetidos debido a la organización que proporciona con aplicaciones de un tamaño considerable y la dotación de intedidad que facilita a los distintos
+componentes.
+Para el procesamiento generalizado de imágenes y el sistema de recogia de metados se han codificado dos clases princpales.
+La primera\ref{lst:api}, encargada de la inicialización de los servicios de GoogleStorage y GoogleBigQuery, para los cuales se han codificado métodos para descarga y carga de información respectivamente.
+Se presenta un método principal para procesar las peticiones al servidor, el cual modela toda la información que va a ser incluida en la base datos.
+Esta información consta de los siguientes campos :
+
+\begin{itemize}
+    \item Nombre de la imagen
+    \item Tipo de archivo, que especifica el formato del fichero.
+    \item Fecha exacta de creación del archivo en el sistema de almacenamiento.
+    \item Clasificación de la imagen, para saber si el terreno de esta está dañado o no.
+    \item Tiempo de inferencia en la red.
+    En este caso dependerá de si estamos usndo openvino o tensorflow para realizar esta tarea.
+    \item Tiempo total de ejecucón desde que se que llega una petición al servidor hasta que se procesa.
+    \item Número de núcleos físicos del procesador.
+    \item Número de núcleos virtuales del procesador.
+    \item Sistema operativo
+    \item Versión del sistema operativo.
+    \item Memoria ram del sistema.
+    \item Sistema de inferencia, en este caso puede ser openvino o tensorflow.
+    \item Framework web utilizado, flask o fastapi en esta apliación.
+    \item Campo booleano para determinar si se está usando docker para encapsular la aplicación.
+    Para realizar las pruebas siempre se ha usado docker.
+    \item Campo booleano para saber si la aplicación se está ejecutando en un entorno local o en cloud.
+    En este caso siempre se ejecuta la aplicación en un entorno cloud.
+\end{itemize}
+
+
+\begin{lstlisting}[caption=Api, label=lst:api, float=t]
+    class Api:
+    def __init__(self, net, sys: SystemTrack):
+        self.__storage = GoogleStorage()
+        self.__big_query = GoogleBigQuery()
+        self.__net = net
+        self.sys_track = sys
+
+    def cloud_storage_request(self, item: dict):
+        start = time.time()
+        image_name = item['name']
+        size = item['size']
+        file_type = item['contentType']
+        time_created = item['timeCreated']
+        image_path = f'{data_dir}{image_name}'
+        self.__storage.download_blob(bucket, image_name, image_path)
+        prediction, inference_time = self.__net.process_image(image_path)
+        total_time = time.time() - start
+        row = [
+            (
+                image_name, size, file_type,
+                time_created, prediction, inference_time,
+                total_time, self.sys_track.physical_cores,
+                self.sys_track.total_cores, self.sys_track.system, self.sys_track.processor,
+                self.sys_track.system_memory,
+                self.sys_track.system_memory_available,
+                self.sys_track.so_version, self.sys_track.so_release, self.sys_track.inference_engine,
+                self.sys_track.web_engine, self.sys_track.processor_unit,
+                self.sys_track.docker, self.sys_track.cloud
+            )
+        ]
+        self.__big_query.insert_row(row)
+        os.remove(image_path)
+\end{lstlisting}
+La segunda refclase clase es la encargada de generar y recabar toda esta información para que la clase Api pueda procesarla.
+Se ha hecho uso de las librerías de psutil( ref https://pypi.org/project/psutil/ ) y platform para conseguir la información necesaria del sistema.
+Contamos de manera adicional con un método de conversión de unidades para normalizar los datos a un estándar preestablecido.
+Este objeto de tipo SystemTrack es el que será enviado por argumento a la clase Api, la cual procesará todos estos datos.
+\begin{lstlisting}[caption=Api, label=lst:system, float=t]
+class SystemTrack:
+    def __init__(self, docker: bool, inference_engine: str, web_engine: str, cloud: bool, processor_unit: str):
+        self.sys_information = platform.uname()
+        self.sys_memory = psutil.virtual_memory()
+        self.physical_cores = psutil.cpu_count(logical=False)
+        self.total_cores = psutil.cpu_count(logical=True)
+        self.system = self.sys_information.system
+        self.processor = self.sys_information.processor
+        self.system_memory = self.__get_size(self.sys_memory.total)
+        self.system_memory_available = self.__get_size(self.sys_memory.available)
+        self.so_version = self.sys_information.version
+        self.so_release = self.sys_information.release
+
+        self.docker = docker
+        self.inference_engine = inference_engine
+        self.web_engine = web_engine
+        self.cloud = cloud
+        self.processor_unit = processor_unit
+
+    @staticmethod
+    def __get_size(num_bytes, suffix="B"):
+        factor = 1024
+        for unit in ['', 'K', 'M', 'G', 'T', 'P']:
+            if num_bytes < factor:
+                return f'{num_bytes:.2f}{unit}{suffix}'
+            num_bytes /= factor
+\end{lstlisting}
+\subsection{Framework FastApi}\label{subsec:framework-fastapi}
 ok
-\section{Codificación de los servidores web}
-ok
-\subsection{Framework FastApi}
-ok
-\subsection{Framework Flask}
+
+\subsection{Framework Flask}\label{subsec:framework-flask}
 oki
-\section{Encapsulación de entorno con Docker}
+
+
+\section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
 (Explicación de las distintas imágenes de Docker de la aplicación y cómo se han construido)
+Buscando la máxima

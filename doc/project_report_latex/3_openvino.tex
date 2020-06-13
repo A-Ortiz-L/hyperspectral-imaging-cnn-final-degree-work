@@ -1,6 +1,15 @@
 \cleardoublepage
 \mbox{}
 
+\lstset{
+language=Python,
+basicstyle=\small\sffamily,
+numbers=left,
+numberstyle=\tiny,
+frame=tb,
+columns=fullflexible,
+showstringspaces=false
+}
 
 \chapter{Tecnología Openvino}
 \label{ch:chapter3}
@@ -68,18 +77,138 @@ Este modelo de Openvino va a servir tanto de punto de partida para la optimizaci
 modelos en producción.
 Una vez exportado el modelo de deep learning al formato estándar de tensorflow tendremos a nuestra disposición los ficheros necesarios para realizar la trasnformación de estos al formato de Openvino.
 Para realizar esta operación se hace uso de la herramienta de Optimización de modelos, en concreto, con el script específico de tensorflow, cuyo nombre
-es mo_tf.py.
-Este código fuente es ejecutado en la línea de comandos del sistema operativo correspondiente con los siguientes parámetros de entrada en la línea de comandos :
-\begin{lstlisting}
-mo_tf.py --input_model model.pb --input_model_is_text -b 1
+es \texttt{mo\_tf.py}
+
+
+Este código fuente es ejecutado en la línea de comandos del sistema operativo correspondiente con los siguientes parámetros de entrada en la línea de comandos.
+
+
+\begin{lstlisting}[caption=Comando de terminal para convertir un modelo tensorflow a uno de openvino.,
+  label=a_label,
+  float=t]
+    mo_tf.py --input_model model.pb --input_model_is_text -b 1
 \end{lstlisting}
-En este comando se epecifica mediante el flag --input_model_is_text que nuestro fichero no está codificado en código binario, por lo que es texto plano.
+
+En este comando epecifica con el flag \texttt{--input\_model\_is\_text} que nuestro fichero no está codificado en código binario, por lo que es texto plano.
 Esta opción es totalmente configurable y depende del proceso de exportación.
 Se ha encontrado útil la opción de exportaciòn a texto plano ya que de esta manera
-se puede observar la arquitectura de la red y los pesos pertenecientes a cad capa.
+se puede observar la arquitectura de la red y los pesos pertenecientes a cada capa.
+Configuramos también el flag -b, esta opción determina el tamaño del batch que queremos especificar para la conversión, seleccionamos 1 porque en las entradas de nuestra red neuronal pueden propagarse valores
+negativos, los cuales no son válidos para su procesamiento en Openvino.
+\section{Inferencias. Tensorflow vs OpenVINO}\label{sec:inferencias.-tensorflow-vs-openvino}
+Como se ha mencionado anteriormente tensorflow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real.
+Esta sistema se lllama tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
+de inferencia se realizan al servidor por medio del protocolo de transmisión de datos http.
+La aplicación de tensorflow está diseñada para el escalado tanto en el número de modelos para los que puede recibir inferencias y sus versiones como para la escalabilidad en capacidad de cálculo.
+El escalado de cáculo está preparado para funcionar en una arquitectura cluster, en este caso un cluster de contenedores como es kubernetes, por lo que el servidor puede ser
+encapsulado en su totalidad en un contenedor de docker.
+En este trabajo se ha trabajado con una versión encapsulada de docker, pero no con la extensibilidad del escalado con kubernetes.
+La unidad de cálculo principal del sistema de inferncia también es configurable, perimitiendo así el uso tanto de cpu como de gpu.
+Si se usa la opción de contenedores docker configurando una gpu es necesario configurar de manera esplícita este entorno.
+En la siguiente figura podemos observar el diseño de la arquitectura de la aplicación~\ref{fig:Arquitectura de tensorflow serving}
+Una de las ventajas frente a usar el sistemá de inferencias clásico de tensorflow es que la aplicación está preparada y optimizada para recibir tanto peticiones en streaming como en batch.
+Adicionalmente reducimos el tamaño de las librerías a instalar al mínimo necesario para realizar las inferencias y configurar el servidor, por lo que la solución es más ligera y portable, evitando así
+instalar todo el sistema de construcción de algoritmos y demás artefactos que incorpora la librerías de tensorflow para construir redes neuronales.
+La inicialización del servidor y los métodos necesarios para realizar la petición de inferencia se codifican de la siguiente manera :
+
+\begin{lstlisting}[caption=Clase de Tensorflow de la aplicación del trabajo.,
+  label=a_label,
+  language=python]
 
 
 
-\section{Inferencias.
-Tensorflow vs OpenVINO}\label{sec:inferencias.-tensorflow-vs-openvino}
-(Los resultados no habría que ponerlos en teoría aquí, sino llevarlos al apartado
+class TensorflowNetwork:
+    def __init__(self):
+        self.model_uri = 'http://localhost:8501/v1/models/model:predict'
+        self.init_tensorflow_serve()
+
+    @staticmethod
+    def shape_image(file_route):
+        img_array = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
+        new_array = cv2.resize(img_array, (128, 128))
+        img = new_array.reshape(-1, 128, 128, 1) / 255.0
+        img = np.float32(img).tolist()
+        return img
+
+    def process_image(self, file_route) -> Tuple[bool, float]:
+        start = time.time()
+        image = self.shape_image(file_route)
+        predict = self.network_request(image)
+        return predict, (time.time() - start)
+
+    def network_request(self, image) -> bool:
+        headers = {"content-type": "application/json"}
+        data = json.dumps({"signature_name": "serving_default", "instances": image})
+        res = requests.post(self.model_uri, data=data,
+                            headers=headers)
+        predictions = json.loads(res.text)['predictions']
+        predict = True if predictions[0][0] >= 0.5 else False
+        return predict
+
+    @staticmethod
+    def init_tensorflow_serve():
+        os.system('tensorflow_model_server '
+                  '--rest_api_port=8501 --model_name=model '
+                  '--model_base_path=/app/model &')
+\end{lstlisting}
+En la inicialización de la clase arrancamos el servidor rest, el cual funcionará de manera transparente para el usuario de nuestra aplicación, ya que el mismo se ejecuta en la red
+local de nuestro servidor principal
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/chapter3/tf_serving_architecture.png}
+    \caption{Arquitectura de tensorflow serving}
+    \label{fig:Arquitectura de tensorflow serving}
+\end{figure}
+
+Por otro lado, openvino también incorpora en su conjunto de herramientas un sistema de inferencia optimizado.
+Al igual que el sistema de inferencia de tensorflow, Openvino también puede configurar tanto cpu como gpu para realizar sus cálculos.
+La aplicación de inferencia de Openvino usaada en este trabajo se codifica de manera íntegra haciendo uso del lenguaje de programación python,
+por lo que el diseño software de este servicio y el procesamiento de las imágenes se codifica de la siguiente manera en el repositorio del trabajo.
+
+\begin{lstlisting}[caption=Clase de Openvino de la aplicación del trabajo.,
+  label=b_label,
+  language=python]
+    class OpenVinoNetwork:
+    def __init__(self):
+        self.plugin = IEPlugin(device='CPU')
+        self.net = IENetwork(model=f'{pickle_dir}model.xml',
+                             weights=f'{pickle_dir}model.bin')
+        self.exec_net = self.plugin.load(network=self.net)
+
+        self.input_blob = next(iter(self.net.inputs))
+        self.out_blob = next(iter(self.net.outputs))
+        self.net.batch_size = 1
+        self.image_shape = 128
+
+    def process_image(self, image_path) -> Tuple[bool, float]:
+        start = time.time()
+        image = self.shape_image(image_path)
+        res = self.network_request(image)
+        return res, time.time() - start
+
+    def shape_image(self, file_route):
+        image = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
+        image = cv2.resize(image, (self.image_shape, self.image_shape))
+        image = image.reshape(self.image_shape, self.image_shape) / 255.0
+        return image
+
+    def network_request(self, image) -> bool:
+        res = self.exec_net.infer(inputs={self.input_blob: image})
+        res = res[self.out_blob]
+        res = False if res < 0.5 else True
+        return res
+\end{lstlisting}
+
+En la inicialización de la clase se lee el fichero ya optimizado del modelo de deep learning, también se inicia la clase
+perteneciente a la api de inferencia de Openvino que se encarga de realizar las inferencia.
+Se configuran métodos específicos para transformar la imagen a las dimensiones correspondientes y para hacer la petición a la red de inferencia.
+La potencia de este modelo reside en la optimización que realiza la red en un lenguaje de bajo nivel, centrándose así en reducir los tiempos de inferencia.
+
+En general, la aplicación de tensorflow es más compleja a nivel de software, permitiendo su escalado en entornos de producción de manera muy simple.
+Ambas soluciones implementan tecnologías de contenedores mantenidas de manera oficial por los fabricantes, por lo que el uso de Docker es la mejor opción para transportar
+nuestras redes de inferencia a cuualquier sistema o dispositivo hardware.
+En este punto, Openvino implementa de manera concreta soluciones para FPGA e intel movidius, por lo que las opciones de portabilidd son más amplicas en esta tecnología.
+
+
