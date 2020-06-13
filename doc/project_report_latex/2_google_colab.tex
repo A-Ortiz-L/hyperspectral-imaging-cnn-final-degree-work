@@ -72,59 +72,6 @@ Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar e
     \item \textbf{Valores altos del parámetro de entrenamiento BatchSize}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
 \end{itemize}
 
-El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precición en el mínimo tiempo posible.
-\begin{itemize}
-    \item \textbf{175 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento.
-    \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85\% sobre el conjunto de datos de entrenamiento.
-    \item \textbf{200 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 29.94 segundos y una precisión del 87\% sobre el conjunto de datos de entrenamiento.
-\end{itemize}
-\iffalse
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_175_epoch.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_175_epoch_loss.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs, }
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_100_epoch.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_100_epoch_loss.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs, }
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_200_epoch.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 200 epochs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/batch_256_200_epoch_loss.png}
-    \caption{Función de activación Relu.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs, }
-\end{figure}
-
-
-\fi
-
-
 \section{Entorno Google Colab}\label{sec:entorno-google-colab}
 La plataforma de Google Colab\footnote{https://colab.research.google.com/notebooks/intro.ipynb} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
 Una de las grandes ventajas de trabajar con este entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir

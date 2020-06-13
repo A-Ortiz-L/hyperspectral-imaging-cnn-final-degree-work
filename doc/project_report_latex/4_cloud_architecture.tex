@@ -49,6 +49,7 @@ Las razones principales de su uso son :
     \item Posibilidad de almacenar los distintos conjuntos de datos en ubicaciones distintas, reduciendo así la latencia dependiendo del sitio donde se ejecuten los trabajos.
     \item Soporte para la ingesta de datos en tiempo real.
     \item Acceso a distintas API en varios lenguajes de programación.
+    \item Uso de SQL estándar como lenguaje de consulta.
 \end{itemize}
 
 \subsection{Google Pub/Sub}\label{subsec:pubsub}
@@ -215,7 +216,7 @@ Flask \footnote{https://flask.palletsprojects.com/en/1.1.x/} es el framework lig
 muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
 
 A diferencia de fastapi Flask se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
-Como servidor web se usará Gunicorn \footnote{https://gunicorn.org/} que sigue el estándar WSGI \footnote{https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
+Como servidor web se usará Gunicorn \footnote{https://gunicorn.org/} que sigue el estándar WSGI \footnote{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
 
 

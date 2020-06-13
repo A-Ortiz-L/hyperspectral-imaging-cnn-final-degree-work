@@ -1,20 +1,42 @@
-from google.cloud import bigquery
+from openvino.inference_engine import IENetwork, IEPlugin
+import cv2
+from config.cfg import pickle_dir
+import time
+from typing import Tuple
+
+
+class OpenVinoNetwork:
+    def __init__(self):
+        self.plugin = IEPlugin(device='CPU')
+        self.net = IENetwork(model=f'{pickle_dir}model.xml',
+                             weights=f'{pickle_dir}model.bin')
+        self.exec_net = self.plugin.load(network=self.net)
+
+        self.input_blob = next(iter(self.net.inputs))
+        self.out_blob = next(iter(self.net.outputs))
+        self.net.batch_size = 1
+        self.image_shape = 128
+
+    def process_image(self, image_path) -> Tuple[bool, float]:
+        start = time.time()
+        image = self.shape_image(image_path)
+        res = self.network_request(image)
+        return res, time.time() - start
+
+    def shape_image(self, file_route):
+        image = cv2.imread(file_route, cv2.IMREAD_GRAYSCALE)
+        image = cv2.resize(image, (self.image_shape, self.image_shape))
+        image = image.reshape(self.image_shape, self.image_shape) / 255.0
+        return image
+
+    def network_request(self, image) -> bool:
+        res = self.exec_net.infer(inputs={self.input_blob: image})
+        res = res[self.out_blob]
+        res = False if res < 0.5 else True
+        return res
+
 import os
-# Construct a BigQuery client object.
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './config/key.json'
-client = bigquery.Client()
+o = OpenVinoNetwork()
+for img in os.listdir('./data/undamaged'):
+    print(o.process_image(f'./data/undamaged/{img}'))
 
-# TODO(developer): Set dataset_id to the ID of the dataset to create.
-dataset_id = "{}.your_dataset".format(client.project)
-
-# Construct a full Dataset object to send to the API.
-dataset = bigquery.Dataset(dataset_id)
-
-# TODO(developer): Specify the geographic location where the dataset should reside.
-dataset.location = "EU"
-
-# Send the dataset to the API for creation.
-# Raises google.api_core.exceptions.Conflict if the Dataset already
-# exists within the project.
-dataset = client.create_dataset(dataset)  # Make an API request.
-print("Created dataset {}.{}".format(client.project, dataset.dataset_id))

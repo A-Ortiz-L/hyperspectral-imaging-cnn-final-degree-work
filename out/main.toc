@@ -14,7 +14,7 @@
 \contentsline {section}{\numberline {1.4}Organización de esta memoria}{6}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Entrenamiento del modelo mediante Google Colab}{8}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Modelo propuesto}{9}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Entorno Google Colab}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Entorno Google Colab}{11}{section.2.2}%
 \contentsline {chapter}{\numberline {3}Tecnología Openvino}{16}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Herramientas que lo componen}{17}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Optimizador de modelos de deep learning}{17}{subsection.3.1.1}%
@@ -29,23 +29,23 @@
 \contentsline {subsection}{\numberline {4.1.4}Google Compute Engine}{27}{subsection.4.1.4}%
 \contentsline {subsection}{\numberline {4.1.5}Google Cloud Function}{28}{subsection.4.1.5}%
 \contentsline {subsection}{\numberline {4.1.6}Container Registry}{28}{subsection.4.1.6}%
-\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{29}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{30}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{31}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Framework Flask}{33}{subsection.4.2.2}%
 \contentsline {section}{\numberline {4.3}Encapsulación de entorno con Docker}{33}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Resultados experimentales}{37}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Dataset usado}{37}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{37}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Ren dimiento en fase de inferencias}{37}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Costes del proyecto}{37}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{39}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Conclusiones}{39}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Trabajo futuro}{40}{section.6.2}%
-\contentsline {chapter}{Bibliografía}{40}{section.6.2}%
-\contentsline {chapter}{\numberline {A}Introduction}{41}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Motivation}{41}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Objectives}{42}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Organization of this memory}{43}{section.Alph1.3}%
-\contentsline {chapter}{\numberline {B}Conclusions and future work}{46}{appendix.Alph2}%
-\contentsline {section}{\numberline {B.1}Conclusions}{46}{section.Alph2.1}%
-\contentsline {section}{\numberline {B.2}Lines of future work}{47}{section.Alph2.2}%
+\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{38}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Rendimiento en fase de inferencias}{42}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Costes del proyecto}{44}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{46}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Conclusiones}{46}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Trabajo futuro}{46}{section.6.2}%
+\contentsline {chapter}{Bibliografía}{46}{section.6.2}%
+\contentsline {chapter}{\numberline {A}Introduction}{47}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Motivation}{47}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Objectives}{48}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Organization of this memory}{49}{section.Alph1.3}%
+\contentsline {chapter}{\numberline {B}Conclusions and future work}{52}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Conclusions}{52}{section.Alph2.1}%
+\contentsline {section}{\numberline {B.2}Lines of future work}{53}{section.Alph2.2}%
