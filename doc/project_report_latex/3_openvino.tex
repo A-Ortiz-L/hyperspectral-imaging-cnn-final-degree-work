@@ -13,17 +13,18 @@ showstringspaces=false
 
 \chapter{Tecnología Openvino}
 \label{ch:chapter3}
-Openvino es un conjunto de herramientas multi plataforma desarrollada por Intel que facilita la transición entre entre los entornos de entrenamiento y producción de nuestro modelo de aprendizaje profundo.
-Openvino a pesar de estar desarrolalda por una empresa comercial como Intel peternece al conjunto de aplicaciones de código abierto, de modo que podemos visualizar su código fuente, repotar fallos en incluso realizar aportaciones.
-Podemos visualizar el diseño y el código de la aplicación en su repositorio oficial de Github en el siguiente link https://github.com/openvinotoolkit/openvino.
-El cometido principal de esta aplicación es la optimización del tiempo de inferencia de un modelo de deep learning previamente entrenado.
-Para ello Openvino dispone de su propio formato de definición de modelos, son estos archivos los que procesa su propia red de inferencia multi plataforma, la cual está preparada para procesar estos archivos y poder
-realizar los trabajos de manera concurrente, aprovechando así, toda la potencia de los procesadores o gpu actuales.
+
+Openvino es un conjunto de herramientas multi plataforma desarrolladas por Intel, que facilita la transición entre entre los entornos de entrenamiento y producción de nuestro modelo de aprendizaje profundo.
+A pesar de estar desarrollada por una empresa comercial como Intel,peternece al conjunto de aplicaciones de código abierto, de modo que se puede visualizar su código fuente, repotar fallos e incluso realizar aportaciones.
+Podemos visualizar el diseño y el código de la aplicación en su repositorio oficial de Github \footnote{https://github.com/openvinotoolkit/openvino}.
+El cometido principal de esta aplicación es la optimización del tiempo de inferencia de un modelo de Deep Learning previamente entrenado.
+Para ello, Openvino dispone de su propio formato de definición de modelos.
+Estos archivos son los que procesa su propia red de inferencia multi plataforma, ya que se encuentra preparada para poder trabajar con los mismos de manera concurrente, aprovechando así toda la potencia de los procesadores o GPU actuales.
+En la siguiente figura~\ref{fig:Arquitectura de optimización de modelos con Openvino} se puede observar el flujo de trabajo que se ha seguido en este trabajo, haciendo uso de la herramienta Openvino
+En primer lugar, optimizaremos la topología de nuestro modelo a uno preparado para ser procesado por la red de inferencia de alto rendimiento de Openvino.
+Finalmente, nuestra red de inferencia será la que realice el trabajo de clasificación en el entorno de producción de nuestra aplicació
 
 
-En la siguiente figura podemos observar el flujo de trabajo que se ha seguido en este trabajo haciendo uso de la herramienta Openvino~\ref{fig:Arquitectura de optimización de modelos con Openvino}
-En primer lugar optimizaremos la topología de nuestro modelo a uno preparado para ser procesado por la red de inferencia de alto rendimiento de Openvino.
-Finalmente nuestra red de inferencia será la que realice el trabajo de clasificación en el entorno de producción de nuestra aplicación
 
 \begin{figure}
     \centering
@@ -34,8 +35,8 @@ Finalmente nuestra red de inferencia será la que realice el trabajo de clasific
 
 
 \section{Herramientas que lo componen}\label{sec:herramientas-que-lo-componen}
-Esta tecnología desarrollada por intel se centra principalmente en la optimización de modelos de redes neuronales convolucionales para potenciar su velocidad de inferencia mediante las distintas herramientas que lo componen.
-La herramienta soporta distintos hardwares como FPGA, Intel movidius, procesamiento por GPU\@ y también distintos sistemas operativos como Mac Os, Linux o Windows.
+Esta tecnología desarrollada por intel tiene por objetivo principal la optimización de modelos de redes neuronales convolucionales para potenciar su velocidad de inferencia, mediante las distintas herramientas que lo componen.
+Openvino es capaz de soportar distintos hardwares (FPGA, Intel movidius, procesamiento por GPU\@) y también varios sistemas operativos (Mac Os, Linux o Windows).
 Las características principales de esta aplicación se resumen en dos puntos :
 \begin{itemize}
     \item \textbf{Optimizador de modelos de deep learning}: Aplicación de interfaz de línea de comando, la cual usa como base modelos de frameworks populares como Caffe, TensorFlow, MXNet, Kaldi y ONNX para convertirlos a un modelo optimizado de Openvino.
@@ -43,24 +44,23 @@ Las características principales de esta aplicación se resumen en dos puntos :
 \end{itemize}
 
 \subsection{Optimizador de modelos de deep learning}\label{subsec:optimizador-de-modelos-de-deep-learning}
-Para poder realizar la optimización de nuestro modelo de deep learning previamente entrenado se necesita el binario que contiene la topología de la red del modelo.
-Una vez el optimizador de Openvino recibe como argumento nuestro modelo realiza una conversión de cada capa interna de la red a una nueva capa.
-Esta nueva capa, ya del formato de Openvino conserva los pesos de la red anterior, sin embargo, la definición de la misma está preparada para la que la aplicación de inferencia de Openvino pueda leerla correctamente.
-Openvino proporciona de manera genérica distintos scripts para realizar esta conversión.
-Se incluyen distintos scripts para los diferentes frameworks de deep learning más actuales, los mismos están codificados en python y podemos modificar su código fuente, aunque en principio no es necesario porque ya vienen preparados para funcionar.
+Para poder realizar la optimización de nuestro modelo de deep learning previamente entrenado, se necesita el binario que contiene la topología de la red del modelo. Una vez el optimizador de Openvino recibe como argumento nuestro modelo procede a realizar una conversión de cada capa interna de la red a una nueva capa.
+Esta nueva capa, ya convertida al formato de Openvino, conserva los pesos de la red anterior.
+Sin embargo, la definición de la misma está preparada para que la aplicación de inferencia de Openvino pueda leerla correctamente.
+La herramienta de Openvino proporciona de manera genérica distintos scripts para realizar esta conversión.
+Se incluyen distintos scripts para los diferentes frameworks de Deep Learning más actuales, codificados en python y a los que se puede modifcar su código fuente, aunque en principio no es necesario porque ya vienen preparados para funcionar.
 
 \subsection{Interfaz de infernecia de modelos de deep learning}\label{subsec:interfaz-de-infernecia-de-modelos-de-deep-learning}
-Con nuestro modelo y su topología convertida a un formato válido de Openvino tenemos todo lo necesario para poder realizar clasificaciones con la interfaz de inferencia de Openvino.
-La optimización de inferencia se produce en este punto, donde cada capa de nuestro modelo original es procesada por la aplicación de inferencia en un lenguaje de bajo nivel, el cual está optimizado
-para realizar operaciones vectoriales bajo total control del programador.
-Este lenguaje es C++, aunque el programa puede ser utilizada también en Python gracias al uso de su API, la cual traduce las peticiones realizadas en Python al core de la interfaz, el cual es C++ puro.
+Con nuestro modelo y su topología convertida a un formato válido de Openvino, ya tenemos todo lo necesario para poder realizar clasificaciones con la interfaz de inferencia de Openvino.
+La optimización de inferencia se produce en este punto, donde cada capa de nuestro modelo original es procesada por la aplicación de inferencia en un lenguaje de bajo nivel, optimizado para realizar operaciones vectoriales bajo total control del programador.
+El lenguaje empleado para la codificación de la aplicación es C++ pese a que el programa pueda ser utilizado también en Python.
+Esto se debe al uso de su API, que traduce las peticiones realizadas en Python al core de la interfaz, que es C++ puro.
 Todas las capas usadas en este proyecto son compatibles de manera directa con las predefinidas por la interfaz de inferencia.
-Openvino nos da la posibilidad de añadir capas personalizadas, con el inconveniente de que estas capas deben de ser programadas por el usuario de manera explícita en C++ para hacerlas compatibles con el resto de la aplicación y, por supuesto, mantener estas
-nuevas capas a lo largo de las distintas actualizaciones y posibles cambios que pueda sufrir la aplicación.
+Entre otras cosas, Openvino nos da la posibilidad de añadir capas personalizadas, con el inconveniente de que deben ser programadas por el usuario de manera explícita en C++ para hacerlas compatibles con el resto de la aplicación. Y, por supuesto, mantener estas nuevas capas a lo largo de las distintas actualizaciones y posibles cambios que pueda sufrir la aplicación.
 
 
 \section{Conversión del modelo a la plataforma OpenVINO}\label{sec:conversión-del-modelo-a-la-plataforma-openvino}
-Para realizar la conversión del modelo en primer lugar es necesaria la exportación del modelo original de tensorflow a un formato compatible con la red de optimización de modelos de Openvino.
+Para realizar la conversión del modelo, en primer lugar es necesaria la exportación del original de tensorflow a un formato compatible con la red de optimización de modelos de Openvino.
 La serialización por defecto de un modelo de tensorflow puede incluir de manera independiente :
 
 \begin{itemize}
@@ -79,7 +79,6 @@ Una vez exportado el modelo de deep learning al formato estándar de tensorflow 
 Para realizar esta operación se hace uso de la herramienta de Optimización de modelos, en concreto, con el script específico de tensorflow, cuyo nombre
 es \texttt{mo\_tf.py}
 
-
 Este código fuente es ejecutado en la línea de comandos del sistema operativo correspondiente con los siguientes parámetros de entrada en la línea de comandos.
 
 
@@ -96,9 +95,9 @@ se puede observar la arquitectura de la red y los pesos pertenecientes a cada ca
 Configuramos también el flag -b, esta opción determina el tamaño del batch que queremos especificar para la conversión, seleccionamos 1 porque en las entradas de nuestra red neuronal pueden propagarse valores
 negativos, los cuales no son válidos para su procesamiento en Openvino.
 
-\section{Inferencias. Tensorflow vs OpenVINO}\label{sec:inferencias.-tensorflow-vs-openvino}
+\section{Inferencias.Tensorflow vs OpenVINO}\label{sec:inferencias.-tensorflow-vs-openvino}
 Como se ha mencionado anteriormente tensorflow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real.
-Esta sistema se lllama tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
+Esta sistema se llama tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
 de inferencia se realizan al servidor por medio del protocolo de transmisión de datos http.
 La aplicación de tensorflow está diseñada para el escalado tanto en el número de modelos para los que puede recibir inferencias y sus versiones como para la escalabilidad en capacidad de cálculo.
 El escalado de cáculo está preparado para funcionar en una arquitectura cluster, en este caso un cluster de contenedores como es kubernetes, por lo que el servidor puede ser
@@ -210,6 +209,6 @@ La potencia de este modelo reside en la optimización que realiza la red en un l
 En general, la aplicación de tensorflow es más compleja a nivel de software, permitiendo su escalado en entornos de producción de manera muy simple.
 Ambas soluciones implementan tecnologías de contenedores mantenidas de manera oficial por los fabricantes, por lo que el uso de Docker es la mejor opción para transportar
 nuestras redes de inferencia a cuualquier sistema o dispositivo hardware.
-En este punto, Openvino implementa de manera concreta soluciones para FPGA e intel movidius, por lo que las opciones de portabilidd son más amplicas en esta tecnología.
+En este punto, Openvino implementa de manera concreta soluciones para FPGA e intel movidius, por lo que las opciones de portabilidd son más amplias en esta tecnología.
 
 

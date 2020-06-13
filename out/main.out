@@ -21,7 +21,7 @@
 \BOOKMARK [2][-]{subsection.3.1.1}{Optimizador de modelos de deep learning}{section.3.1}% 21
 \BOOKMARK [2][-]{subsection.3.1.2}{Interfaz de infernecia de modelos de deep learning}{section.3.1}% 22
 \BOOKMARK [1][-]{section.3.2}{Conversi\363n del modelo a la plataforma OpenVINO}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.3}{Inferencias. Tensorflow vs OpenVINO}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.3}{Inferencias.Tensorflow vs OpenVINO}{chapter.3}% 24
 \BOOKMARK [0][-]{chapter.4}{Implementaci\363n}{}% 25
 \BOOKMARK [1][-]{section.4.1}{Descripci\363n del entorno y sus diferentes componentes}{chapter.4}% 26
 \BOOKMARK [2][-]{subsection.4.1.1}{Google Storage}{section.4.1}% 27

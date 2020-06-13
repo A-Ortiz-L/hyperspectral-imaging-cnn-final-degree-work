@@ -3,18 +3,16 @@
 
 \chapter{Entrenamiento del modelo mediante Google Colab}
 \label{ch:chapter2}
-Uno de los parámetros más importantes dentro del entrenamiento de modelos de deep learning es la velocidad.
-La velocidad de entrenamiento es de vital importancia ya que los modelos pueden requerir entradas de tamaño masivo, por lo que la capacidad de cómputo
-va a ser clave para acelerar este proceso y poder enfocarnos plenamente a la mejora del rendimiento de nuestro modelo, sin tener como cuello de botella la espera
-que nos pueda producir volver a entrenar el mismo con distintos parámetros.
-De este modo podemos reajustar constantemente nuestro modelo para encontrar el punto óptimo de manera ágil.
-En este trabajo vamos a entrenar nuestro modelo haciendo uso del framework de código abierto de TensorFlow, el cual incluye una API de deep learning llamada Keras, que será la que utilicemos.
-
-El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes y los propios procedimientos que realizan las redes neuronales
-para hacer sus cálculos son operaciones matriciales.
-Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU nos puede dar en este tipo de operaciones gracias
-a su arquitectura de paralelización, ya que es la idónea para este tipo de trabajo.
-La ventaja que nos da frente a la CPU es la capacidad de cómputo con un mayor número de núcleos o cores (ver Figura \ref{fig:Arquitectura de paralelización de una GPU}), gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
+Dentro del entrenamiento de modelos Deep Learning, la velocidad es uno de los parámetros fundamentales.
+Los modelos pueden requerir entradas de tamaño masivo en las que la capacidad de cómputo se torne clave para acelerar el proceso;
+esto permite enfocarse plenamente en la mejora de rendimiento del modelo planteado.
+El objetivo es evitar la posible espera que pueda producir volver a entrenar el mismo con distintos parámetros.
+Con ello, se puede reajustar constantemente el modelo para encontrar el punto óptimo de manera ágil.
+En este trabajo se va a entrenar el modelo planteado haciendo uso del framework de código abierto de TensorFlow\footnote{https://www.tensorflow.org/}.
+Éste incluye una API de Deep Learning llamada Keras, que será la que utilicemos.
+El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes y los propios procedimientos que realizan las redes neuronales para hacer sus cálculos son operaciones matriciales.
+Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU puede aportar en este tipo de operaciones, principalmente por su arquitectura de paralelización, idónea para este tipo de trabajo.
+La ventaja que aporta frente a la CPU es la capacidad de cómputo con un mayor número de núcleos o cores (ver Figura\ref{fig:Arquitectura de paralelización de una GPU}), gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
 
 \begin{figure}
     \centering
@@ -25,16 +23,12 @@ La ventaja que nos da frente a la CPU es la capacidad de cómputo con un mayor n
 
 
 \section{Modelo propuesto}\label{sec:modelo-propuesto}
-En esta parte del trabajo se pretende conseguir la máxima velocidad de entrenamiento posible manteniendo unos niveles de precisión elevados en la predicción.
-Nuestro modelo tiene como cometido primordial poder clasificar distintas imágenes según el estado del terreno que aparece en la fotografía, siendo las opciones: terreno dañado y
-terreno en buenas condiciones.
-Para ello disponemos de un dataset de 268 imágenes multiespectrales (describir dataset, procedencia).
+En esta parte del trabajo se pretende conseguir la máxima velocidad de entrenamiento posible manteniendo unos niveles de precisión elevados en la predicción. Nuestro modelo tiene como cometido primordial poder clasificar distintas imágenes según el estado del terreno que aparece en la fotografía, siendo las opciones: terreno dañado y terreno en buenas condiciones.
+Para ello, disponemos de un dataset de 268 imágenes multiespectrales (describir dataset, procedencia).
 Una imagen multiespectral es la que captura datos de imágenes dentro de rangos de longitud de onda específicos a través del espectro electromagnético
-Como framework principal para realizar el entrenamiento nos ayudaremos de TensorFlow que incluye la librería de deep learning Keras, la cual simplifica mucho la implementación de este tipo de algoritmos de
-aprendizaje automático gracias a que sus objetos y funciones están construidos de una manera intuitiva.
+Como framework principal para realizar el entrenamiento nos ayudaremos de TensorFlow que incluye la librería de deep learning Keras, la cual simplifica mucho la implementación de este tipo de algoritmos de aprendizaje automático, debido a que sus objetos y funciones están construidos de una manera intuitiva.
 La distribución a efectuar sobre el conjunto de datos en entrenamiento y test es del 70 y 30 por ciento respectivamente.
 Para la construcción de este algoritmo haremos uso de las siguientes capas, sobre las que TensorFlow nos da una API para tener control total sobre su configuración.
-
 \begin{itemize}
     \item \textbf{Conv2D}: Capa convolucional cuyo principal objetivo es extraer características de la imagen de entrada o partes de la misma.
     El térmido 2D se refiere al movimiento del filtro, el cuál es un parámetro de entrada de este tipo de capas.
@@ -132,7 +126,7 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 
 
 \section{Entorno Google Colab}\label{sec:entorno-google-colab}
-La plataforma de Google Colab es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
+La plataforma de Google Colab\footnote{https://colab.research.google.com/notebooks/intro.ipynb} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
 Una de las grandes ventajas de trabajar con este entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
 nuestro trabajo con otras personas.
 Estas características permiten a Google Colab convertirse en un entorno muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso
@@ -140,13 +134,12 @@ de unas herramientas profesionales.
 En este trabajo haremos uso de la tarjeta gráfica Tesla K80.
 Las características primarias de nuestra principal unidad de cómputo son las siguientes :
 \begin{itemize}
-    \item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU.
+    \item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU\@.
     \item Hasta 2,91 teraflops de rendimiento en operaciones de precisión doble con NVIDIA GPU Boost.
     \item 24 GB de memoria GDDR5.
     \item 480 GB/s de ancho de banda de memoria agregado.
     \item Hasta 8,73 teraflops de rendimiento en operaciones de precisión simple con NVIDIA GPU Boost.
 \end{itemize}
-El uso de este tipo de herramientas en esta plataforma es extrapolable a otras nubes sin las restricciones en cuanto al número de unidades de procesamiento que necesitamos,
-la interoperabilidad de sus elementos con otros componentes externos, tales como servidores o respositorios de código y la configuración explícita de cada uno de los entornos de ejecución.
-Una de las principales ventajas que tiene poder usar un entorno como Google Colab es que el servicio se ejecuta de manera íntegra online, de modo que toda la carga computacional reside en la herramienta de Google y no en
-nuestro computador, permitiendo así poder trabajar de manera fluida realizando otro tipo de cometidos en nuestra máquina o simplemente ejecutando un proceso para el cual no tenemos suficiente potencia disponible.
+El uso de este tipo de herramientas en esta plataforma es extrapolable a otras nubes sin las restricciones en cuanto al número de unidades de procesamiento que necesitamos, la interoperabilidad de sus elementos con otros componentes externos, tales como servidores o respositorios de código, así como la configuración explícita de cada uno de los entornos de ejecución.
+Una de las principales ventajas que tiene poder usar un entorno como Google Colab es que el servicio se ejecuta de manera íntegra online, de modo que toda la carga computacional reside en la herramienta de Google y no en nuestro computador.
+Esto permite trabajar de manera fluida realizando otro tipo de cometidos en nuestra máquina, o simplemente ejecutar un proceso para el que no tenemos suficiente potencia disponible.
