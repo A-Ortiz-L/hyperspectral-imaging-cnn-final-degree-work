@@ -33,6 +33,8 @@ El equipo que ha realizado la carga tiene como hardware principal los siguientes
     \item Conexión a internet de fibra óptica simétrica de 600 MB\@.
 \end{itemize}
 La comparativa de resultados y el correspondiente análisis ha sido realizado en la base de datos distribuida BigQuery, haciendo uso de SQL estándar.
+
+
 \section{Rendimiento en fase de entrenamiento}\label{sec:rendimiento-en-fase-de-entrenamiento}
 Para obtener los resultados de este experimento se ha usado el hardware disponible en la plataforma de Google Colab, usando como comparativa :
 \begin{itemize}
@@ -95,60 +97,97 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
     \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs}
 \end{figure}
 
+
 \section{Rendimiento en fase de inferencias}\label{sec:ren-dimiento-en-fase-de-inferencias}
 En cuanto a los tiempos de inferencia, la diferencia es notable entre OpenVINO y Tensorflow.
 Los resultados se presentan haciendo uso de una muestra de 16.000 ejecuciones de inferencia en el entorno de producción de la aplicación, tanto para los entornos con OpenVINO, como para Tensorflow.
 La unidad de cálculo principal es el procesador, siendo su modelo un Intel Xeon (Cascada Lake) con una frecuencia de 2.8 GHz de base y un turbo hasta 3.4 GHz.
 Se han probado distintas configuraciones de este procesador, tanto en su versión de 2 núcleos físicos, 4 virtuales como en la de 4 núcleos físicos, 8 virtuales.
 La memoria ram utilizada varía de 4 GB en su primera versión junto con el procesador de 2 núcleos físicos a 8 GB en la versión de 4 núcleos físicos.
-En la figura~\ref{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow} se puede observar como la media de inferencia a lo largo de las 16.000 muestras tomadas
+En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow} se puede observar como la media de inferencia a lo largo de las 16.000 muestras tomadas
 es de 200ms para Tensorflow y 4ms para OpenVINO lo que supone una velocidad de inferencia 50 veces superior de OpenVINO frente a Tensorflow.
-También podemos visualizar en la imagen ~\ref{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
-Y se reduce aún más en OpenVINO debido a la rapidez de su red de inferencia y  la simplicidad con la que se implementa.
+También podemos visualizar en la table ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
+Y se reduce aún más en OpenVINO debido a la rapidez de su red de inferencia y la simplicidad con la que se implementa.
 Al contrario que Tensorflow, no necesita ningún otro tipo de servicio adicional más que la API de alto rendimiento, que funciona como una librería almacenada de manera local en el sistema operativo.
 Las distintas configuraciones hardware también revelan que el consumo de memoria del sistema de inferencia de Tensorflow afecta al rendimiento de la aplicación, mejorando mucho su rendimiento con un hardware más potente.
 OpenVINO, por el contrario, mantiene resultados similares con un hardware de bajo coste.
 Tensorflow mejora en 5 veces la velocidad de inferencia pasando de un procesador de 2 núcleos y 4 GB de ram a uno de 4 núcleos y 8 GB de ram teniendo un tiempo de 360ms con el primero y 66 con el segundo, lo que denota que el consumo de su servicio de inferencia requiere de un hardware más caro.
 Del mismo modo mejora 8 veces su tiempo de inferencia total con la mejora del hardware pasando de 800ms a 97ms.
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/chapter5/time_inference_engine.png}
-    \caption{Comparativa de tiempos de inferencia con OpenVINO y Tensorflow}
-    \label{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow}
-\end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/chapter5/time_inference_system_engine.png}
-    \caption{Comparativa de tiempos de inferencia con OpenVINO y Tensorflow con distinto hardware}
-    \label{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
-\end{figure}
 
 Se han configurado los distintos servidores web para que empleen todos los núcleos del procesador de manera concurrente, de modo que la capacidad de procesamiento de peticiones sea la máxima posible.
-En la figura~\ref{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
+En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
 Tensorflow se comporta mucho mejor con flask, mejorando en 4 veces su tiempo de inferencia en la red, pasando de 348ms con fastapi a 83ms con flask y 3.7 veces en el tiempo total de ejecución teniendo un rendimiento de 700ms con fastapi a 200ms con flask.
 Flask es un servidor web con los mínimos componentes para funcionar, pero configurado de la manera correcta puede ser el framework idóneo para realizar una tarea específica.
 En este caso, la complejidad del servicio de Tensorflow convive mejor con un framework web sin demasiados componentes adicionales.
 Los componentes que proporciona fastapi como un sistema de logging detallado de las ejecuciones y algunas características adicionales para el desarrollador, pueden ocasionar cierto aumento de la latencia en los tiempos.
 Aun así, cuando la fiabilidad es uno de los requisitos y objetivos principales, estas mejoras pueden valer la pena a la hora de escalar nuestra aplicación.
 En general, fastapi requiere de un hardware más potente para sacar su máximo rendimiento, mientras que con una framework minimalista como flask podemos optar por reducir costes en hardware sin penalizar demasiado el rendimiento.
-En la figura~\ref{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/chapter5/time_general.png}
-    \caption{Comparativa de tiempos de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
-    \label{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
-\end{figure}
+En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
 
 
+\begin{table}[t]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c | c | c | c |}
+            \hline
+            inference\_engine & physical\_core & web\_engine & system\_memory & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            openvino & 2 & 3.46GB & FastApi & 0.006 & 0.104 \\
+            openvino & 4 & 7.00GB & FastApi & 0.004 & 0.102 \\
+            tensorflow & 2 & 3.46GB & FastApi 0.608 & 1.349 \\
+            tensorflow & 4 & 7.00GB & FastApi & 0.087 & 0.235 \\
+            openvino & 2 & 3.46GB & Flask & 0.004 & 0.09 \\
+            openvino & 4 & 7.00GB & Flask &0.003 & 0.098 \\
+            tensorflow & 2 & 3.46GB & Flask & 0.12 & 0.284 \\
+            tensorflow & 4 & 7.00GB & Flask & 0.045 6 0.141 \\ \hline
+        \end{tabular}
+        \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
+        \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
+    \end{center}
+\end{table}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/chapter5/time_inference_web.png}
-    \caption{Comparativa de tiempos de inferencia con OpenVINO y Tensorflow con distinto framework web}
-    \label{fig:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web}
-\end{figure}
+\begin{table}[t]
+    \begin{center}
+        \begin{tabular}{| c | c | c |}
+            \hline
+            inference\_engine & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            tensorflow & 0.215 & 0.502 \\
+            openvino & 0.004 & 0.098 \\ \hline
+        \end{tabular}
+        \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow}
+        \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow}
+    \end{center}
+\end{table}
+
+\begin{table}[t]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c |}
+            \hline
+            inference\_engine & web\_engine & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            openvino & Flask & 0.004 & 0.094 \\
+            openvino & FastApi & 0.005 & 0.103 \\
+            tensorflow & Flask & 0.083 & 0.212 \\
+            tensorflow & FastApi & 0.348 & 0.792 \\ \hline
+        \end{tabular}
+        \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web}
+        \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web}
+    \end{center}
+\end{table}
+
+\begin{table}[t]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c | c | c |}
+            \hline
+            inference\_engine & physical\_core & total\_core & system\_memory & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            tensorflow & 4 & 8 & 7.00GB & 0.066 & 0.188 \\
+            openvino & 4 & 8 & 7.00GB & 0.003 & 0.1 \\
+            openvino & 2 & 4 & 3.46GB & 0.005 & 0.097 \\
+            openvino & 2 & 4 & 3.46GB & 0.364 & 0.816 \\ \hline
+        \end{tabular}
+        \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
+        \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
+    \end{center}
+\end{table}
+
 
 El número total de aciertos de clasificación en ambas redes asciende a 1566 registros de un total de 16000, teniendo así un porcentaje de acierto general
 del 97 por ciento.Con un recuento de 108 fallos en la red tensorflow y 226 en openvino.
