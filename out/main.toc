@@ -2,9 +2,9 @@
 \babel@toc {spanish}{}
 \contentsline {chapter}{Índice general}{\es@scroman {i}}{section*.2}%
 \contentsline {chapter}{Índice de figuras}{\es@scroman {iv}}{chapter*.4}%
-\contentsline {chapter}{Índice de tablas}{\es@scroman {v}}{chapter*.5}%
-\contentsline {chapter}{Resumen}{\es@scroman {vii}}{chapter*.5}%
-\contentsline {chapter}{Abstract}{\es@scroman {ix}}{chapter*.5}%
+\contentsline {chapter}{Índice de tablas}{\es@scroman {vi}}{chapter*.5}%
+\contentsline {chapter}{Resumen}{\es@scroman {viii}}{chapter*.5}%
+\contentsline {chapter}{Abstract}{\es@scroman {x}}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivación y objetivos}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Estado del arte}{2}{section.1.2}%
@@ -29,23 +29,23 @@
 \contentsline {subsection}{\numberline {4.1.4}Google Compute Engine}{27}{subsection.4.1.4}%
 \contentsline {subsection}{\numberline {4.1.5}Google Cloud Function}{28}{subsection.4.1.5}%
 \contentsline {subsection}{\numberline {4.1.6}Container Registry}{28}{subsection.4.1.6}%
-\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{28}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{31}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.2}Codificación de los servidores web}{29}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Framework FastApi}{32}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Framework Flask}{33}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Encapsulación de entorno con Docker}{33}{section.4.3}%
+\contentsline {section}{\numberline {4.3}Encapsulación de entorno con Docker}{34}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Resultados experimentales}{37}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Dataset usado}{37}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{38}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Rendimiento en fase de inferencias}{42}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Costes del proyecto}{44}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{46}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Conclusiones}{46}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Trabajo futuro}{46}{section.6.2}%
-\contentsline {chapter}{Bibliografía}{46}{section.6.2}%
-\contentsline {chapter}{\numberline {A}Introduction}{47}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Motivation}{47}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Objectives}{48}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Organization of this memory}{49}{section.Alph1.3}%
-\contentsline {chapter}{\numberline {B}Conclusions and future work}{52}{appendix.Alph2}%
-\contentsline {section}{\numberline {B.1}Conclusions}{52}{section.Alph2.1}%
-\contentsline {section}{\numberline {B.2}Lines of future work}{53}{section.Alph2.2}%
+\contentsline {section}{\numberline {5.3}Rendimiento en fase de inferencias}{39}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Costes del proyecto}{45}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{48}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Conclusiones}{48}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Trabajo futuro}{49}{section.6.2}%
+\contentsline {chapter}{Bibliografía}{49}{section.6.2}%
+\contentsline {chapter}{\numberline {A}Introduction}{50}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Motivation}{50}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Objectives}{51}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Organization of this memory}{52}{section.Alph1.3}%
+\contentsline {chapter}{\numberline {B}Conclusions and future work}{55}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Conclusions}{55}{section.Alph2.1}%
+\contentsline {section}{\numberline {B.2}Lines of future work}{56}{section.Alph2.2}%

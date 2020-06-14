@@ -30,6 +30,7 @@ Las diferentes piezas que constituyen nuestra arquitectura cloud son las siguien
 Es el sistema de almacenamiento de Google.
 Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha
 imagen en el pipeline del proceso principal y poder clasificarla, ya que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
+Esta solución es la principal entrada de datos de la aplicación, por lo que nadie sin una clave de autenticación específica del proyecto puede subir archivos.
 Las características principales que se han encontrado en el uso de esta aplicación para el trabajo son :
 \begin{itemize}
     \item Escalabilidad practicamente infinita en el volumen de almacenamiento de los archivos.
@@ -43,6 +44,7 @@ Las características principales que se han encontrado en el uso de esta aplicac
 \subsection{Google BigQuery}\label{subsec:bigquery}
 Es una base de datos columnar y distribuida mantenida por Google, de modo que no hay que configurar su funcionamiento interno.
 En la aplicación de este trabajo BigQuery funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
+Todos los conjuntos de datos de esta base de datos han sido configurados en Europa para disminuir la latencia lo máximo posible.
 Las razones principales de su uso son :
 \begin{itemize}
     \item Capacidad de análisis del orden de Petabytes en cuestión de segundos debido a los múltiples nodos que ejecutan las cargas de trabajo de manera distribuida.
