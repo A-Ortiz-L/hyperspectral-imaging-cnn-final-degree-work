@@ -21,7 +21,7 @@
   },
   {
     "mode": "NULLABLE",
-    "name": "damaged",
+    "name": "undamaged",
     "type": "BOOLEAN"
   },
   {
