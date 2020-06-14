@@ -13,14 +13,14 @@ En cuanto a la muestra presentada en el estudio de las métricas de inferencia y
 La razón por la que el tamaño de la muestra es mucho mayor que el las imágenes de origen es porque se han cargado de manera repetida muchas imágenes para poner el sistema con muchas peticiones concurrentes.
 La división del conjunto de datos es la siguiente :
 \begin{itemize}
-    \item 2000 muestras con un procesador de 2 núcleos virtuales 4 hilos usando flask y Tensorflow.
-    \item 2000 muestras con un procesador de 2 núcleos virtuales 4 hilos usando fastapi y Tensorflow.
-    \item 2000 muestras con un procesador de 4 núcleos virtuales 8 hilos usando fastapi y Tensorflow.
-    \item 2000 muestras con un procesador de 4 núcleos virtuales 8 hilos usando flask y Tensorflow.
-    \item 2000 muestras con un procesador de 2 núcleos virtuales 4 hilos usando flask y OpenVINO\@.
-    \item 2000 muestras con un procesador de 2 núcleos virtuales 4 hilos usando fastapi y OpenVINO\@.
-    \item 2000 muestras con un procesador de 4 núcleos virtuales 8 hilos usando flask y OpenVINO\@.
-    \item 2000 muestras con un procesador de 4 núcleos virtuales 8 hilos usando fastapi y OpenVINO\@.
+    \item 2000 muestras con un procesador de 2 núcleos físicos 4 hilos usando flask y Tensorflow.
+    \item 2000 muestras con un procesador de 2 núcleos físicos 4 hilos usando fastapi y Tensorflow.
+    \item 2000 muestras con un procesador de 4 núcleos físicos 8 hilos usando fastapi y Tensorflow.
+    \item 2000 muestras con un procesador de 4 núcleos físicos 8 hilos usando flask y Tensorflow.
+    \item 2000 muestras con un procesador de 2 núcleos físicos 4 hilos usando flask y OpenVINO\@.
+    \item 2000 muestras con un procesador de 2 núcleos físicos 4 hilos usando fastapi y OpenVINO\@.
+    \item 2000 muestras con un procesador de 4 núcleos físicos 8 hilos usando flask y OpenVINO\@.
+    \item 2000 muestras con un procesador de 4 núcleos físicos 8 hilos usando fastapi y OpenVINO\@.
 \end{itemize}
 Estas imágenes han sido testeadas por los distintos entornos productivos, sistemas de inferencia y frameworks web.
 La carga de las imágenes al sistema de almacenamiento se ha realizado de manera paralela gracias al soporte multi-threading de Google Storage, el equipo que ha realizado la carga tiene como hardware principal los siguientes componentes :
