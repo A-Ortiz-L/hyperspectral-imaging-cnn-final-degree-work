@@ -1,7 +1,9 @@
 %\cleardoublepage
 %\thispagestyle{empty}
 \mbox{}
-
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{adjustbox}
 
 \chapter{Resultados experimentales}
 \label{ch:chapte5}
@@ -106,7 +108,7 @@ Se han probado distintas configuraciones de este procesador, tanto en su versió
 La memoria ram utilizada varía de 4 GB en su primera versión junto con el procesador de 2 núcleos físicos a 8 GB en la versión de 4 núcleos físicos.
 En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow} se puede observar como la media de inferencia a lo largo de las 16.000 muestras tomadas
 es de 200ms para Tensorflow y 4ms para OpenVINO lo que supone una velocidad de inferencia 50 veces superior de OpenVINO frente a Tensorflow.
-También podemos visualizar en la table ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
+También podemos visualizar en la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
 Y se reduce aún más en OpenVINO debido a la rapidez de su red de inferencia y la simplicidad con la que se implementa.
 Al contrario que Tensorflow, no necesita ningún otro tipo de servicio adicional más que la API de alto rendimiento, que funciona como una librería almacenada de manera local en el sistema operativo.
 Las distintas configuraciones hardware también revelan que el consumo de memoria del sistema de inferencia de Tensorflow afecta al rendimiento de la aplicación, mejorando mucho su rendimiento con un hardware más potente.
@@ -126,30 +128,32 @@ En general, fastapi requiere de un hardware más potente para sacar su máximo r
 En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
 
 
-\begin{table}[t]
+\begin{table}[ht]
     \begin{center}
-        \begin{tabular}{| c | c | c | c | c | c | c |}
+        \small
+        \begin{tabular}{ | c | c | c | c| c | c | c |}
             \hline
-            inference\_engine & physical\_core & web\_engine & system\_memory & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            engine & cores & framework & memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
             openvino & 2 & 3.46GB & FastApi & 0.006 & 0.104 \\
             openvino & 4 & 7.00GB & FastApi & 0.004 & 0.102 \\
-            tensorflow & 2 & 3.46GB & FastApi 0.608 & 1.349 \\
+            tensorflow & 2 & 3.46GB & FastApi & 0.608 & 1.349 \\
             tensorflow & 4 & 7.00GB & FastApi & 0.087 & 0.235 \\
             openvino & 2 & 3.46GB & Flask & 0.004 & 0.09 \\
-            openvino & 4 & 7.00GB & Flask &0.003 & 0.098 \\
+            openvino & 4 & 7.00GB & Flask & 0.003 & 0.098 \\
             tensorflow & 2 & 3.46GB & Flask & 0.12 & 0.284 \\
-            tensorflow & 4 & 7.00GB & Flask & 0.045 6 0.141 \\ \hline
+            tensorflow & 4 & 7.00GB & Flask & 0.045 & 0.141 \\ \hline
         \end{tabular}
-        \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
-        \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
     \end{center}
+    \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
+    \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
 \end{table}
 
-\begin{table}[t]
+
+\begin{table}[ht]
     \begin{center}
         \begin{tabular}{| c | c | c |}
             \hline
-            inference\_engine & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            inference\_engine & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
             tensorflow & 0.215 & 0.502 \\
             openvino & 0.004 & 0.098 \\ \hline
         \end{tabular}
@@ -158,11 +162,11 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
     \end{center}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[ht]
     \begin{center}
         \begin{tabular}{| c | c | c | c |}
             \hline
-            inference\_engine & web\_engine & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
+            inference\_engine & web\_engine & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
             openvino & Flask & 0.004 & 0.094 \\
             openvino & FastApi & 0.005 & 0.103 \\
             tensorflow & Flask & 0.083 & 0.212 \\
@@ -173,15 +177,15 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
     \end{center}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[ht]
     \begin{center}
         \begin{tabular}{| c | c | c | c | c | c |}
             \hline
-            inference\_engine & physical\_core & total\_core & system\_memory & avg\_seconds\_inference\_time & avg\_seconds\_total\_execution\_time \\ \hline
-            tensorflow & 4 & 8 & 7.00GB & 0.066 & 0.188 \\
-            openvino & 4 & 8 & 7.00GB & 0.003 & 0.1 \\
-            openvino & 2 & 4 & 3.46GB & 0.005 & 0.097 \\
-            openvino & 2 & 4 & 3.46GB & 0.364 & 0.816 \\ \hline
+            inference\_engine & physical\_core & system\_memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
+            tensorflow & 4  & 7.00GB & 0.066 & 0.188 \\
+            openvino & 4  & 7.00GB & 0.003 & 0.1 \\
+            openvino & 2  & 3.46GB & 0.005 & 0.097 \\
+            tensorflow & 2  & 3.46GB & 0.364 & 0.816 \\ \hline
         \end{tabular}
         \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
         \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
