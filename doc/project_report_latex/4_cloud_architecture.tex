@@ -10,26 +10,22 @@ frame=tb,
 columns=fullflexible,
 showstringspaces=false
 }
-
 \chapter{Implementación}
 \label{ch:chapter4}
-La implementación de la aplicación y la puesta en producción de esta se materializa en un entorno cloud, en concreto Google Cloud Platform
-Los servicios que proporciona Google Cloud\footnote{https://cloud.google.com/} son de especial utilidad para el problema debido a que muchos de ellos son mantenidos y actualizados por la propia
-plataforma, por lo que no hay que dedicar especial esfuerzo a configurar estos servicios, más que la primera vez que vayamos a utilizarlos o cuando se quiera
-modificar cualquier parámetro de configuración.
-Otra de las grandes ventajas de usar este tipo de implementación cloud es que podemos escalar nuestras
-aplicaciones casi de manera infinita según la demanda de nuestro aplicación.
-A diferencia del resto de aplicaciones mencionadas hasta el momento, los servicios de google son de pago, en muchos de ellos existe una modalidad gratuita pero los recursos de estas
-están limitadas en su capacidad de trabajo o en el tiempo que se pueden usar .
-
-
+La implementación y puesta en marcha de la aplicación se materaliza en un entorno cloud, concretamente Google Cloud Platform.
+Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
+Ello tiene como consecuencia que no haya que dedicar un gran esfuerzo en su configuración, más allá del primer uso o cuando se quiera hacer cualquier modificación en un parámetro determinado.
+Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la aplicación que hemos desarrollado.
+A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de google sí son de pago.
+En muchos casos existe una modalidad gratuita;
+modalidad cuyos recursos en muchos casos quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
 \section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
 Las diferentes piezas que constituyen nuestra arquitectura cloud son las siguientes.
 
 \subsection{Google Storage}\label{subsec:storage}
 Es el sistema de almacenamiento de Google.
-Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha
-imagen en el pipeline del proceso principal y poder clasificarla, ya que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
+Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
+Esto se debe a que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
 Esta solución es la principal entrada de datos de la aplicación, por lo que nadie sin una clave de autenticación específica del proyecto puede subir archivos.
 Las características principales que se han encontrado en el uso de esta aplicación para el trabajo son :
 \begin{itemize}
@@ -56,8 +52,8 @@ Las razones principales de su uso son :
 
 \subsection{Google Pub/Sub}\label{subsec:pubsub}
 Es un sistema de colas de mensajería diseñada para eventos,
-stá basado en el patrón de diseño productor/consumidor.
-En esta arquitectura cloud servirá de hilo conductor para las distintas partes de la aplicación cada vez que se produzca un evento como el de una nueva carga de imagen o la petición al servidor para realizar la clasificación.
+está basado en el patrón de diseño productor/consumidor.
+En el caso de esta arquitectura cloud, servirá de hilo conductor para las distintas partes de la aplicación cada vez que se produzca un evento como el de una nueva carga de imagen o la petición al servidor para realizar la clasificación.
 Sus características se pueden enumerar en :
 
 \begin{itemize}
@@ -71,24 +67,14 @@ Es el servicio principal de Google para proporcionar máquinas virtuales totalme
 en el que se va a ejecutar la aplicación, ya sea docker o las distintas distribuciones de sistemas operativos.
 Este servidor usará como aplicación principal una imagen de docker almacenada en el registro de contenedores.
 Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
-
 \subsection{Google Cloud Function}\label{subsec:cloudfunction}
-Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible en una máquina virtual activada por eventos.
-Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre y están disponibles y no hay apenas latencia.
-En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento y el procesamiento de la petición al servidor con la información y metadatos correspondientes para realizar
-la clasificación.
-
+Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible, en una máquina virtual activada por eventos.
+Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre están disponibles y no hay apenas latencia.
+En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento, y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación.
 \subsection{Container Registry}\label{subsec:container-registry}
-Dado que todo el desarrollo de la aplicación y el versionado de esta ha sido efectuado mediante docker se ha usado
-un repositorio de imágenes para el almacenamiento y tagueado de estas.
-En este repositorio se almacenan las distintas imágenes de docker tanto para openvino como para tensorflow, ya que se han
-separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
-
-
-En la siguiente figura\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente y el flujo de trabajo
-que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos
-para su análisis.
-
+Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
+En este repositorio se almacenan las distintas imágenes de docker tanto para openvino como para tensorflow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
+En la siguiente figura\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/chapter4/cloud_architecture.png}
@@ -97,13 +83,11 @@ para su análisis.
 \end{figure}
 
 \section{Codificación de los servidores web}\label{sec:codificación-de-los-servidores-web}
-Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para el su posterior análisis se necesita codificar un servidor web que realice todo este trabajo.
-Para ello se ha elegido, como anteriormente, el lenguaje de programación Python debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel
-de información sobre desarrollo con este lenguaje sea significativamente más alto que otros lenguajes.
-Se ha empleado un paradigma de programación orientado a objetos debido a la organización que proporciona con aplicaciones de un tamaño considerable y la dotación de intedidad que facilita a los distintos
-componentes.
-Debido a la multitud de framework web actuales se han elegido varios para su puesta a prueba en la aplicación.
-Para el procesamiento generalizado de imágenes y el sistema de recogida de metadatos se han codificado dos clases princpales.
+Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para el su posterior análisis, se necesita codificar un servidor web que realice todo este trabajo.
+Para ello, se ha elegido el lenguaje de programación Python, debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel de información sobre desarrollo con este lenguaje sea significativamente más alto que otros casos.
+Se ha empleado un paradigma de programación orientado a objetos, por la organización que proporcionan con aplicaciones de un tamaño considerable, además de la dotación de identidad que facilita a los distintos componentes.
+Debido a la multitud de framework web actuales, se han elegido varios para su puesta a prueba en la aplicación.
+Para el procesamiento generalizado de imágenes y el sistema de recogida de metadatos se han codificado dos clases principales.
 La primera\ref{lst:api}, encargada de la inicialización de los servicios de GoogleStorage y GoogleBigQuery, para los cuales se han codificado métodos para descarga y carga de información respectivamente.
 Se presenta un método principal para procesar las peticiones al servidor, que modela toda la información que va a ser incluida en la base datos.
 Esta información consta de los siguientes campos :
@@ -208,10 +192,10 @@ Las características principales de este framework son las siguientes :
 \end{itemize}
 
 Para soportar este framework se usará Uvicorn \footnote{https://www.uvicorn.org/} como servidor ASGI \footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas.
-Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones
-entre los distintos nodos e hilos de la aplicación, adicionalmente se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la apliación dentro del host.
+Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones entre los distintos nodos e hilos de la aplicación.
+Adicionalmente, se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la aplicación dentro del host.
 Este servidor soporta actualmente el protcolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
-Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial
+Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
 
 \subsection{Framework Flask}\label{subsec:framework-flask}
 Flask \footnote{https://flask.palletsprojects.com/en/1.1.x/} es el framework ligero por excelencia de Python , está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
@@ -220,8 +204,6 @@ muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
 A diferencia de fastapi Flask se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
 Como servidor web se usará Gunicorn \footnote{https://gunicorn.org/} que sigue el estándar WSGI \footnote{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
-
-
 \section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
 En la siguiente figura~\ref{fig:Arquitectura de la máquina virtual de la aplicación} podemos observa la arquitectura para ambos frameworks que se desplegarán en las máquinas virtuales de Google.
 
@@ -232,15 +214,12 @@ En la siguiente figura~\ref{fig:Arquitectura de la máquina virtual de la aplica
     \label{fig:Arquitectura de la máquina virtual de la aplicación}
 \end{figure}
 
-Buscando la máxima portabilidad entre entornos y no cerrar la posibilidad de traslado de estas a otra plataforma se han ecapsulado todas las aplicaciones
-usando la tecnología de contenedores docker \footnote{https://www.docker.com/}.
+Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores docker \footnote{https://www.docker.com/}.
 Este contenedor de docker se conectará con el host mediante el puerto 8080, pertimitiendo así el tráfico de información.
-Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI dependiendo de si estamos usando flask o fastapi respectivamente.
-Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores
-preparadas para usar cada servidor de manera independiente.
-Dentro de estos contenedores y dependiendo de la aplicación a usar se puede encontrar directamente la aplicación de inferencia de Openvino, la cual funcionará de manera directa o por el contrario,
-si usamos tensorflow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
-De igual modo que los servidores nunca existirá la posibilidad de tener instalados en el mismo servidor openvino y tensorflow a la vez, independizando su uso según los requisitos y necesidades del usuario.
+Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando flask o fastapi respectivamente.
+Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.
+Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de Openvino, la cual funcionará de manera directa, o, por el contrario, si usamos tensorflow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
+De igual modo, en los servidores nunca existirá la posibilidad de tener instalados Openvino y Tensorflow al mismo tiempo, por lo que habrá que independizar su uso en función de los requesitos y necesidades del usuario.
 Se han versionado las siguientes imágenes para la aplicación :
 \begin{itemize}
     \item Imagen para la aplicación de entrenamiento del modelo de deep learning, que ha sido utilizada para realizar pruebas de concepto en un entorno de desarrollo local antes de usar su funcionalidad
@@ -251,7 +230,7 @@ Se han versionado las siguientes imágenes para la aplicación :
 \end{itemize}
 
 Para la construcción de estas imágenes se han codificado de manera explícita cada una de ellas y constan en el repositorio de este trabajo \footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/docker}
-En la configuración de estas se especifican los siguientes puntos :
+En su configuración se especifican los siguientes puntos :
 \begin{itemize}
     \item Sistema operativo base o imagen de la que hereda el contenedor.
     \item Puertos necesarios para ejecutar la aplicación, que son expuestos al exterior.
@@ -260,7 +239,5 @@ En la configuración de estas se especifican los siguientes puntos :
     \item Variables de entorno del sistema operativo.
     \item Código y ficheros que se van a incluir en la imagen.
 \end{itemize}
-
 Como herramienta adicional y enlazada al uso de docker se ha utilizado docker compose \footnote{https://docs.docker.com/compose/} para las pruebas de funcionamiento y testeo de todas estas imágenes.
 Con esta aplicación podemos describir exactamente cómo se va a ejecutar cada una de las imágenes de docker y los comandos que queremos que se ejecuten de manera automática al iniciarse el contenedor.
-
