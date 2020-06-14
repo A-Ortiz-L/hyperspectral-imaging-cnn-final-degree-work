@@ -35,14 +35,14 @@ El análisis y comparativa de los resultados han sido analizada en la base de da
 \section{Rendimiento en fase de entrenamiento}\label{sec:rendimiento-en-fase-de-entrenamiento}
 Para obtener los resultados de este experimento se ha usado el hardware disponible en la plataforma de Google Colab, usando como comparativa :
 \begin{itemize}
-    \item Entrenamiento usando un processador Intel(R) Xeon(R) CPU @ 2.30GHz
+    \item Entrenamiento usando un procesador Intel(R) Xeon(R) CPU @ 2.30GHz
     \item Entrenamiento con una gpu TeslaK80
 \end{itemize}
 
 El tiempo total de entrenamiento utilizando la cpu ha sido de 11 minutos.
-El nivel de acierto de clasifiación en ambas redes super el 85 por ciento en el conjunto de datos de prueba.
+El nivel de acierto de clasificación en ambas redes supera el 85 por ciento en el conjunto de datos de prueba.
 El resultado más fiable y rápido utilizando la TeslaK80 ha sido una configuración en la red neuronal de 175 epochs y 256 de tamaño de batch.
-El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precición en el mínimo tiempo posible.
+El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precisión en el mínimo tiempo posible.
 \begin{itemize}
     \item \textbf{175 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento.
     Ver figura\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs} para los resultados de entrenamiento y la figura~\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs} para los resultados de pérdida del modelo .
@@ -62,7 +62,7 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_175_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entreanemiento de 175 epoch y un tamaño batch de 256.}
+    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entrenamiento de 175 epoch y un tamaño batch de 256.}
     \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs}
 \end{figure}
 
@@ -76,7 +76,7 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_100_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entreanemiento de 100 epoch y un tamaño batch de 256.}
+    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entrenamiento de 100 epoch y un tamaño batch de 256.}
     \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs}
 \end{figure}
 
@@ -90,14 +90,14 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_200_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entreanemiento de 200 epoch y un tamaño batch de 256.}
+    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entrenamiento de 200 epoch y un tamaño batch de 256.}
     \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs}
 \end{figure}
 
 
 \section{Rendimiento en fase de inferencias}\label{sec:ren-dimiento-en-fase-de-inferencias}
 En cuanto a los tiempos de inferencia, la diferencia es notable entre OpenVINO y Tensorflow.
-Los resultados se presentan haciendo uso de una mustra de 16.000 ejecuciones de inferencia en el entorno de producción de la aplicación, tanto para los entornos con Openvino, como para Tensorflow.
+Los resultados se presentan haciendo uso de una muestra de 16.000 ejecuciones de inferencia en el entorno de producción de la aplicación, tanto para los entornos con Openvino, como para Tensorflow.
 La unidad de cálculo principal es el procesador, siendo su modelo un Intel Xeon (Cascada Lake) con una frecuencia de 2.8 GHz de base y un turbo hasta 3.4 GHz.
 Se han probado distintas configuraciones de este procesador, tanto en su versión de 2 núcleos físicos, 4 virtuales como en la de 4 núcleos físicos, 8 virtuales.
 La memoria ram utilizada varía de 4 GB en su primera versión junto con el procesador de 2 núcleos físicos a 8 GB en la versión de 4 núcleos físicos.
@@ -107,7 +107,7 @@ También podemos visualizar en la imagen ~\ref{fig:Comparativa de tiempo de infe
 que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia es inferior al segundo en ambos casos,
 pero muy inferior en OpenVINO debido a la rapidez de su red de inferencia y a la simplicidad con la que se implementa, ya que, al contrario que Tensorflow esta no necesita ningún otro tipo de servicio adicional más
 que la API de alto rendimiento que funciona como una librería almacenada de manera local en el sistema operativo.
-Las distintas configuraciones hardware también revelan que el consumo de memoria del sistema de inferencia de tensorflow afecta al rendimiento de la aplicación, mejorando mucho su rendimiendo con un hardware más potente.
+Las distintas configuraciones hardware también revelan que el consumo de memoria del sistema de inferencia de tensorflow afecta al rendimiento de la aplicación, mejorando mucho su rendimiento con un hardware más potente.
 OpenVINO por el contrario mantiene resultados similares con un hardware de bajo coste.
 Tensorflow mejora en 5 veces la velocidad de inferencia pasando de un procesador de 2 núcleos y 4 GB de ram a uno de 4 núcleos y 8 GB de ram teniendo un tiempo de 360ms con el primero y 66 con el segundo, lo que denota que el consumo
 de su servicio de inferencia requiere de un hardware más caro.
