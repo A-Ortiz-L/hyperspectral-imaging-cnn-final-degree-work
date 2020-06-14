@@ -58,7 +58,7 @@ Las razones principales de su uso son :
 Es un sistema de colas de mensajería diseñada para eventos,
 stá basado en el patrón de diseño productor/consumidor.
 En esta arquitectura cloud servirá de hilo conductor para las distintas partes de la aplicación cada vez que se produzca un evento como el de una nueva carga de imagen o la petición al servidor para realizar la clasificación.
-Sus caracteríscas se pueden enumerar en :
+Sus características se pueden enumerar en :
 
 \begin{itemize}
     \item Se pueden configurar distintas colas de mensajes, separando así de manera lógica los eventos de la aplicación.
@@ -82,7 +82,7 @@ la clasificación.
 Dado que todo el desarrollo de la aplicación y el versionado de esta ha sido efectuado mediante docker se ha usado
 un repositorio de imágenes para el almacenamiento y tagueado de estas.
 En este repositorio se almacenan las distintas imágenes de docker tanto para openvino como para tensorflow, ya que se han
-separado lógicamente para optimizar el tamaño de la imágen origen que tiene cada una de las aplicaciones.
+separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
 
 
 En la siguiente figura\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente y el flujo de trabajo
@@ -100,10 +100,10 @@ para su análisis.
 Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para el su posterior análisis se necesita codificar un servidor web que realice todo este trabajo.
 Para ello se ha elegido, como anteriormente, el lenguaje de programación Python debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel
 de información sobre desarrollo con este lenguaje sea significativamente más alto que otros lenguajes.
-Se ha empleado un paradigma de programación orientado objetidos debido a la organización que proporciona con aplicaciones de un tamaño considerable y la dotación de intedidad que facilita a los distintos
+Se ha empleado un paradigma de programación orientado a objetos debido a la organización que proporciona con aplicaciones de un tamaño considerable y la dotación de intedidad que facilita a los distintos
 componentes.
 Debido a la multitud de framework web actuales se han elegido varios para su puesta a prueba en la aplicación.
-Para el procesamiento generalizado de imágenes y el sistema de recogia de metados se han codificado dos clases princpales.
+Para el procesamiento generalizado de imágenes y el sistema de recogida de metadatos se han codificado dos clases princpales.
 La primera\ref{lst:api}, encargada de la inicialización de los servicios de GoogleStorage y GoogleBigQuery, para los cuales se han codificado métodos para descarga y carga de información respectivamente.
 Se presenta un método principal para procesar las peticiones al servidor, que modela toda la información que va a ser incluida en la base datos.
 Esta información consta de los siguientes campos :
@@ -114,8 +114,8 @@ Esta información consta de los siguientes campos :
     \item Fecha exacta de creación del archivo en el sistema de almacenamiento.
     \item Clasificación de la imagen, para saber si el terreno de esta está dañado o no.
     \item Tiempo de inferencia en la red.
-    En este caso dependerá de si estamos usndo openvino o tensorflow para realizar esta tarea.
-    \item Tiempo total de ejecucón desde que se que llega una petición al servidor hasta que se procesa.
+    En este caso dependerá de si estamos usando openvino o tensorflow para realizar esta tarea.
+    \item Tiempo total de ejecución desde que se que llega una petición al servidor hasta que se procesa.
     \item Número de núcleos físicos del procesador.
     \item Número de núcleos virtuales del procesador.
     \item Sistema operativo
