@@ -71,8 +71,8 @@ Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar e
 \begin{itemize}
     \item \textbf{Uso de variables de 16 bits en vez de 32 bits}: Una de las posibilidades que nos brinda el uso de una GPU es reducir a la mitad el uso en memoria de las variables del proceso.
     Usaremos esto siempre y cuando no afecte a la calidad de la predicción.
-    \item \textbf{Uso del compilador XLA}: El compilador XLA (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
-    \item \textbf{Valores altos del parámetro de entrenamiento BatchSize}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
+    \item \textbf{Uso del compilador XLA}: El compilador XLA\footnote{https://www.tensorflow.org/xla} (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
+    \item \textbf{Valores altos del parámetro de entrenamiento Batch Size}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
 \end{itemize}
 
 
@@ -82,7 +82,7 @@ Una de las grandes ventajas de trabajar con este entorno es que no necesitamos c
 nuestro trabajo con otras personas.
 Estas características permiten a Google Colab convertirse en un entorno muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso
 de unas herramientas profesionales.
-En este trabajo haremos uso de la tarjeta gráfica Tesla K80.
+En este trabajo haremos uso de la tarjeta gráfica Tesla K80\footnote{https://www.nvidia.com/es-es/data-center/tesla-k80/}.
 Las características primarias de nuestra principal unidad de cómputo son las siguientes :
 \begin{itemize}
     \item 4992 núcleos de NVIDIA CUDA con diseño de dos GPU\@.
