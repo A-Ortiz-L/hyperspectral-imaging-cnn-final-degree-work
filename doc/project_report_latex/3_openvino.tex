@@ -62,26 +62,25 @@ Y, por supuesto, mantener estas nuevas capas a lo largo de las distintas actuali
 
 
 \section{Conversión del modelo a la plataforma OpenVINO}\label{sec:conversión-del-modelo-a-la-plataforma-OpenVINO}
-Para realizar la conversión del modelo, en primer lugar es necesaria la exportación del original de Tensorflow a un formato compatible con la red de optimización de modelos de OpenVINO.
+Para realizar la conversión del modelo, en primer lugar es necesaria la exportación del original de Tensorflow a un formato compatible con la red de optimización de modelos de OpenVINO\@.
 La serialización por defecto de un modelo de Tensorflow puede incluir de manera independiente :
 
 \begin{itemize}
     \item Un punto de control TensorFlow que contiene los pesos del modelo.
     \item Un prototipo 'SavedModel' que contiene el grafico subyacente de Tensorflow.
-    Separa los graficos que se guardan para prediccion (servicio), capacitacion y evaluacion.
-    Si el modelo no se compilo antes, solo el grafico de inferencia se exporta.
-    \item La configuracion de arquitectura del modelo, si esta disponible
+    Este prototipo separa los graficos que se guardan para prediccion (servicio), capacitacion y evaluacion.
+    \item La configuracion de la arquitectura del modelo, si esta disponible.
 \end{itemize}
 
 Los métodos exactos para la serializaciñon del modelo varían según la versión de Tensorflow, en cualquier caso la metodologíoa de conversión exacta utilizada
-para este proyecto se puede encontrar en el repositorio de código fuente de este trabajo en Github : https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work
-Este modelo de OpenVINO va a servir tanto de punto de partida para la optimización del mismo como para su uso directo en el servicio personalizado de Tensorflow para desplegar
+para este proyecto se puede encontrar en el repositorio de código fuente de este trabajo en Github\footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/blob/master/src/entity/keras_model.py}
+Este modelo de OpenVINO va a servir tanto de punto de partida para su optimización como para su uso directo en el servicio personalizado de Tensorflow para desplegar
 modelos en producción.
 Una vez exportado el modelo de deep learning al formato estándar de Tensorflow tendremos a nuestra disposición los ficheros necesarios para realizar la trasnformación de estos al formato de OpenVINO.
 Para realizar esta operación se hace uso de la herramienta de Optimización de modelos, en concreto, con el script específico de Tensorflow, cuyo nombre
 es \texttt{mo\_tf.py}
 
-Este código fuente es ejecutado en la línea de comandos del sistema operativo correspondiente con los siguientes parámetros de entrada en la línea de comandos.
+Este código fuente es ejecutado en la línea de comandos del sistema operativo correspondiente con los siguientes parámetros.
 
 
 \begin{lstlisting}[caption=Comando de terminal para convertir un modelo Tensorflow a uno de OpenVINO.,
@@ -95,7 +94,7 @@ Esta opción es totalmente configurable y depende del proceso de exportación.
 Se ha encontrado útil la opción de exportaciòn a texto plano ya que de esta manera
 se puede observar la arquitectura de la red y los pesos pertenecientes a cada capa.
 Configuramos también el flag -b, esta opción determina el tamaño del batch que queremos especificar para la conversión, seleccionamos 1 porque en las entradas de nuestra red neuronal pueden propagarse valores
-negativos, los cuales no son válidos para su procesamiento en OpenVINO.
+negativos, los cuales no son válidos para su procesamiento en OpenVINO\@.
 
 \section{Inferencias.Tensorflow vs OpenVINO}\label{sec:inferencias.-Tensorflow-vs-OpenVINO}
 Como se ha mencionado anteriormente Tensorflow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real.
