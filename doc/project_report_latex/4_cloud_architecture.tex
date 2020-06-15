@@ -15,13 +15,12 @@ showstringspaces=false
 La implementación y puesta en marcha de la aplicación se materaliza en un entorno cloud, concretamente Google Cloud Platform.
 Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
 Ello tiene como consecuencia que no haya que dedicar un gran esfuerzo en su configuración, más allá del primer uso o cuando se quiera hacer cualquier modificación en un parámetro determinado.
-Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la aplicación que hemos desarrollado.
+Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la solución que hemos desarrollado.
 A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de Google sí son de pago.
 En muchos casos existe una modalidad gratuita;
 modalidad cuyos recursos en muchos casos quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
 \section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
-Las diferentes piezas que constituyen nuestra arquitectura cloud son las siguientes.
-
+Google Cloud posee multitud de herramientas específicas para cada situación, en este trabajo nos hemos centrado en las siguientes.
 \subsection{Google Storage}\label{subsec:storage}
 Es el sistema de almacenamiento de Google.
 Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
