@@ -134,14 +134,14 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
         \begin{tabular}{ | c | c | c | c| c | c | c |}
             \hline
             engine & cores & framework & memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
-            openvino & 2 & 3.46GB & FastApi & 0.006 & 0.104 \\
-            openvino & 4 & 7.00GB & FastApi & 0.004 & 0.102 \\
-            tensorflow & 2 & 3.46GB & FastApi & 0.608 & 1.349 \\
-            tensorflow & 4 & 7.00GB & FastApi & 0.087 & 0.235 \\
-            openvino & 2 & 3.46GB & Flask & 0.004 & 0.09 \\
-            openvino & 4 & 7.00GB & Flask & 0.003 & 0.098 \\
-            tensorflow & 2 & 3.46GB & Flask & 0.12 & 0.284 \\
-            tensorflow & 4 & 7.00GB & Flask & 0.045 & 0.141 \\ \hline
+            OpenVINO & 2 & 3.46GB & FastApi & 0.006 & 0.104 \\
+            OpenVINO & 4 & 7.00GB & FastApi & 0.004 & 0.102 \\
+            Tensorflow & 2 & 3.46GB & FastApi & 0.608 & 1.349 \\
+            Tensorflow & 4 & 7.00GB & FastApi & 0.087 & 0.235 \\
+            OpenVINO & 2 & 3.46GB & Flask & 0.004 & 0.09 \\
+            OpenVINO & 4 & 7.00GB & Flask & 0.003 & 0.098 \\
+            Tensorflow & 2 & 3.46GB & Flask & 0.12 & 0.284 \\
+            Tensorflow & 4 & 7.00GB & Flask & 0.045 & 0.141 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware y servidor web}
@@ -154,8 +154,8 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
         \begin{tabular}{| c | c | c |}
             \hline
             inference\_engine & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
-            tensorflow & 0.215 & 0.502 \\
-            openvino & 0.004 & 0.098 \\ \hline
+            Tensorflow & 0.215 & 0.502 \\
+            OpenVINO & 0.004 & 0.098 \\ \hline
         \end{tabular}
         \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow}
         \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow}
@@ -167,10 +167,10 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
         \begin{tabular}{| c | c | c | c |}
             \hline
             inference\_engine & web\_engine & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
-            openvino & Flask & 0.004 & 0.094 \\
-            openvino & FastApi & 0.005 & 0.103 \\
-            tensorflow & Flask & 0.083 & 0.212 \\
-            tensorflow & FastApi & 0.348 & 0.792 \\ \hline
+            OpenVINO & Flask & 0.004 & 0.094 \\
+            OpenVINO & FastApi & 0.005 & 0.103 \\
+            Tensorflow & Flask & 0.083 & 0.212 \\
+            Tensorflow & FastApi & 0.348 & 0.792 \\ \hline
         \end{tabular}
         \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web}
         \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto framework web}
@@ -182,10 +182,10 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
         \begin{tabular}{| c | c | c | c | c | c |}
             \hline
             inference\_engine & physical\_core & system\_memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
-            tensorflow & 4  & 7.00GB & 0.066 & 0.188 \\
-            openvino & 4  & 7.00GB & 0.003 & 0.1 \\
-            openvino & 2  & 3.46GB & 0.005 & 0.097 \\
-            tensorflow & 2  & 3.46GB & 0.364 & 0.816 \\ \hline
+            Tensorflow & 4  & 7.00GB & 0.066 & 0.188 \\
+            OpenVINO & 4  & 7.00GB & 0.003 & 0.1 \\
+            OpenVINO & 2  & 3.46GB & 0.005 & 0.097 \\
+            Tensorflow & 2  & 3.46GB & 0.364 & 0.816 \\ \hline
         \end{tabular}
         \caption{Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
         \label{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorflow con distinto hardware}
@@ -194,13 +194,13 @@ En la tabla ~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y Tensorf
 
 
 El número total de aciertos de clasificación en ambas redes asciende a 1566 registros de un total de 16000, teniendo así un porcentaje de acierto general
-del 97 por ciento.Con un recuento de 108 fallos en la red tensorflow y 226 en openvino.
+del 97 por ciento.Con un recuento de 108 fallos en la red Tensorflow y 226 en OpenVINO.
 Todos los resultados y registros se encuentran en el repositorio oficial del trabajo en Github\footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/result/snapshot}
 
 
 \section{Costes del proyecto}\label{sec:costes-del-proyecto}
 A continuación se presentan los costes del proyecto de toda la plataforma de producción.
-Estos costes han sido recogidos haciendo uso de la calculadora de precios de google\footnote{https://cloud.google.com/products/calculator?hl=es}
+Estos costes han sido recogidos haciendo uso de la calculadora de precios de Google\footnote{https://cloud.Google.com/products/calculator?hl=es}
 
 \begin{itemize}
     \item Máquina virtual 4 vCPUs, 3,6 GB 6.80 dólares por un uso de 24 horas, que fue el tiempo utilizado para realizar pruebas de concepto y cargas en este trabajo.

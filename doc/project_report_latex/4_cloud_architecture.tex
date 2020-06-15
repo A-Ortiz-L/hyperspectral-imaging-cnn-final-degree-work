@@ -16,7 +16,7 @@ La implementación y puesta en marcha de la aplicación se materaliza en un ento
 Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
 Ello tiene como consecuencia que no haya que dedicar un gran esfuerzo en su configuración, más allá del primer uso o cuando se quiera hacer cualquier modificación en un parámetro determinado.
 Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la aplicación que hemos desarrollado.
-A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de google sí son de pago.
+A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de Google sí son de pago.
 En muchos casos existe una modalidad gratuita;
 modalidad cuyos recursos en muchos casos quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
 \section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
@@ -73,7 +73,7 @@ Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada 
 En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento, y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación.
 \subsection{Container Registry}\label{subsec:container-registry}
 Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
-En este repositorio se almacenan las distintas imágenes de docker tanto para openvino como para tensorflow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
+En este repositorio se almacenan las distintas imágenes de docker tanto para OpenVINO como para Tensorflow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
 En la siguiente figura\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
 \begin{figure}
     \centering
@@ -98,14 +98,14 @@ Esta información consta de los siguientes campos :
     \item Fecha exacta de creación del archivo en el sistema de almacenamiento.
     \item Clasificación de la imagen, para saber si el terreno de esta está dañado o no.
     \item Tiempo de inferencia en la red.
-    En este caso dependerá de si estamos usando openvino o tensorflow para realizar esta tarea.
+    En este caso dependerá de si estamos usando OpenVINO o Tensorflow para realizar esta tarea.
     \item Tiempo total de ejecución desde que se que llega una petición al servidor hasta que se procesa.
     \item Número de núcleos físicos del procesador.
     \item Número de núcleos virtuales del procesador.
     \item Sistema operativo
     \item Versión del sistema operativo.
     \item Memoria ram del sistema.
-    \item Sistema de inferencia, en este caso puede ser openvino o tensorflow.
+    \item Sistema de inferencia, en este caso puede ser OpenVINO o Tensorflow.
     \item Framework web utilizado, flask o fastapi en esta apliación.
     \item Campo booleano para determinar si se está usando docker para encapsular la aplicación.
     Para realizar las pruebas siempre se ha usado docker.
@@ -218,15 +218,15 @@ Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad
 Este contenedor de docker se conectará con el host mediante el puerto 8080, pertimitiendo así el tráfico de información.
 Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando flask o fastapi respectivamente.
 Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.
-Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de Openvino, la cual funcionará de manera directa, o, por el contrario, si usamos tensorflow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
-De igual modo, en los servidores nunca existirá la posibilidad de tener instalados Openvino y Tensorflow al mismo tiempo, por lo que habrá que independizar su uso en función de los requesitos y necesidades del usuario.
+Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de OpenVINO, la cual funcionará de manera directa, o, por el contrario, si usamos Tensorflow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
+De igual modo, en los servidores nunca existirá la posibilidad de tener instalados OpenVINO y Tensorflow al mismo tiempo, por lo que habrá que independizar su uso en función de los requesitos y necesidades del usuario.
 Se han versionado las siguientes imágenes para la aplicación :
 \begin{itemize}
     \item Imagen para la aplicación de entrenamiento del modelo de deep learning, que ha sido utilizada para realizar pruebas de concepto en un entorno de desarrollo local antes de usar su funcionalidad
     interna en Google Colab.
     Se ha encontrado útil su uso debido a que el proceso de desarrollo se ha llevado acabo en distintos entornos y sistemas operativos como MacOS, Windows o Linux dependiendo de las necesidades del programador.
-    \item Imagen para la red de inferencia de openvino, que contiene las librerías necesarias para su ejecución y puesta en producción.
-    \item Imagen para la red de inferencia de tensorflow, configurando el servidor interno que proporciona las inferencias al contenedor, y este, a la base de datos.
+    \item Imagen para la red de inferencia de OpenVINO, que contiene las librerías necesarias para su ejecución y puesta en producción.
+    \item Imagen para la red de inferencia de Tensorflow, configurando el servidor interno que proporciona las inferencias al contenedor, y este, a la base de datos.
 \end{itemize}
 
 Para la construcción de estas imágenes se han codificado de manera explícita cada una de ellas y constan en el repositorio de este trabajo \footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/docker}

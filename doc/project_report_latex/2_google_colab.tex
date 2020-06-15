@@ -8,7 +8,7 @@ Los modelos pueden requerir entradas de tamaño masivo en las que la capacidad d
 esto permite enfocarse plenamente en la mejora de rendimiento del modelo planteado.
 El objetivo es evitar la posible espera que pueda producir volver a entrenar el mismo con distintos parámetros.
 Con ello, se puede reajustar constantemente el modelo para encontrar el punto óptimo de manera ágil.
-En este trabajo se va a entrenar un modelo de deep learning haciendo uso del framework de código abierto de TensorFlow\footnote{https://www.tensorflow.org/}, que está programada en el lenguaje de programación Python.
+En este trabajo se va a entrenar un modelo de deep learning haciendo uso del framework de código abierto de TensorFlow\footnote{https://www.Tensorflow.org/}, que está programada en el lenguaje de programación Python.
 Éste incluye una API de Deep Learning llamada Keras, que será la que utilicemos.
 El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes, así como los procedimientos que realizan las redes neuronales para hacer sus cálculos son, en muchas ocasiones,
 operaciones matriciales.
@@ -71,13 +71,13 @@ Además, realizaremos algunas optimizaciones a nivel de hardware para acelerar e
 \begin{itemize}
     \item \textbf{Uso de variables de 16 bits en vez de 32 bits}: Una de las posibilidades que nos brinda el uso de una GPU es reducir a la mitad el uso en memoria de las variables del proceso.
     Usaremos esto siempre y cuando no afecte a la calidad de la predicción.
-    \item \textbf{Uso del compilador XLA}: El compilador XLA\footnote{https://www.tensorflow.org/xla} (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
+    \item \textbf{Uso del compilador XLA}: El compilador XLA\footnote{https://www.Tensorflow.org/xla} (Accelerated Linear Algebra) optimiza el grafo de nuestro modelo de manera específica haciendo uso de la GPU.
     \item \textbf{Valores altos del parámetro de entrenamiento Batch Size}: Gracias a la capacidad de cómputo de nuestra tarjeta gráfica podemos permitirnos el uso de valores altos en este parámetro de entrenamiento.
 \end{itemize}
 
 
-\section{Entorno Google Colab}\label{sec:entorno-google-colab}
-La plataforma de Google Colab\footnote{https://colab.research.google.com/notebooks/intro.ipynb} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
+\section{Entorno Google Colab}\label{sec:entorno-Google-colab}
+La plataforma de Google Colab\footnote{https://colab.research.Google.com/notebooks/intro.ipynb} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
 Una de las grandes ventajas de trabajar con este entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
 nuestro trabajo con otras personas.
 Estas características permiten a Google Colab convertirse en un entorno muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso
