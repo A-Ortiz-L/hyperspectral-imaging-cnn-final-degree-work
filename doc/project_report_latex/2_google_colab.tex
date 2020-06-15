@@ -10,7 +10,8 @@ El objetivo es evitar la posible espera que pueda producir volver a entrenar el 
 Con ello, se puede reajustar constantemente el modelo para encontrar el punto óptimo de manera ágil.
 En este trabajo se va a entrenar un modelo de deep learning haciendo uso del framework de código abierto de TensorFlow\footnote{https://www.tensorflow.org/}, que está programada en el lenguaje de programación Python.
 Éste incluye una API de Deep Learning llamada Keras, que será la que utilicemos.
-El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes y los propios procedimientos que realizan las redes neuronales para hacer sus cálculos son, en muchas ocasiones operaciones matriciales.
+El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes, así como los procedimientos que realizan las redes neuronales para hacer sus cálculos son, en muchas ocasiones,
+operaciones matriciales.
 Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU puede aportar en este tipo de operaciones, principalmente por su arquitectura de paralelización, idónea para este tipo de trabajo.
 La ventaja que aporta frente a la CPU es la capacidad de cómputo con un mayor número de núcleos o cores (ver Figura\ref{fig:Arquitectura de paralelización de una GPU}), gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
 
@@ -47,7 +48,7 @@ Para la construcción de este algoritmo haremos uso de las siguientes capas, sob
     \item \textbf{Dropout}: Es una capa cuyo cometido es ignorar ciertas neuronas de forma aleatoria para no incluirlas en el entrenamiento, por lo que las neuronas restantes serán las encargadas de representar las predicciones de la red.
     De esta manera también reducimos la complejidad de nuestra red y la posibilidad de sobreentrenamiento.
     \item \textbf{Flatten}: Capa de aplanamiento usada para reducir a uno el número de dimensiones de nuestra matriz de entrada.
-    \item \textbf{Dense}: Es una de las capas más utilizadas en la API de Keras, es la manera de efectuar multiplicaciones matriciales.
+    \item \textbf{Dense}: Una de las capas más utilizadas en la API de Keras, es la manera de efectuar multiplicaciones matriciales.
     \item \textbf{Optimizador Adam}: Es un algoritmo de optimización diseñado especialmente para redes neuronales, este aprovecha el poder de los métodos de tasas de aprendizaje adaptativo para encontrar nivel de aprendizaje individuales para cada parámetro.
 \end{itemize}
 
