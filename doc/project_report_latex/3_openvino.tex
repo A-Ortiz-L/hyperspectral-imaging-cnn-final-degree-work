@@ -101,15 +101,15 @@ Como se ha mencionado anteriormente Tensorflow posee su propio sistema de infere
 Esta sistema se llama Tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
 de inferencia se realizan al servidor por medio del protocolo de transmisión de datos http.
 La aplicación de Tensorflow está diseñada para el escalado tanto en el número de modelos para los que puede recibir inferencias y sus versiones como para la escalabilidad en capacidad de cálculo.
-El escalado de cáculo está preparado para funcionar en una arquitectura cluster, en este caso un cluster de contenedores como es kubernetes, por lo que el servidor puede ser
-encapsulado en su totalidad en un contenedor de docker.
+El escalado de cáculo está preparado para funcionar en una arquitectura cluster, en este caso un cluster de contenedores como es Kubernetes, por lo que el servidor puede ser
+encapsulado en su totalidad en un contenedor de Docker.
 En este trabajo se ha trabajado con una versión encapsulada de docker, pero no con la extensibilidad del escalado con kubernetes.
 La unidad de cálculo principal del sistema de inferncia también es configurable, perimitiendo así el uso tanto de cpu como de gpu.
 Si se usa la opción de contenedores docker configurando una gpu es necesario configurar de manera esplícita este entorno.
 En la siguiente figura podemos observar el diseño de la arquitectura de la aplicación~\ref{fig:Arquitectura de Tensorflow serving}
 Una de las ventajas frente a usar el sistemá de inferencias clásico de Tensorflow es que la aplicación está preparada y optimizada para recibir tanto peticiones en streaming como en batch.
 Adicionalmente reducimos el tamaño de las librerías a instalar al mínimo necesario para realizar las inferencias y configurar el servidor, por lo que la solución es más ligera y portable, evitando así
-instalar todo el sistema de construcción de algoritmos y demás artefactos que incorpora la librerías de Tensorflow para construir redes neuronales.
+instalar todo el sistema de construcción de algoritmos y demás artefactos que incorpora la librería de Tensorflow para programar redes neuronales.
 La inicialización del servidor y los métodos necesarios para realizar la petición de inferencia se codifican de la siguiente manera :
 
 \begin{lstlisting}[caption=Clase de Tensorflow de la aplicación del trabajo.,
@@ -152,7 +152,7 @@ class TensorflowNetwork:
                   '--rest_api_port=8501 --model_name=model '
                   '--model_base_path=/app/model &')
 \end{lstlisting}
-En la inicialización de la clase arrancamos el servidor rest, el cual funcionará de manera transparente para el usuario de nuestra aplicación, ya que el mismo se ejecuta en la red
+En la inicialización de la clase arrancamos el servidor rest, que funcionará de manera transparente para el usuario de nuestra aplicación, ya que el mismo se ejecuta en la red
 local de nuestro servidor principal
 
 
@@ -164,8 +164,8 @@ local de nuestro servidor principal
 \end{figure}
 
 Por otro lado, OpenVINO también incorpora en su conjunto de herramientas un sistema de inferencia optimizado.
-Al igual que el sistema de inferencia de Tensorflow, OpenVINO también puede configurar tanto cpu como gpu para realizar sus cálculos.
-La aplicación de inferencia de OpenVINO usaada en este trabajo se codifica de manera íntegra haciendo uso del lenguaje de programación python,
+Al igual que el sistema de inferencia de Tensorflow, OpenVINO también puede configurar tanto un procesador como una tarjeta gráfica para realizar sus cálculos.
+La aplicación de inferencia de OpenVINO usaada en este trabajo se codifica de manera íntegra haciendo uso del lenguaje de programación Python,
 por lo que el diseño software de este servicio y el procesamiento de las imágenes se codifica de la siguiente manera en el repositorio del trabajo.
 
 \begin{lstlisting}[caption=Clase de OpenVINO de la aplicación del trabajo.,
@@ -210,6 +210,6 @@ La potencia de este modelo reside en la optimización que realiza la red en un l
 En general, la aplicación de Tensorflow es más compleja a nivel de software, permitiendo su escalado en entornos de producción de manera muy simple.
 Ambas soluciones implementan tecnologías de contenedores mantenidas de manera oficial por los fabricantes, por lo que el uso de Docker es la mejor opción para transportar
 nuestras redes de inferencia a cuualquier sistema o dispositivo hardware.
-En este punto, OpenVINO implementa de manera concreta soluciones para FPGA e intel movidius, por lo que las opciones de portabilidd son más amplias en esta tecnología.
+En este punto, OpenVINO implementa de manera concreta soluciones para FPGA e intel movidius, como consecuencia, las opciones de portabilidd son más amplias en esta tecnología.
 
 
