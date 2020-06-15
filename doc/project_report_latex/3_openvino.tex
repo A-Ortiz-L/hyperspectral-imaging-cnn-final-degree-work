@@ -15,13 +15,13 @@ showstringspaces=false
 \label{ch:chapter3}
 
 OpenVINO es un conjunto de herramientas multi plataforma desarrolladas por Intel, que facilita la transición entre entre los entornos de entrenamiento y producción de nuestro modelo de aprendizaje profundo.
-A pesar de estar desarrollada por una empresa comercial como Intel,peternece al conjunto de aplicaciones de código abierto, de modo que se puede visualizar su código fuente, repotar fallos e incluso realizar aportaciones.
+A pesar de estar desarrollada por una empresa comercial como Intel, peternece al conjunto de aplicaciones de código abierto, de modo que se puede visualizar su código fuente, repotar fallos e incluso realizar aportaciones.
 Podemos visualizar el diseño y el código de la aplicación en su repositorio oficial de Github \footnote{https://github.com/openvinotoolkit/openvino}.
 El cometido principal de esta aplicación es la optimización del tiempo de inferencia de un modelo de Deep Learning previamente entrenado.
 Para ello, OpenVINO dispone de su propio formato de definición de modelos.
 Estos archivos son los que procesa su propia red de inferencia multi plataforma, ya que se encuentra preparada para poder trabajar con los mismos de manera concurrente, aprovechando así toda la potencia de los procesadores o GPU actuales.
 En la siguiente figura~\ref{fig:Arquitectura de optimización de modelos con OpenVINO} se puede observar el flujo de trabajo que se ha seguido en este trabajo, haciendo uso de la herramienta OpenVINO
-En primer lugar, optimizaremos la topología de nuestro modelo a uno preparado para ser procesado por la red de inferencia de alto rendimiento de OpenVINO.
+En primer lugar, optimizaremos la topología de nuestro modelo a uno preparado para ser procesado por la red de inferencia de alto rendimiento de OpenVINO\@.
 Finalmente, nuestra red de inferencia será la que realice el trabajo de clasificación en el entorno de producción de nuestra aplicació
 
 
@@ -44,7 +44,8 @@ Las características principales de esta aplicación se resumen en dos puntos :
 \end{itemize}
 
 \subsection{Optimizador de modelos de deep learning}\label{subsec:optimizador-de-modelos-de-deep-learning}
-Para poder realizar la optimización de nuestro modelo de deep learning previamente entrenado, se necesita el binario que contiene la topología de la red del modelo. Una vez el optimizador de OpenVINO recibe como argumento nuestro modelo procede a realizar una conversión de cada capa interna de la red a una nueva capa.
+Para poder realizar la optimización de nuestro modelo de deep learning previamente entrenado, se necesita el binario que contiene la topología de la red del modelo.
+Una vez el optimizador de OpenVINO recibe como argumento nuestro modelo procede a realizar una conversión de cada capa interna de la red a una nueva capa.
 Esta nueva capa, ya convertida al formato de OpenVINO, conserva los pesos de la red anterior.
 Sin embargo, la definición de la misma está preparada para que la aplicación de inferencia de OpenVINO pueda leerla correctamente.
 La herramienta de OpenVINO proporciona de manera genérica distintos scripts para realizar esta conversión.
