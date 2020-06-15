@@ -46,10 +46,10 @@ Las características principales de esta aplicación se resumen en dos puntos :
 \subsection{Optimizador de modelos de deep learning}\label{subsec:optimizador-de-modelos-de-deep-learning}
 Para poder realizar la optimización de nuestro modelo de deep learning previamente entrenado, se necesita el binario que contiene la topología de la red del modelo.
 Una vez el optimizador de OpenVINO recibe como argumento nuestro modelo procede a realizar una conversión de cada capa interna de la red a una nueva capa.
-Esta nueva capa, ya convertida al formato de OpenVINO, conserva los pesos de la red anterior.
-Sin embargo, la definición de la misma está preparada para que la aplicación de inferencia de OpenVINO pueda leerla correctamente.
+Esta nueva capa, ya convertida al formato de OpenVINO, conserva los pesos de la red anterior,
+sin embargo, está preparada para que la aplicación de inferencia de OpenVINO pueda leerla correctamente.
 La herramienta de OpenVINO proporciona de manera genérica distintos scripts para realizar esta conversión.
-Se incluyen distintos scripts para los diferentes frameworks de Deep Learning más actuales, codificados en python y a los que se puede modifcar su código fuente, aunque en principio no es necesario porque ya vienen preparados para funcionar.
+Se incluyen diferentes ficheros de código fuente para los frameworks de Deep Learning más actuales, codificados en python y a los que se puede modifcar su código, aunque en principio no es necesario porque ya vienen preparados para funcionar.
 
 \subsection{Interfaz de infernecia de modelos de deep learning}\label{subsec:interfaz-de-infernecia-de-modelos-de-deep-learning}
 Con nuestro modelo y su topología convertida a un formato válido de OpenVINO, ya tenemos todo lo necesario para poder realizar clasificaciones con la interfaz de inferencia de OpenVINO.
