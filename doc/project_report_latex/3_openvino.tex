@@ -52,12 +52,13 @@ La herramienta de OpenVINO proporciona de manera genérica distintos scripts par
 Se incluyen diferentes ficheros de código fuente para los frameworks de Deep Learning más actuales, codificados en python y a los que se puede modifcar su código, aunque en principio no es necesario porque ya vienen preparados para funcionar.
 
 \subsection{Interfaz de infernecia de modelos de deep learning}\label{subsec:interfaz-de-infernecia-de-modelos-de-deep-learning}
-Con nuestro modelo y su topología convertida a un formato válido de OpenVINO, ya tenemos todo lo necesario para poder realizar clasificaciones con la interfaz de inferencia de OpenVINO.
-La optimización de inferencia se produce en este punto, donde cada capa de nuestro modelo original es procesada por la aplicación de inferencia en un lenguaje de bajo nivel, optimizado para realizar operaciones vectoriales bajo total control del programador.
+Con nuestro modelo y su topología convertida a un formato válido de OpenVINO, ya tenemos todo lo necesario para poder realizar clasificaciones con su interfaz de inferencia\@.
+La optimización de inferencia se produce en este punto, donde cada capa de nuestro modelo original es procesada por la aplicación en un lenguaje de bajo nivel, optimizado para realizar operaciones vectoriales bajo total control del programador.
 El lenguaje empleado para la codificación de la aplicación es C++ pese a que el programa pueda ser utilizado también en Python.
 Esto se debe al uso de su API, que traduce las peticiones realizadas en Python al core de la interfaz, que es C++ puro.
 Todas las capas usadas en este proyecto son compatibles de manera directa con las predefinidas por la interfaz de inferencia.
-Entre otras cosas, OpenVINO nos da la posibilidad de añadir capas personalizadas, con el inconveniente de que deben ser programadas por el usuario de manera explícita en C++ para hacerlas compatibles con el resto de la aplicación. Y, por supuesto, mantener estas nuevas capas a lo largo de las distintas actualizaciones y posibles cambios que pueda sufrir la aplicación.
+Entre otras cosas, OpenVINO nos da la posibilidad de añadir capas personalizadas, con el inconveniente de que deben ser programadas por el usuario de manera explícita en C++ para hacerlas compatibles con el resto de la aplicación.
+Y, por supuesto, mantener estas nuevas capas a lo largo de las distintas actualizaciones y posibles cambios que pueda sufrir la aplicación.
 
 
 \section{Conversión del modelo a la plataforma OpenVINO}\label{sec:conversión-del-modelo-a-la-plataforma-OpenVINO}
