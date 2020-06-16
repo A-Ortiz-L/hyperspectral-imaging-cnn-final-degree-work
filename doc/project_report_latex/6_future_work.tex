@@ -8,26 +8,31 @@
 
 \section{Conclusiones}\label{sec:conclusiones}
 Los efectos de la globalizacion de internet son cada día más perceptibles en nuestras vidas.
-El aumento de la población que interactúa por medio de apicaciones tiene como consecuencia la generación de una cantidad infinita de datos, que contienen toda la información de los usuarios que las emplean. Desde páginas web, aplicaciones móviles hasta sistemas que interactúan de manera automática, sin necesidad de que los usuarios tengan que usarlos o configurarlos. Hasta hace unos pocos años, estos ámbitos apenas escapaban de la esfera académica e investigadora, mientras que en los tiempos que corren se han convertido en una necesidad real de un mundo cada vez más interconectado a escala global.
+El aumento de la población que interactúa por medio de aplicaciones tiene como consecuencia la generación de una cantidad infinita de datos, que contienen toda la información de los usuarios que las emplean. Desde páginas web, aplicaciones móviles hasta sistemas que interactúan de manera automática, sin necesidad de que los usuarios tengan que usarlos o configurarlos. Hasta hace unos pocos años, estos ámbitos apenas escapaban de la esfera académica e investigadora, mientras que en los tiempos que corren se han convertido en una necesidad real de un mundo cada vez más interconectado a escala global.
+
+
 A medida que crecen los datos en la red, aumenta la necesidad de su análisis y explotación.
-Por ello, plataformas como Google Cloud, Amazon Web Services y similares llevan a cabo este proceso, bridando toda la potencia autogestionada de cómputo a los usuarios.
+Por ello, plataformas como Google Cloud, Amazon Web Services y similares llevan a cabo este proceso, brindando toda la potencia autogestionada de cómputo a los usuarios.
 Diariamente nacen nuevas tecnologías de análisis específicas para estos datos.
-Este es el caso de Tensorflow u OpenVINO, propiedad de empresas comerciales como Google o Intel.
+Este es el caso de TensorFlow u OpenVINO, propiedad de empresas comerciales como Google o Intel.
 La primera de ellas fue convertida a formato de código abierto, mientras que la segunda se situó como gratuita desde su lanzamiento;
 ello da debida cuenta de la creciente comunidad que hace uso de estas herramientas.
 Este tipo de recursos gratuitos, como Google Colab, otorgan a la comunidad de soluciones que solían ser de pago y accesible solo para cierto público dentro del sector tecnológico.
 Y, al mismo tiempo, es esa misma comunidad la que reporta errores, propone actualizaciones o codifica directamente nuevas soluciones a incorporar.
+
 Es la competitividad entre todas estas herramientas lo que impulsa una mejora constante en todas ellas.
-Tensorflow nació como un framework enfocado en la generación de modelos de Deep Learning, pero no con el objetivo de principal de la puesta en producción de los modelos, como si hace OpenVINO. La simbiosis entre ambos crea una combinación completa que cubre las necesidades tanto de creación, como del uso de los modelos de aprendizaje profundo.
+TensorFlow nació como un framework enfocado en la generación de modelos de Deep Learning, pero no con el objetivo de principal de la puesta en producción de los modelos, como si hace OpenVINO. La simbiosis entre ambos crea una combinación completa que cubre las necesidades tanto de creación, como del uso de los modelos de aprendizaje profundo.
 \section{Trabajo futuro}\label{sec:trabajo-futuro}
-La plataforma se ha configurado de manera que su capacidad de procesamiento de peticiones sea escalable, esto es, porque el uso de la tecnología de contenedores dockerestá preparada para su integración en la solución de cluster Kubernetes\footnote{https://kubernetes.io/es/docs/concepts/overview/what-is-kubernetes/}.
-Este trabajo ha usado Google Cloud como plataforma de despliegue de la aplicación, explorar otras soluciones como AWS o Azure daría una perspectiva más general de qué entorno está más preparado para construir y utilizar modelos de deep learning.
+La plataforma se ha configurado de manera que su capacidad de procesamiento de peticiones sea escalable, esto es, porque el uso de la tecnología de contenedores docker está preparada para su integración en la solución de cluster Kubernetes\footnote{https://kubernetes.io/es/docs/concepts/overview/what-is-kubernetes/}.
+Este trabajo ha usado Google Cloud como plataforma de despliegue de la aplicación, pero explorar otras soluciones como AWS o Azure daría una perspectiva más general de qué entorno está más preparado para construir y utilizar modelos de \texit{Deep Learning}.
+
 La visualización de resultados en este trabajo ha sido realizada mediante los trabajos SQL en una base de datos, pero sería ideal poder contemplar los datos de una manera más intuitiva.
 Docker nos permite portar fácilmente esta solución de contenedores a otros sistemas con distinto hardware, y, en consecuencia, puede funcionar de manera local sin tener una plataforma web o cloud que la soporte.
 La clasificación podría producirse dentro del propio elemento que genera las imágenes, lo que eliminaría el tiempo de latencia de otros elementos adicionales.
+
 En nuestro problema un vehículo aéreo podría portar el propio hardware de clasificación y sobrevolar el terreno dañado para clasificar las imágenes que va recogiendo.
 Este sistema sería similar a opciones que ya se pueden encontrar en el mercado, como las AWS DeepLens\footnote{https://aws.amazon.com/es/deeplens/} de Amazon.
 Los datos de este trabajo son imágenes RGB de una parte del planeta, por lo que tienen latitud y longitud exactas.
 La técnica de visionado Heatmap\footnote{https://en.wikipedia.org/wiki/Heat\_map} es la idónea para ver en tiempo real las zonas del terreno más afectadas por el desastre natural y poder redirigir los equipos de emergencia de manera rápida.
 La configuración de los servidores ingesta las llamadas de manera interna, por lo que no está abierta a peticiones públicas de manera directa.
-Si se decidiera abrir al público la clasificación de imágenes, habría que configurar en los servidores todos los certificados necesarios para funcionar con el protocolo seguro HTTPS. Además, ciertas medidas de seguridad contra factores como la denegación de servicio o intento de conexión no deseados a los servidores por los puertos abiertos de la aplicación, en nuestro caso 8080 y 22, que usamos para conectarnos por SSH.\footnote{https://es.wikipedia.org/wiki/Secure\_Shell}.
+Si se decidiera abrir al público la clasificación de imágenes, habría que configurar en los servidores todos los certificados necesarios para funcionar con el protocolo seguro HTTPS. Además, ciertas medidas de seguridad contra factores como la denegación de servicio o intento de conexión no deseados a los servidores por los puertos abiertos de la aplicación, en nuestro caso 8080 y 22, que usamos para conectarnos por SSH\footnote{https://es.wikipedia.org/wiki/Secure\_Shell}.

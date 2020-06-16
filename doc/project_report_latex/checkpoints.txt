@@ -1,0 +1,76 @@
+Portada:
+
+    Es necesario incluir el título en inglés y también en español
+
+
+Resumen:
+
+    Me parece un poco extenso el resumen. Habría que afinarlo más con lo que se ha hecho del trabajo. Con uno o dos párrafos para poner en contexto sería suficiente.
+
+
+Abstract:
+
+    Si se modifica el resumen hay que acordarse modificar el abstract.
+
+
+Capítulo 1:
+
+    Añadir referencias bibliográficas. idk
+    En la motivación también sería necesario incluir la necesidad del uso de Docker. Por supuesto, mencionar Tensorflow. V
+    Falta conectar la sección 1.2.1 con la 1.2.2 (Hablar de tratamiento de imágenes) V
+    Falta el plan de trabajo. idk
+
+
+Capítulo 2:
+
+    Añadir referencias bibliográficas.
+    Considerar el término Deep Learning en mayúsculas o en minúsculas pero en cursiva.
+    Página 13, ampliar la parte que se habla sobre el compilador XLA. ¿De qué manera se optimiza?.
+    Igual ocurre con el parámetro de batch size. Se dice de forma general.
+    El parámetro de ratio de aprendizaje (Learning rate) no se ha modificado ¿?.
+    Página 13, cuidado con esto, porque Google Colab ha actualizado el hardware disponible recientemente. Por lo tanto, las características no sé si son correctas. Cuando usas la K80 creo que no la usas al completo porque por dentro es como si tuviera dos GPUs. Mirando por Google parece que se utiliza la mitad de esta GPU.
+    Creo que ya que hemos introducido el concepto de GPU, no mencionemos el concepto de tarjeta gráfica a posteriori.
+
+
+Capítulo 3:
+
+    No estoy seguro si el segundo párrafo de la página 16 está finalizado.
+    Especificar la versión de Tensorflow usada en la página 19.
+    Ajustar el footnote a un tamaño más pequeño en la página 19.
+    En la parte última de la sección 3.2, cuidado con lo del batch…supuestamente no tiene nada que ver con batch size.
+    Cuidado con poner Tensorflow o TensorFlow, indistintamente.
+    Creo que todos los términos en inglés habría que ponerlos en cursiva con \textit{}.
+    El título de Listing 3.2, no está muy allá.
+    Después del listing anterior, está como incompleto. Aparece después la figura 3.2 sin referenciarla en el texto.
+    Es esto correcto: En general, la aplicación de Tensorflow es más compleja a nivel de software, permitiendo su escalado en entornos de producción de manera muy simple.
+
+
+Capítulo 4
+
+    No me gusta mucho el título de este capítulo. No vendría mejor el que ya se pensó ¿? (Arquitectura Cloud propuesta).
+    Al inicio del 4.1, ¿se podría crear alguna figura que se vea la interconexión de las herramientas que ofrece todo el entorno?. Quizás la figura 4.1 puede estar al principio ¿?.
+    Añadiría varias figuras en este capítulo de apoyo al contenido que se explica.
+    El título de Listing 4.2, ¿es correcto?. Ajustar el tamaño a los márgenes del código.
+    En la página 34, llega tarde poner el footnote para docker, ¿no?. Se ha mencionado mucho antes.
+    Al final de este capítulo aparece un tabularx graphicx adjustbox.
+
+
+Capítulo 5
+
+    La sección 5.1 podría ser: Dataset y hardware usado. ¿?
+    En la sección 5.2 no es un Xeon a 2.2 GHz¿?
+    Página 38, ¿ambas redes?
+    Dar una vuelta a la sección 5.2.
+    Ajustar el tamaño de letra para la Tabla 5.2.
+    Dar una vuelta a los costes del proyecto.
+
+
+Capítulo 6
+
+    En las conclusiones no has dicho nada referente a tu trabajo.
+    Página 48, ¿trabajos SQL?. No será mejor poner consultas SQL¿?.
+
+
+Añadir Bibliografía.
+
+Los anexos los corregiré una vez que esté todo correcto en español para los capítulos 1 y 6.
