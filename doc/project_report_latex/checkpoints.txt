@@ -152,3 +152,21 @@ GPU RAM Free: 16280MB | Used: 0MB | Util   0% | Total 16280MB
 \ganttlink{elem2}{elem3}
 \ganttlink{elem3}{elem4}
 \end{ganttchart}
+
+
+gantt fuente externa.
+referencia a las Tablas y Figuras en mayúscula
+texit nombres de herramientas en inglés
+nuevas figuras cap 4
+nueva sección cap 4 flujo de datos
+bibliografía
+costes del proyecto
+colab recurso compartido
+
+- Bibliografía.
+- Mencionar posibilidad de otras gráficas google colab.
+- Plan de trabajo ( que sume más o menos total de créditos.
+- Resumen minimizar.
+- Conclusiones.
+- Pruebas experimentales si da tiempo.
+- Coste del trabajo en horas de ing software.

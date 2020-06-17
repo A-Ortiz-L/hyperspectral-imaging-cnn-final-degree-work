@@ -16,19 +16,6 @@ api = Api(
 )
 
 
-@app.get('/')
-def hello():
-    return 'Hello World'
-
-
-@app.post('/remoteImage')
-def remote_image(item: dict):
-    res = api.remote_image_request(item)
-    return {
-        'result': res
-    }
-
-
 @app.post('/image')
 def cloud_storage_handler(item: dict):
     api.cloud_storage_request(item)

@@ -23,7 +23,7 @@ def hello():
 
 @app.get('/remoteImage')
 def remote_image(item: dict):
-    res = api.remote_image_request(item)
+    res = api.cloud_storage_request(item)
     return {
         'result': res
     }

@@ -16,19 +16,6 @@ api = Api(
 )
 
 
-@app.route('/', methods=['GET'])
-def hello():
-    return 'Hello my friend'
-
-
-@app.route('/imageRemote', methods=['POST'])
-def remote_image():
-    res = api.remote_image_request(request.json)
-    return {
-        'result': res
-    }
-
-
 @app.route('/image', methods=['POST'])
 def cloud_storage_handler():
     item = request.json

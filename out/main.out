@@ -16,13 +16,13 @@
 \BOOKMARK [0][-]{chapter.2}{Entrenamiento del modelo mediante Google Colab}{}% 16
 \BOOKMARK [1][-]{section.2.1}{Modelo propuesto}{chapter.2}% 17
 \BOOKMARK [1][-]{section.2.2}{Entorno Google Colab}{chapter.2}% 18
-\BOOKMARK [0][-]{chapter.3}{Tecnolog\355a Openvino}{}% 19
+\BOOKMARK [0][-]{chapter.3}{Tecnolog\355a OpenVINO}{}% 19
 \BOOKMARK [1][-]{section.3.1}{Herramientas que lo componen}{chapter.3}% 20
-\BOOKMARK [2][-]{subsection.3.1.1}{Optimizador de modelos de deep learning}{section.3.1}% 21
-\BOOKMARK [2][-]{subsection.3.1.2}{Interfaz de infernecia de modelos de deep learning}{section.3.1}% 22
+\BOOKMARK [2][-]{subsection.3.1.1}{Optimizador de modelos de Deep Learning}{section.3.1}% 21
+\BOOKMARK [2][-]{subsection.3.1.2}{Interfaz de inferencia de modelos de Deep Learning}{section.3.1}% 22
 \BOOKMARK [1][-]{section.3.2}{Conversi\363n del modelo a la plataforma OpenVINO}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.3}{Inferencias.Tensorflow vs OpenVINO}{chapter.3}% 24
-\BOOKMARK [0][-]{chapter.4}{Implementaci\363n}{}% 25
+\BOOKMARK [1][-]{section.3.3}{Inferencias.TensorFlow vs OpenVINO}{chapter.3}% 24
+\BOOKMARK [0][-]{chapter.4}{Arquitectura Cloud propuesta}{}% 25
 \BOOKMARK [1][-]{section.4.1}{Descripci\363n del entorno y sus diferentes componentes}{chapter.4}% 26
 \BOOKMARK [2][-]{subsection.4.1.1}{Google Storage}{section.4.1}% 27
 \BOOKMARK [2][-]{subsection.4.1.2}{Google BigQuery}{section.4.1}% 28
@@ -30,23 +30,24 @@
 \BOOKMARK [2][-]{subsection.4.1.4}{Google Compute Engine}{section.4.1}% 30
 \BOOKMARK [2][-]{subsection.4.1.5}{Google Cloud Function}{section.4.1}% 31
 \BOOKMARK [2][-]{subsection.4.1.6}{Container Registry}{section.4.1}% 32
-\BOOKMARK [1][-]{section.4.2}{Codificaci\363n de los servidores web}{chapter.4}% 33
-\BOOKMARK [2][-]{subsection.4.2.1}{Framework FastApi}{section.4.2}% 34
-\BOOKMARK [2][-]{subsection.4.2.2}{Framework Flask}{section.4.2}% 35
-\BOOKMARK [1][-]{section.4.3}{Encapsulaci\363n de entorno con Docker}{chapter.4}% 36
-\BOOKMARK [0][-]{chapter.5}{Resultados experimentales}{}% 37
-\BOOKMARK [1][-]{section.5.1}{Dataset usado}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.2}{Rendimiento en fase de entrenamiento}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.3}{Rendimiento en fase de inferencias}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.4}{Costes del proyecto}{chapter.5}% 41
-\BOOKMARK [0][-]{chapter.6}{Conclusiones y trabajo futuro}{}% 42
-\BOOKMARK [1][-]{section.6.1}{Conclusiones}{chapter.6}% 43
-\BOOKMARK [1][-]{section.6.2}{Trabajo futuro}{chapter.6}% 44
-\BOOKMARK [0][-]{section.6.2}{Bibliograf\355a}{}% 45
-\BOOKMARK [0][-]{appendix.Alph1}{Introduction}{}% 46
-\BOOKMARK [1][-]{section.Alph1.1}{Motivation}{appendix.Alph1}% 47
-\BOOKMARK [1][-]{section.Alph1.2}{Objectives}{appendix.Alph1}% 48
-\BOOKMARK [1][-]{section.Alph1.3}{Organization of this memory}{appendix.Alph1}% 49
-\BOOKMARK [0][-]{appendix.Alph2}{Conclusions and future work}{}% 50
-\BOOKMARK [1][-]{section.Alph2.1}{Conclusions}{appendix.Alph2}% 51
-\BOOKMARK [1][-]{section.Alph2.2}{Lines of future work}{appendix.Alph2}% 52
+\BOOKMARK [1][-]{section.4.2}{Explicaci\363n del flujo de datos}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.3}{Codificaci\363n de los servidores web}{chapter.4}% 34
+\BOOKMARK [2][-]{subsection.4.3.1}{Framework FastApi}{section.4.3}% 35
+\BOOKMARK [2][-]{subsection.4.3.2}{Framework Flask}{section.4.3}% 36
+\BOOKMARK [1][-]{section.4.4}{Encapsulaci\363n de entorno con Docker}{chapter.4}% 37
+\BOOKMARK [0][-]{chapter.5}{Resultados experimentales}{}% 38
+\BOOKMARK [1][-]{section.5.1}{Dataset y Hardware}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.2}{Rendimiento en fase de entrenamiento}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.3}{Rendimiento en fase de inferencias}{chapter.5}% 41
+\BOOKMARK [1][-]{section.5.4}{Costes del proyecto}{chapter.5}% 42
+\BOOKMARK [0][-]{chapter.6}{Conclusiones y trabajo futuro}{}% 43
+\BOOKMARK [1][-]{section.6.1}{Conclusiones}{chapter.6}% 44
+\BOOKMARK [1][-]{section.6.2}{Trabajo futuro}{chapter.6}% 45
+\BOOKMARK [0][-]{section.6.2}{Bibliograf\355a}{}% 46
+\BOOKMARK [0][-]{appendix.Alph1}{Introduction}{}% 47
+\BOOKMARK [1][-]{section.Alph1.1}{Motivation}{appendix.Alph1}% 48
+\BOOKMARK [1][-]{section.Alph1.2}{Objectives}{appendix.Alph1}% 49
+\BOOKMARK [1][-]{section.Alph1.3}{Organization of this memory}{appendix.Alph1}% 50
+\BOOKMARK [0][-]{appendix.Alph2}{Conclusions and future work}{}% 51
+\BOOKMARK [1][-]{section.Alph2.1}{Conclusions}{appendix.Alph2}% 52
+\BOOKMARK [1][-]{section.Alph2.2}{Lines of future work}{appendix.Alph2}% 53

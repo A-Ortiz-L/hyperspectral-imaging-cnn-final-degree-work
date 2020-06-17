@@ -110,14 +110,11 @@ Una de las ventajas frente a usar el sistema de inferencias clásico de TensorFl
 Adicionalmente reducimos el tamaño de las librerías a instalar al mínimo necesario para realizar las inferencias y configurar el servidor, por lo que la solución es más ligera y portable, evitando así
 instalar todo el sistema de construcción de algoritmos y demás artefactos que incorpora la librería de TensorFlow para programar redes neuronales.
 
-La inicialización del servidor y los métodos necesarios para realizar la petición de inferencia se codifican de la siguiente manera:
+La inicialización del servidor y los métodos necesarios para realizar la petición de inferencia se codifican de la siguiente manera~\ref{example2}.
 
 \begin{lstlisting}[caption=Clase Python para la red de inferencia de TensorFlow.,
-  label=a_label,
-  language=python]
-
-
-
+      label=b_label,
+      language=Python,label={example2}]
 class TensorflowNetwork:
     def __init__(self):
         self.model_uri = 'http://localhost:8501/v1/models/model:predict'
@@ -153,7 +150,7 @@ class TensorflowNetwork:
                   '--model_base_path=/app/model &')
 \end{lstlisting}
 
-En la inicialización de la clase arrancamos el servidor rest, que funcionará de manera transparente para el usuario de nuestra aplicación, ya que el mismo se ejecuta en la red
+En la inicialización de la clase arrancamos el servidor rest, que funcionará de forma transparente para el usuario de nuestra aplicación, ya que se ejecuta en la red
 local de nuestro servidor principal.
 
 
@@ -167,11 +164,11 @@ local de nuestro servidor principal.
 Por otro lado, OpenVINO también incorpora en su conjunto de herramientas un sistema de inferencia optimizado.
 Al igual que el sistema de inferencia de TensorFlow, OpenVINO también puede configurar tanto un procesador como una tarjeta gráfica para realizar sus cálculos.
 La aplicación de inferencia de OpenVINO usada en este trabajo se codifica de manera íntegra haciendo uso del lenguaje de programación Python,
-por lo que el diseño software de este servicio y el procesamiento de las imágenes se codifica de la siguiente manera en el repositorio del trabajo.
+por lo que el diseño software de este servicio y el procesamiento de las imágenes se codifica de la siguiente manera~\ref{example} en el repositorio del trabajo.
 
 \begin{lstlisting}[caption=Clase Python para la red de inferencia de OpenVINO.,
-  label=b_label,
-  language=python]
+    label=a_label,
+    language=Python,label={example}]
     class OpenVinoNetwork:
     def __init__(self):
         self.plugin = IEPlugin(device='CPU')

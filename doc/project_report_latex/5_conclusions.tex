@@ -43,60 +43,51 @@ Para obtener los resultados de este experimento se ha usado el hardware disponib
 \end{itemize}
 
 El tiempo total de entrenamiento utilizando la CPU ha sido de 11 minutos.
-El nivel de acierto de clasificación en ambas redes supera el 85 por ciento en el conjunto de datos de prueba.
+El nivel de acierto de clasificación en ambas redes supera el 85\% en el conjunto de datos de prueba.
 El resultado más fiable y rápido utilizando la Tesla K80 ha sido una configuración en la red neuronal de 175 epochs y 256 de tamaño de batch.
 El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precisión en el mínimo tiempo posible:
 
 \begin{itemize}
-    \item \textbf{175 Epochs, 256 Batch-size}: con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento. En las Figuras\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs} y\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/chapter5/batch_256_175_epoch.png}
-    \caption{Rendimiento del modelo en acierto usando una GPU Tesla K80 y una configuración de entrenamiento de 175 epochs y un tamaño batch de 256.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/chapter5/batch_256_175_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entrenamiento de 175 epochs y un tamaño batch de 256.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs}
-\end{figure}
-
     \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85\% sobre el conjunto de datos de entrenamiento.
-    En las Figuras\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs} y~\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/chapter5/batch_256_100_epoch.png}
-    \caption{Rendimiento del modelo en acierto usando una GPU Tesla K80 y una configuración de entrenamiento de 100 epochs y un tamaño batch de 256.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_100_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una GPU Tesla K80 y una configuración de entrenamiento de 100 epochs y un tamaño batch de 256.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs}
-\end{figure}
-
+    En las Figuras~\ref{fig:Resultados de entrenamiento con un batch-size de 256 y 100 epochs} se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
+    \item \textbf{175 Epochs, 256 Batch-size}: con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento.
+    En las Figura~\ref{fig:Resultados de entrenamiento con un batch-size de 256 y 175 epochs} se encuentran los resultados de entrenamiento en términos de precisión y pérdida.
     \item \textbf{200 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 29.94 segundos y una precisión del 87\% sobre el conjunto de datos de entrenamiento.
-    \Ver figura\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 200 epochs} para los resultados de entrenamiento y la figura\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs} para los resultados de pérdida.
+    Ver Figura~\ref{fig:Resultados de entrenamiento con un batch-size de 256 y 200 epochs} para los resultados en precisión y pérdida.
 \end{itemize}
 
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_200_epoch.png}
-    \caption{Rendimiento del modelo en acierto usando una gpu TeslaK80 y una configuración de entrenamiento de 200 epoch y un tamaño batch de 256.}
-    \label{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 200 epochs}
+    \begin{tabular}{cc}
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_100_epoch.png} &
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_100_epoch_loss.png}\\
+        (a) & (b)\\
+    \end{tabular}
+    \label{fig:Resultados de entrenamiento con un batch-size de 256 y 100 epochs}
+    \caption{Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 100 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter5/batch_256_200_epoch_loss.png}
-    \caption{Rendimiento del modelo en pérdida al entrenar con una TeslaK80 y una configuración de entrenamiento de 200 epoch y un tamaño batch de 256.}
-    \label{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 200 epochs}
+    \begin{tabular}{cc}
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_175_epoch.png} &
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_175_epoch_loss.png}\\
+        (a) & (b)\\
+    \end{tabular}
+    \label{fig:Resultados de entrenamiento con un batch-size de 256 y 175 epochs}
+    \caption{Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 175 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_200_epoch.png} &
+        \includegraphics[height=0.35\textwidth]{images/chapter5/batch_256_200_epoch_loss.png}\\
+        (a) & (b)\\
+    \end{tabular}
+    \label{fig:Resultados de entrenamiento con un batch-size de 256 y 200 epochs}
+    \caption{Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 100 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}
 \end{figure}
 
 
@@ -130,10 +121,10 @@ Al contrario que TensorFlow, no necesita ningún otro tipo de servicio adicional
         \begin{tabular}{| c | c | c | c | c | c |}
             \hline
             inference\_engine & physical\_core & system\_memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
-            TensorFlow & 4  & 7.00GB & 0.066 & 0.188 \\
-            OpenVINO & 4  & 7.00GB & 0.003 & 0.1 \\
-            OpenVINO & 2  & 3.46GB & 0.005 & 0.097 \\
-            TensorFlow & 2  & 3.46GB & 0.364 & 0.816 \\ \hline
+            TensorFlow & 4 & 7.00GB & 0.066 & 0.188 \\
+            OpenVINO & 4 & 7.00GB & 0.003 & 0.1 \\
+            OpenVINO & 2 & 3.46GB & 0.005 & 0.097 \\
+            TensorFlow & 2 & 3.46GB & 0.364 & 0.816 \\ \hline
         \end{tabular}
         \caption{Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware.}
         \label{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware}
@@ -146,7 +137,7 @@ TensorFlow mejora en 5 veces la velocidad de inferencia pasando de un procesador
 
 
 Se han configurado los distintos servidores web para que empleen todos los núcleos del procesador de manera concurrente, de modo que la capacidad de procesamiento de peticiones sea la máxima posible.
-En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
+En la Tabla~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
 TensorFlow se comporta mucho mejor con flask, mejorando en 4 veces su tiempo de inferencia en la red, pasando de 348 ms con fastapi a 83 ms con flask y 3.7 veces en el tiempo total de ejecución teniendo un rendimiento de 700 ms con fastapi a 200 ms con flask. Flask es un servidor web con los mínimos componentes para funcionar, pero configurado de la manera correcta puede ser el framework idóneo para realizar una tarea específica.
 En este caso, la complejidad del servicio de TensorFlow convive mejor con un framework web sin demasiados componentes adicionales.
 Los componentes que proporciona fastapi como un sistema de logging detallado de las ejecuciones y algunas características adicionales para el desarrollador, pueden ocasionar cierto aumento de la latencia en los tiempos.
@@ -193,12 +184,12 @@ En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlo
 
 El número total de aciertos de clasificación asciende a 1566 registros de un total de 16000, teniendo así un porcentaje de acierto general
 del 97\%. Con un recuento de 108 fallos en la red TensorFlow y 226 en OpenVINO.
-Todos los resultados y registros se encuentran en el repositorio oficial del trabajo en GitHub\footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/result/snapshot}.
+Todos los resultados y registros se encuentran en el repositorio oficial del trabajo en GitHub\footnote{\url{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/result/snapshot}}.
 
 
 \section{Costes del proyecto}\label{sec:costes-del-proyecto}
 A continuación se presentan los costes del proyecto de toda la plataforma de producción.
-Estos costes han sido recogidos haciendo uso de la calculadora de precios de Google\footnote{https://cloud.Google.com/products/calculator?hl=es}.
+Estos costes han sido recogidos haciendo uso de la calculadora de precios de Google\footnote{\url{https://cloud.Google.com/products/calculator?hl=es}}.
 
 \begin{itemize}
     \item Máquina virtual 4 vCPUs, 3,6 GB 6.80 dólares por un uso de 24 horas, que fue el tiempo utilizado para realizar pruebas de concepto y cargas en este trabajo.
