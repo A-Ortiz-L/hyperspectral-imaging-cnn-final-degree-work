@@ -1,6 +1,5 @@
 \cleardoublepage
 \mbox{}
-
 \lstset{
 language=Python,
 basicstyle=\small\sffamily,
@@ -10,7 +9,7 @@ frame=tb,
 columns=fullflexible,
 showstringspaces=false
 }
-\chapter{Implementación}
+\chapter{Arquitectura Cloud propuesta}
 \label{ch:chapter4}
 La implementación y puesta en marcha de la aplicación se materaliza en un entorno cloud, concretamente Google Cloud Platform.
 Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
@@ -19,9 +18,19 @@ Entre las numerosas ventajas que otorga, también se puede citar su capacidad de
 A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de Google sí son de pago.
 En muchos casos existe una modalidad gratuita;
 modalidad cuyos recursos en muchos casos quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
+En la figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arquitectura cloud a la que dotaremos de identidad con las soluciones que ofrece Google.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/chapter4/cloud_architecture.png}
+    \caption{Arquitectura Cloud}
+    \label{fig:Arquitectura Cloud}
+\end{figure}
+
 \section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
 Google Cloud posee multitud de herramientas específicas para cada situación, en este trabajo nos hemos centrado en las siguientes.
-\subsection{Google Storage}\label{subsec:storage}
+
+\subsection{Google \texit{Storage}}\label{subsec:storage}
 Es el sistema de almacenamiento de Google.
 Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
 Esto se debe a que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
@@ -36,9 +45,9 @@ Las características principales que se han encontrado en el uso de esta aplicac
     \item Interoperabilidad con el resto de servicios cloud.
 \end{itemize}
 
-\subsection{Google BigQuery}\label{subsec:bigquery}
+\subsection{Google \texit{BigQuery}}\label{subsec:bigquery}
 Es una base de datos columnar y distribuida mantenida por Google, de modo que no hay que configurar su funcionamiento interno.
-En la aplicación de este trabajo, BigQuery funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
+En la aplicación de este trabajo, \texit{BigQuery} funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
 Todos los conjuntos de datos de esta base de datos han sido configurados en Europa para disminuir la latencia lo máximo posible.
 Las razones principales de su uso son:
 \begin{itemize}
@@ -66,28 +75,43 @@ Es el servicio principal de Google para proporcionar máquinas virtuales totalme
 en el que se va a ejecutar la aplicación, ya sea docker o las distintas distribuciones de sistemas operativos.
 Este servidor usará como aplicación principal una imagen de docker almacenada en el registro de contenedores.
 Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
-\subsection{Google Cloud Function}\label{subsec:cloudfunction}
+\subsection{Google \texit{Cloud Function}}\label{subsec:cloudfunction}
 Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible, en una máquina virtual activada por eventos.
 Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre están disponibles y no hay apenas latencia.
 En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento, y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación.
 \subsection{Container Registry}\label{subsec:container-registry}
 Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
 En este repositorio se almacenan las distintas imágenes de docker tanto para OpenVINO como para TensorFlow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
-En la siguiente Figura \ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
+
+\section{Explicación del flujo de datos}\label{subsec:explicación-del-flujo-de-la-arquitectura}
+En la siguiente Figura~\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\textwidth]{images/chapter4/cloud_architecture.png}
+    \includegraphics[width=1.0\textwidth]{images/chapter4/google_cloud_architecture.png}
     \caption{Arquitectura Google Cloud}
     \label{fig:Arquitectura Google Cloud}
 \end{figure}
+Una imagen que es cargada en el sistema de almacenamiento~\ref{subsec:storage} dispara automáticamente un evento que se introduce en la cola de mensajería de la aplicación~\ref{subsec:pubsub}.
+El servicio de \texit{Cloud Functions}~\ref{subsec:cloudfunction} consume todos estos mensajes de manera inmediata porque está configurado para activarse cada vez que un nuevo evento de este tipo ocurre.
+Por cada evento consumido una máquina virtual que se se activa de manera instantánea será la encargada de formatear y enviar la petición al servidor.
+El servidor\ref{subsec:computeengine}, con toda la información acerca de la imagen, procederá a usar la red de inferencia conveniente para finalmente insertar los resultados en la base de datos~\ref{subsec:bigquery}.
 
 \section{Codificación de los servidores web}\label{sec:codificación-de-los-servidores-web}
-Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para el su posterior análisis, se necesita codificar un servidor web que realice todo este trabajo.
+Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para su posterior análisis, se necesita codificar un servidor web que realice todo este trabajo.
 Para ello, se ha elegido el lenguaje de programación Python, debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel de información sobre desarrollo con este lenguaje sea significativamente más alto que otros casos.
 Se ha empleado un paradigma de programación orientado a objetos, por la organización que proporcionan con aplicaciones de un tamaño considerable, además de la dotación de identidad que facilita a los distintos componentes. Debido a la multitud de framework web actuales, se han elegido varios para su puesta a prueba en la aplicación.
+En la figura~\ref{fig:Petición HTTP al servidor} podemos observar que las peticiones al servidor se han configurado para llegar al \textit{endpoint} \textit{image}, que es donde se procesan las imágenes.
+Todas las peticiones al servidor se realizan de manera interna, por lo que el tráfico HTTP está cerrado al exterior, evitando así posibles ataques de denegación de servicio y la explotación de la aplicación sin consentimiento del propietario.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/chapter4/http_request.png}
+    \caption{Petición HTTP al servidor}
+    \label{fig:Petición HTTP al servidor}
+\end{figure}
 
 Para el procesamiento generalizado de imágenes y el sistema de recogida de metadatos se han codificado dos clases principales.
-La primera es la encargada de la inicialización de los servicios de GoogleStorage y GoogleBigQuery, para los cuales se han codificado métodos para descarga y carga de información respectivamente (ver Código \ref{lst:api}).
+La primera~\ref{class1} es la encargada de la inicialización de los servicios de \texit{Storage}~\ref{subsec:storage} y \texit{BigQuery}~\ref{subsec:bigquery}, para los cuales se han codificado métodos para descarga y carga de información.
 Se presenta un método principal para procesar las peticiones al servidor, que modela toda la información que va a ser incluida en la base datos.
 Esta información consta de los siguientes campos:
 
@@ -113,7 +137,7 @@ Esta información consta de los siguientes campos:
 \end{itemize}
 
 
-\begin{lstlisting}[caption=Api, label=lst:api, float=h]
+\begin{lstlisting}[caption=Clase Python para la API de la aplicación.,label=class1,float=h]
     class Api:
     def __init__(self, net, sys: SystemTrack):
         self.__storage = GoogleStorage()
@@ -147,13 +171,15 @@ Esta información consta de los siguientes campos:
         self.__big_query.insert_row(row)
         os.remove(image_path)
 \end{lstlisting}
-La segunda clase (refclase) es la encargada de generar y recabar toda esta información para que la clase Api pueda procesarla.
-Se ha hecho uso de las librerías de psutil\footnote{ https://pypi.org/project/psutil/} y platform\footnote{https://docs.python.org/3/library/platform.html} para conseguir la información necesaria del sistema.
+La segunda clase~\ref{class2} es la encargada de generar y recabar toda esta información para que la clase anterior~\ref{lstlisting:lst_1} pueda procesarla.
+Se ha hecho uso de las librerías de psutil\footnote{ https://pypi.org/project/psutil/} y platform\footnote{\url{https://docs.python.org/3/library/platform.html}} para conseguir la información necesaria del sistema.
 Contamos de manera adicional con un método de conversión de unidades para normalizar los datos a un estándar preestablecido.
-Este objeto de tipo SystemTrack es el que será enviado por argumento a la clase Api, la cual procesará todos estos datos.
-\begin{lstlisting}[caption=Api, label=lst:system, float=h]
+Este objeto de tipo \texit{SystemTrack} es el que será enviado por argumento a la clase \texit{Api}, la cual procesará todos estos datos.
+\begin{lstlisting}[caption=Clase Python para generar información sobre el sistema,label=class2,float=h]
+
 class SystemTrack:
-    def __init__(self, docker: bool, inference_engine: str, web_engine: str, cloud: bool, processor_unit: str):
+    def __init__(self, docker: bool, inference_engine: str, 
+            web_engine: str, cloud: bool, processor_unit: str):
         self.sys_information = platform.uname()
         self.sys_memory = psutil.virtual_memory()
         self.physical_cores = psutil.cpu_count(logical=False)
@@ -190,30 +216,38 @@ Las características principales de este framework son las siguientes :
     \item Estándar OpenApi\footnote{https://github.com/OAI/OpenAPI-Specification} para la especificación del formato de las peticiones entrantes y las respuestas del servidor.
 \end{itemize}
 
-Para soportar este framework se usará Uvicorn\footnote{https://www.uvicorn.org/} como servidor ASGI\footnote{https://asgi.readthedocs.io/en/latest/} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas.
+Para soportar este framework se usará Uvicorn\footnote{\rule{https://www.uvicorn.org/}} como servidor ASGI\footnote{\url{https://asgi.readthedocs.io/en/latest/}} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas.
 Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones entre los distintos nodos e hilos de la aplicación.
 Adicionalmente, se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la aplicación dentro del host.
 Este servidor soporta actualmente el protocolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
-Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
+El software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
+
 
 \subsection{Framework Flask}\label{subsec:framework-flask}
-Flask\footnote{https://flask.palletsprojects.com/en/1.1.x/} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
+Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
 muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
 
 A diferencia de fastapi, Flask se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
-Como servidor web se usará Gunicorn\footnote{https://gunicorn.org/} que sigue el estándar WSGI\footnote{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
+Como servidor web se usará Gunicorn\footnote{\url{https://gunicorn.org/}} que sigue el estándar WSGI\footnote{\url{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface}} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
 \section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
-En la siguiente Figura~\ref{fig:Arquitectura de la máquina virtual de la aplicación} podemos observa la arquitectura para ambos frameworks que se desplegarán en las máquinas virtuales de Google.
+En las Figuras~\ref{fig:Arquitectura de la máquina virtual de OpenVINO} y ~\ref{fig:Arquitectura de la máquina virtual de TensorFlow} podemos observar la arquitectura de máquina virtual para OpenVINO y TensorFlow respectivamente, ambos se desplegarán en las máquinas virtuales de Google.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/chapter4/host_architecture.png}
-    \caption{Arquitectura de la máquina virtual de la aplicación.}
-    \label{fig:Arquitectura de la máquina virtual de la aplicación}
+    \includegraphics[width=0.8\textwidth]{images/chapter4/openvino_ce.png}
+    \caption{Arquitectura de la máquina virtual de OpenVINO.}
+    \label{fig:Arquitectura de la máquina virtual de OpenVINO}
 \end{figure}
 
-Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores docker\footnote{https://www.docker.com/}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/chapter4/tensorflow_ce.png}
+    \caption{Arquitectura de la máquina virtual de TensorFlow.}
+    \label{fig:Arquitectura de la máquina virtual de TensorFlow}
+\end{figure}
+
+Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores docker\footnote{\rule{https://www.docker.com/}}.
 Este contenedor de docker se conectará con el host mediante el puerto 8080, permitiendo así el tráfico de información.
 Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando flask o fastapi respectivamente.
 Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.

@@ -1,15 +1,13 @@
 %\cleardoublepage
 %\thispagestyle{empty}
 \mbox{}
-\usepackage{tabularx}
-\usepackage{graphicx}
-\usepackage{adjustbox}
+
 
 \chapter{Resultados experimentales}
 \label{ch:chapte5}
 
 
-\section{Dataset usado}\label{sec:dataset-usado}
+\section{Dataset y Hardware}\label{sec:dataset-usado}
 Para el entrenamiento del modelo de Deep Learning, se ha usado un conjunto de datos de 268 imágenes RGB\@.
 En cuanto a la muestra presentada, para el estudio de las métricas de inferencia y pruebas de carga se han subido 16.000 imágenes en el sistema de almacenamiento, que han sido procesadas en el entorno productivo de la aplicación.
 El tamaño de la muestra es mucho mayor que el de las imágenes de origen.
@@ -50,7 +48,7 @@ El resultado más fiable y rápido utilizando la Tesla K80 ha sido una configura
 El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir el máximo nivel de precisión en el mínimo tiempo posible:
 
 \begin{itemize}
-    \item \textbf{175 Epochs, 256 Batch-size}: con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento. En las Figuras \ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs} y \ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
+    \item \textbf{175 Epochs, 256 Batch-size}: con un tiempo total de entrenamiento de 25.86 segundos y una precisión del 93\% sobre el conjunto de datos de entrenamiento. En las Figuras\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 175 epochs} y\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 175 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
 
 \begin{figure}[H]
     \centering
@@ -67,7 +65,7 @@ El modelo ha sido entrenado con los siguientes hiperparámetros para conseguir e
 \end{figure}
 
     \item \textbf{100 Epochs, 256 Batch-size}: Con un tiempo total de entrenamiento de 16.79 segundos y una precisión del 85\% sobre el conjunto de datos de entrenamiento.
-    En las Figuras \ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs} y \ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
+    En las Figuras\ref{fig:Resultados de la precisión de entrenamiento con un batch-size de 256 y 100 epochs} y~\ref{fig:Resultados de loss en el entrenamiento con un batch-size de 256 y 100 epochs}, se encuentran los resultados de entrenamiento en términos de precisión y pérdida, respectivamente.
 
 \begin{figure}
     \centering
@@ -109,8 +107,8 @@ La unidad de cálculo principal es el procesador, siendo su modelo un Intel Xeon
 Se han probado distintas configuraciones de este procesador, tanto en su versión de 2 núcleos físicos (4 virtuales), como en la de 4 núcleos físicos (8 virtuales).
 La memoria RAM utilizada varía de 4 GB en su primera versión junto con el procesador de 2 núcleos físicos a 8 GB en la versión de 4 núcleos físicos.
 
-En la Tabla \ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow} se puede observar como la media de inferencia a lo largo de las 16.000 muestras tomadas
-es de 200 ms para TensorFlow y 4 ms para OpenVINO lo que supone una velocidad de inferencia 50 veces superior de OpenVINO frente a TensorFlow. También podemos visualizar en la Tabla \ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
+En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow} se puede observar como la media de inferencia a lo largo de las 16.000 muestras tomadas
+es de 200 ms para TensorFlow y 4 ms para OpenVINO lo que supone una velocidad de inferencia 50 veces superior de OpenVINO frente a TensorFlow. También podemos visualizar en la Tabla~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware} que el tiempo total de inferencia que incluye la latencia del servidor web, los pipelines de procesamiento del entorno y la propia inferencia, es inferior al segundo en ambos casos.
 Y se reduce aún más en OpenVINO debido a la rapidez de su red de inferencia y la simplicidad con la que se implementa.
 Al contrario que TensorFlow, no necesita ningún otro tipo de servicio adicional más que la API de alto rendimiento, que funciona como una librería almacenada de manera local en el sistema operativo.
 
@@ -148,7 +146,7 @@ TensorFlow mejora en 5 veces la velocidad de inferencia pasando de un procesador
 
 
 Se han configurado los distintos servidores web para que empleen todos los núcleos del procesador de manera concurrente, de modo que la capacidad de procesamiento de peticiones sea la máxima posible.
-En la Tabla \ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
+En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
 TensorFlow se comporta mucho mejor con flask, mejorando en 4 veces su tiempo de inferencia en la red, pasando de 348 ms con fastapi a 83 ms con flask y 3.7 veces en el tiempo total de ejecución teniendo un rendimiento de 700 ms con fastapi a 200 ms con flask. Flask es un servidor web con los mínimos componentes para funcionar, pero configurado de la manera correcta puede ser el framework idóneo para realizar una tarea específica.
 En este caso, la complejidad del servicio de TensorFlow convive mejor con un framework web sin demasiados componentes adicionales.
 Los componentes que proporciona fastapi como un sistema de logging detallado de las ejecuciones y algunas características adicionales para el desarrollador, pueden ocasionar cierto aumento de la latencia en los tiempos.
@@ -170,7 +168,7 @@ Aun así, cuando la fiabilidad es uno de los requisitos y objetivos principales,
 \end{table}
 
 En general, fastapi requiere de un hardware más potente para sacar su máximo rendimiento, mientras que con una framework minimalista como flask podemos optar por reducir costes en hardware sin penalizar demasiado el rendimiento.
-En la Tabla \ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
+En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
 
 \begin{table}[ht]
     \begin{center}
@@ -193,9 +191,9 @@ En la Tabla \ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFl
 \end{table}
 
 
-El número total de aciertos de clasificación en ambas redes asciende a 1566 registros de un total de 16000, teniendo así un porcentaje de acierto general
+El número total de aciertos de clasificación asciende a 1566 registros de un total de 16000, teniendo así un porcentaje de acierto general
 del 97\%. Con un recuento de 108 fallos en la red TensorFlow y 226 en OpenVINO.
-Todos los resultados y registros se encuentran en el repositorio oficial del trabajo en Github\footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/result/snapshot}.
+Todos los resultados y registros se encuentran en el repositorio oficial del trabajo en GitHub\footnote{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/result/snapshot}.
 
 
 \section{Costes del proyecto}\label{sec:costes-del-proyecto}

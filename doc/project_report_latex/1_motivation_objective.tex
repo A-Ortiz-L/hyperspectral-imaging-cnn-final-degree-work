@@ -1,6 +1,6 @@
 \cleardoublepage
 
-
+\usepackage{pgfgantt}
 \chapter{Introducción}
 \label{ch:chapter1}
 
@@ -20,7 +20,7 @@ En estos casos, el procesamiento en tiempo real se vuelve algo indispensable par
 Los ejes que vertebran este proyecto se sitúan en torno a dos polos: primeramente, la aceleración del tiempo de entrenamiento de un modelo de \texit{Deep Learning} usando una GPU en el servicio de Google Colab, y en segundo lugar, la optimización del tiempo de inferencia del modelo mediante el kit de herramientas Intel OpenVINO. Finalmente, el modelo se desplegará en un entorno cloud en el que pueda funcionar como servicio capaz de soportar miles de llamadas concurrentes.
 Para llevar a cabo el entrenamiento del modelo se ha utilizado como herramienta principal TensorFlow, un framework open source desarrollado por Google para la preparación de algoritmos de entrenamiento de redes neuronales.
 Este framework será totalmente codificado en el lenguaje de programación Python.
-Con la necesidad de que la aplicación sea robusta y flexible ante cambios se ha usado la tecnología de contendores Docker.
+Con la necesidad de que la aplicación sea robusta y flexible ante cambios se ha usado la tecnología de contendores Docker\footnote{\rule{https://www.docker.com/}}.
 Empleando esta tecnología se asegura que tanto las versiones del sistema operativo como de librerías externas sean compatibles entre sí, adicionalmente, se deja abierta la posibilidad de portar la aplicación a distintos entornos que aprovechen esta solución de contenedores.
 La consecución del objetivo general anteriormente mencionado se lleva a cabo en la presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a
 continuación:
@@ -61,7 +61,7 @@ Esto ha abierto la posibilidad a profesionales que anteriormente no tenían un h
 
 Estudios como matemáticas, estadística y relacionados,
 se ven beneficiados ya que la capacidad de análisis y el perfil matemático que poseen son aptitudes muy valorables para realizar este tipo de tareas.
-Algunos lenguajes de programación menos usuales han visto impulsado su uso a raíz de este nuevo perfil de profesionales, debido a que su uso y curva de aprendizaje es mucho más sencillo que lenguajes más tradicionales como Java o C++ (ver Figura \ref{fig:Encuesta sobre lenguajes de programación en StackOverflow 2019}).
+Algunos lenguajes de programación menos usuales han visto impulsado su uso a raíz de este nuevo perfil de profesionales, debido a que su uso y curva de aprendizaje es mucho más sencillo que lenguajes más tradicionales como Java o C++ (ver Figura~\ref{fig:Encuesta sobre lenguajes de programación en StackOverflow 2019}).
 También ha fomentado la creación de nuevas herramientas de desarrollo, como Jupyter, TensorFlow, Scikit-learn, PyTorch, todas ellas gratuitas y de código abierto.
 
 \begin{figure}
@@ -109,6 +109,7 @@ Estas imágenes fueron adquiridas por el satélite de observación terrestre de 
 Por lo tanto, el fin de nuestro modelo de \texit{Deep Learning} es tener la capacidad de clasificar dichas imágenes dependiendo si la zona está dañada o, por el contrario, está en buenas condiciones.
 
 \section{Plan de trabajo}\label{sec:plan-de-trabajo}
+
 
 \section{Organización de esta memoria}\label{sec:organización-de-esta-memoria}
 
