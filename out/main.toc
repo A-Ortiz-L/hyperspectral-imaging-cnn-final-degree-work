@@ -3,8 +3,8 @@
 \contentsline {chapter}{Índice general}{\es@scroman {i}}{section*.2}%
 \contentsline {chapter}{Índice de figuras}{\es@scroman {iv}}{chapter*.4}%
 \contentsline {chapter}{Índice de tablas}{\es@scroman {vi}}{chapter*.5}%
-\contentsline {chapter}{Resumen}{\es@scroman {viii}}{chapter*.5}%
-\contentsline {chapter}{Abstract}{\es@scroman {x}}{chapter*.5}%
+\contentsline {chapter}{Resumen}{\es@scroman {vii}}{chapter*.5}%
+\contentsline {chapter}{Abstract}{\es@scroman {ix}}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivación y objetivos}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Estado del arte}{3}{section.1.2}%
@@ -19,7 +19,7 @@
 \contentsline {section}{\numberline {3.1}Herramientas que lo componen}{18}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Optimizador de modelos de {Deep Learning}}{18}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Interfaz de inferencia de modelos de {Deep Learning}}{19}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{20}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Inferencias.TensorFlow vs OpenVINO}{21}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Arquitectura Cloud propuesta}{27}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Descripción del entorno y sus diferentes componentes}{27}{section.4.1}%
