@@ -5,48 +5,48 @@
 \contentsline {chapter}{Índice de tablas}{\es@scroman {vi}}{chapter*.5}%
 \contentsline {chapter}{Resumen}{\es@scroman {viii}}{chapter*.5}%
 \contentsline {chapter}{Abstract}{\es@scroman {x}}{chapter*.5}%
-\contentsline {chapter}{\numberline {1}Introducción}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Motivación y objetivos}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Estado del arte}{4}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Concepto Deep Learning}{5}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Redes neuronales en el tratamiento de imágenes}{7}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Plan de trabajo}{8}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Organización de esta memoria}{8}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Entrenamiento del modelo mediante Google Colab}{10}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Modelo propuesto}{11}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Entorno Google Colab}{14}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Tecnología OpenVINO}{18}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Herramientas que lo componen}{19}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Optimizador de modelos de {Deep Learning}}{19}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Interfaz de inferencia de modelos de {Deep Learning}}{20}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{20}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Inferencias.TensorFlow vs OpenVINO}{22}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Arquitectura Cloud propuesta}{28}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descripción del entorno y sus diferentes componentes}{28}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Google {Storage}}{29}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Google {BigQuery}}{30}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Google Pub/Sub}{30}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Google Compute Engine}{31}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Google {Cloud Function}}{31}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Container Registry}{32}{subsection.4.1.6}%
-\contentsline {section}{\numberline {4.2}Explicación del flujo de datos}{32}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Codificación de los servidores web}{33}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Framework FastApi}{36}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Framework Flask}{37}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Encapsulación de entorno con Docker}{38}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Resultados experimentales}{42}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Dataset y Hardware}{42}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{43}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Rendimiento en fase de inferencias}{46}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Costes del proyecto}{49}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{51}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Conclusiones}{51}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Trabajo futuro}{52}{section.6.2}%
-\contentsline {chapter}{Bibliografía}{53}{section.6.2}%
-\contentsline {chapter}{\numberline {A}Introduction}{54}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Motivation}{54}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Objectives}{55}{section.Alph1.2}%
-\contentsline {section}{\numberline {A.3}Organization of this memory}{56}{section.Alph1.3}%
-\contentsline {chapter}{\numberline {B}Conclusions and future work}{59}{appendix.Alph2}%
-\contentsline {section}{\numberline {B.1}Conclusions}{59}{section.Alph2.1}%
-\contentsline {section}{\numberline {B.2}Lines of future work}{60}{section.Alph2.2}%
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivación y objetivos}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Estado del arte}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Concepto Deep Learning}{4}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Redes neuronales en el tratamiento de imágenes}{6}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Plan de trabajo}{7}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Organización de esta memoria}{7}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Entrenamiento del modelo mediante Google Colab}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modelo propuesto}{10}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Entorno Google Colab}{13}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Tecnología OpenVINO}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Herramientas que lo componen}{18}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Optimizador de modelos de {Deep Learning}}{18}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Interfaz de inferencia de modelos de {Deep Learning}}{19}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Conversión del modelo a la plataforma OpenVINO}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Inferencias.TensorFlow vs OpenVINO}{21}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Arquitectura Cloud propuesta}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descripción del entorno y sus diferentes componentes}{27}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Google {Storage}}{28}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Google {BigQuery}}{29}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Google Pub/Sub}{29}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Google Compute Engine}{30}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Google {Cloud Function}}{30}{subsection.4.1.5}%
+\contentsline {subsection}{\numberline {4.1.6}Container Registry}{31}{subsection.4.1.6}%
+\contentsline {section}{\numberline {4.2}Explicación del flujo de datos}{31}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Codificación de los servidores web}{32}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Framework FastApi}{35}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Framework Flask}{36}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Encapsulación de entorno con Docker}{37}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Resultados experimentales}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Dataset y Hardware}{41}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Rendimiento en fase de entrenamiento}{42}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Rendimiento en fase de inferencias}{45}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Costes del proyecto}{47}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Conclusiones y trabajo futuro}{50}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Conclusiones}{50}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Trabajo futuro}{51}{section.6.2}%
+\contentsline {chapter}{Bibliografía}{52}{section.6.2}%
+\contentsline {chapter}{\numberline {A}Introduction}{53}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Motivation}{53}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Objectives}{54}{section.Alph1.2}%
+\contentsline {section}{\numberline {A.3}Organization of this memory}{55}{section.Alph1.3}%
+\contentsline {chapter}{\numberline {B}Conclusions and future work}{58}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Conclusions}{58}{section.Alph2.1}%
+\contentsline {section}{\numberline {B.2}Lines of future work}{59}{section.Alph2.2}%
