@@ -9,7 +9,7 @@ esto permite enfocarse plenamente en la mejora de rendimiento del modelo plantea
 El objetivo es evitar la posible espera que pueda producir volver a entrenar el mismo con distintos parámetros.
 Con ello, se puede reajustar constantemente el modelo para encontrar el punto óptimo de manera ágil.
 
-En este trabajo se va a entrenar un modelo de \texit{Deep Learning} haciendo uso del framework de código abierto de TensorFlow\footnote{\url{https://www.tensorflow.org/}}, que está programada en el lenguaje de programación Python.
+En este trabajo se va a entrenar un modelo de \texit{Deep Learning} haciendo uso del framework de código abierto de TensorFlow\footnote{\url{https://www.tensorflow.org/}}, que está programado en el lenguaje de programación Python.
 Éste incluye una API de Deep Learning llamada Keras, que será la que utilicemos.
 El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes, así como los procedimientos que realizan las redes neuronales\cite{neural_network} para hacer sus cálculos son, en muchas ocasiones,
 operaciones matriciales.
@@ -23,6 +23,7 @@ En este trabajo se han matenido los mismos componentes hardware en Google Colab 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter2/cpu-and-gpu.jpg}
+    %\caption{Arquitectura de paralelización de una GPU.}
     \caption{Diferencia de núcleos para procesar cargas de trabajo en paralelo de forma eficiente entre CPU y GPU.}
     \label{fig:Arquitectura de paralelización de una GPU}
 \end{figure}

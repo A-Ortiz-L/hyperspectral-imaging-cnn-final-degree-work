@@ -170,4 +170,4 @@ colab recurso compartido
 - Resumen minimizar. V
 - Conclusiones. V
 - Pruebas experimentales si da tiempo. -
-- Coste del trabajo en horas de ing software. -
+- Coste del trabajo en horas de ing software. V

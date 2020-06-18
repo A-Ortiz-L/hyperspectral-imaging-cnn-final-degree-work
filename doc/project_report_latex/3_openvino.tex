@@ -1,5 +1,6 @@
 \cleardoublepage
 \mbox{}
+
 \lstset{
 language=Python,
 basicstyle=\small\sffamily,
@@ -67,7 +68,7 @@ La serialización por defecto de un modelo de TensorFlow puede incluir de manera
 
 \begin{itemize}
     \item Un punto de control TensorFlow que contiene los pesos del modelo.
-    \item Un prototipo 'SavedModel' que contiene el gráfico subyacente de TensorFlow.
+    \item Un prototipo `SavedModel' que contiene el gráfico subyacente de TensorFlow.
     Este prototipo separa los gráficos que se guardan para predicción (servicio), capacitación y evaluación.
     \item La configuración de la arquitectura del modelo, si está disponible.
 \end{itemize}
@@ -95,15 +96,15 @@ se puede observar la arquitectura de la red y los pesos pertenecientes a cada ca
 Configuramos también el \textit{flag} -b, esta opción determina el tamaño del batch que queremos especificar para la conversión, seleccionamos 1 porque en las entradas de nuestra red neuronal pueden propagarse valores
 negativos, los cuales no son válidos para su procesamiento en OpenVINO\@.
 
-\section{Inferencias.TensorFlow vs OpenVINO}\label{sec:inferencias.-TensorFlow-vs-OpenVINO}
-Como se ha mencionado anteriormente, TensorFlow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real. Este sistema se llama TensorFlow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
+\section{Inferencias. TensorFlow vs OpenVINO}\label{sec:inferencias.-Tensorflow-vs-OpenVINO}
+Como se ha mencionado anteriormente, Tensorflow posee su propio sistema de inferencia preparado para su uso productivo en un entorno real. Este sistema se llama Tensorflow serving, el cual incorpora un servidor codificado mediante el patrón diseño api rest, de modo que las peticiones
 de inferencia se realizan al servidor por medio del protocolo de transmisión de datos http.
 La aplicación de TensorFlow está diseñada para el escalado tanto en el número de modelos para los que puede recibir inferencias y sus versiones como para la escalabilidad en capacidad de cálculo.
 El escalado de cálculo está preparado para funcionar en una arquitectura clúster, en este caso un clúster de contenedores como es Kubernetes\footnote{\url{https://kubernetes.io/es/docs/concepts/overview/what-is-kubernetes/}}, por lo que el servidor puede ser encapsulado en su totalidad en un contenedor de Docker.
 
-En este trabajo se ha trabajado con una versión encapsulada de docker, pero no con la extensibilidad del escalado con Kubernetes\cite{kubernetes}.
+En este trabajo se ha trabajado con una versión encapsulada de Docker, pero no con la extensibilidad del escalado con Kubernetes\cite{kubernetes}.
 La unidad de cálculo principal del sistema de inferncia también es configurable, perimitiendo así el uso tanto de CPU como de GPU.
-Si se usa la opción de contenedores docker configurando una GPU es necesario configurar de manera explícita este entorno.
+Si se usa la opción de contenedores Docker configurando una GPU es necesario configurar de manera explícita este entorno.
 En la Figura~\ref{fig:Arquitectura de TensorFlow serving} podemos observar el diseño de la arquitectura de la aplicación.
 
 Una de las ventajas frente a usar el sistema de inferencias clásico de TensorFlow es que la aplicación está preparada y optimizada para recibir tanto peticiones en streaming como en batch.

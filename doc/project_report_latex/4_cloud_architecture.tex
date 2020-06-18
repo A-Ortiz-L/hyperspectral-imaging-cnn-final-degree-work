@@ -1,5 +1,6 @@
 \cleardoublepage
 \mbox{}
+
 \lstset{
 language=Python,
 basicstyle=\small\sffamily,
@@ -11,7 +12,7 @@ showstringspaces=false
 }
 \chapter{Arquitectura Cloud propuesta}
 \label{ch:chapter4}
-La implementación y puesta en marcha de la aplicación se materaliza en un entorno cloud, concretamente Google Cloud Platform.
+La implementación y puesta en marcha de la aplicación se materializa en un entorno cloud, concretamente Google Cloud Platform.
 Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
 Ello tiene como consecuencia que no haya que dedicar un gran esfuerzo en su configuración, más allá del primer uso o cuando se quiera hacer cualquier modificación en un parámetro determinado.
 Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la solución que hemos desarrollado.
@@ -45,7 +46,7 @@ Las características principales que se han encontrado en el uso de esta aplicac
     \item Interoperabilidad con el resto de servicios cloud.
 \end{itemize}
 
-\subsection{Google \texit{BigQuery}}\label{subsec:bigquery}
+\subsection{Google BigQuery}\label{subsec:bigquery}
 Es una base de datos columnar y distribuida mantenida por Google, de modo que no hay que configurar su funcionamiento interno.
 En la aplicación de este trabajo, \texit{BigQuery} funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
 Todos los conjuntos de datos de esta base de datos han sido configurados en Europa para disminuir la latencia lo máximo posible.
@@ -72,17 +73,16 @@ Sus características se pueden enumerar en:
 
 \subsection{Google Compute Engine}\label{subsec:computeengine}
 Es el servicio principal de Google para proporcionar máquinas virtuales totalmente configurables, tanto en su capacidad de cálculo seleccionando el tipo de procesador, GPU y memoria RAM que se necesite, como en el entorno
-en el que se va a ejecutar la aplicación, ya sea docker\cite{docker} o las distintas distribuciones de sistemas operativos.
-Este servidor usará como aplicación principal una imagen de docker almacenada en el registro de contenedores.
-Será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
-Se ha configurado este servidor con una distribución de Linux\cite{linux} Debian 9 como sistema operativo.
-\subsection{Google \texit{Cloud Function}}\label{subsec:cloudfunction}
+en el que se va a ejecutar la aplicación, ya sea Docker\cite{docker} o las distintas distribuciones de sistemas operativos.
+Este servidor usará como aplicación principal una imagen de Docker almacenada en el registro de contenedores.
+Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+\subsection{Google Cloud Function}\label{subsec:cloudfunction}
 Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible, en una máquina virtual activada por eventos.
 Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre están disponibles y no hay apenas latencia.
 En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento, y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación.
 \subsection{Container Registry}\label{subsec:container-registry}
-Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
-En este repositorio se almacenan las distintas imágenes de docker tanto para OpenVINO como para TensorFlow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
+Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante Docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
+En este repositorio se almacenan las distintas imágenes de Docker tanto para OpenVINO como para TensorFlow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
 
 \section{Explicación del flujo de datos}\label{sec:explicación-del-flujo-de-la-arquitectura}
 En la siguiente Figura~\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
@@ -131,8 +131,8 @@ Esta información consta de los siguientes campos:
     \item Memoria RAM del sistema.
     \item Sistema de inferencia, en este caso puede ser OpenVINO o TensorFlow.
     \item Framework web utilizado: flask o fastapi en esta apliación.
-    \item Campo booleano para determinar si se está usando docker para encapsular la aplicación.
-    Para realizar las pruebas siempre se ha usado docker.
+    \item Campo booleano para determinar si se está usando Docker para encapsular la aplicación.
+    Para realizar las pruebas siempre se ha usado Docker.
     \item Campo booleano para saber si la aplicación se está ejecutando en un entorno local o en cloud.
     En este caso siempre se ejecuta la aplicación en un entorno cloud.
 \end{itemize}
@@ -183,7 +183,7 @@ Este objeto de tipo \texit{SystemTrack} es el que será enviado por argumento a 
       language=Python,label={example4}]
 
 class SystemTrack:
-    def __init__(self, docker: bool, inference_engine: str, 
+    def __init__(self, docker: bool, inference_engine: str,
             web_engine: str, cloud: bool, processor_unit: str):
         self.sys_information = platform.uname()
         self.sys_memory = psutil.virtual_memory()
@@ -216,7 +216,7 @@ Las características principales de este framework son las siguientes :
 
 \begin{itemize}
     \item Desarrollo rápido debido a la arquitectura de componentes del framework.
-    \item Documentación detallada para componente.
+    \item Documentación detallada para cada componente.
     \item Incorpora un sistema de tipado de objetos para su fácil identificación.
     \item Estándar OpenApi\footnote{\url{https://github.com/OAI/OpenAPI-Specification}} para la especificación del formato de las peticiones entrantes y las respuestas del servidor.
 \end{itemize}
@@ -225,8 +225,7 @@ Para soportar este framework se usará Uvicorn\footnote{\url{https://www.uvicorn
 Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones entre los distintos nodos e hilos de la aplicación.
 Adicionalmente, se dispondrán de opciones de configuración de certificados SSL, logs y puerto por el que funciona la aplicación dentro del host.
 Este servidor soporta actualmente el protocolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
-El software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
-
+Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
 
 \subsection{Framework Flask}\label{subsec:framework-flask}
 Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
@@ -252,8 +251,8 @@ En las Figuras~\ref{fig:Arquitectura de la máquina virtual de OpenVINO} y ~\ref
     \label{fig:Arquitectura de la máquina virtual de TensorFlow}
 \end{figure}
 
-Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores docker\footnote{\url{https://www.docker.com/}}.
-Este contenedor de docker se conectará con el host mediante el puerto 8080, permitiendo así el tráfico de información.
+Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores Docker\footnote{\url{https://www.docker.com/}}.
+Este contenedor de Docker se conectará con el host mediante el puerto 8080, permitiendo así el tráfico de información.
 Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando flask o fastapi respectivamente.
 Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.
 Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de OpenVINO, la cual funcionará de manera directa, o, por el contrario, si usamos TensorFlow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
@@ -278,5 +277,5 @@ Para la construcción de estas imágenes se han codificado de manera explícita 
     \item Código y ficheros que se van a incluir en la imagen.
 \end{itemize}
 
-Como herramienta adicional y enlazada al uso de docker se ha utilizado docker compose\footnote{\url{https://docs.docker.com/compose/}} para las pruebas de funcionamiento y testeo de todas estas imágenes.
+Como herramienta adicional y enlazada al uso de Docker se ha utilizado Docker Compose\footnote{\url{https://docs.docker.com/compose/}} para las pruebas de funcionamiento y testeo de todas estas imágenes.
 Con esta aplicación podemos describir exactamente cómo se va a ejecutar cada una de las imágenes de docker y los comandos que queremos que se ejecuten de manera automática al iniciarse el contenedor.

@@ -31,10 +31,10 @@ El tiempo de inferencia para ambas redes en el entorno productivo es inferior al
 La tasa de acierto de clasificación en el entorno productivo es del 97\%
 
 \section{Trabajo futuro}\label{sec:trabajo-futuro}
-La plataforma se ha configurado de manera que su capacidad de procesamiento de peticiones sea escalable, esto es, porque el uso de la tecnología de contenedores docker está preparada para su integración en la solución de cluster Kubernetes\footnote{\url{https://kubernetes.io/es/docs/concepts/overview/what-is-Kubernetes/}}.
+La plataforma se ha configurado de manera que su capacidad de procesamiento de peticiones sea escalable, esto es, porque el uso de la tecnología de contenedores Docker está preparada para su integración en la solución de cluster Kubernetes\footnote{\url{https://kubernetes.io/es/docs/concepts/overview/what-is-Kubernetes/}}.
 Este trabajo ha usado Google Cloud como plataforma de despliegue de la aplicación, pero explorar otras soluciones como AWS o Azure daría una perspectiva más general de qué entorno está más preparado para construir y utilizar modelos de \texit{Deep Learning}.
 
-La visualización de resultados en este trabajo ha sido realizada mediante los trabajos SQL en una base de datos, pero sería ideal poder contemplar los datos de una manera más intuitiva.
+La visualización de resultados en este trabajo ha sido realizada mediante los trabajos SQL\footnote{\url{https://cloud.google.com/bigquery/docs/jobs-overview}} en una base de datos distribuida, pero sería ideal poder contemplar los datos de una manera más intuitiva.
 Docker nos permite portar fácilmente esta solución de contenedores a otros sistemas con distinto hardware, y, en consecuencia, puede funcionar de manera local sin tener una plataforma web o cloud que la soporte.
 La clasificación podría producirse dentro del propio elemento que genera las imágenes, lo que eliminaría el tiempo de latencia de otros elementos adicionales.
 

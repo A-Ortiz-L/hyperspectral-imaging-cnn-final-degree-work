@@ -13,14 +13,14 @@ En cuanto a la muestra presentada, para el estudio de las métricas de inferenci
 El tamaño de la muestra es mucho mayor que el de las imágenes de origen.
 Esto se debe a que se han cargado de manera reiterada muchas de ellas con el objetivo de generar numerosas peticiones concurrentes en el sistema. La división del conjunto de datos es la siguiente :
 \begin{itemize}
-    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando flask y TensorFlow.
-    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando fastapi y TensorFlow.
-    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando fastapi y TensorFlow.
-    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando flask y TensorFlow.
-    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando flask y OpenVINO\@.
-    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando fastapi y OpenVINO\@.
-    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando flask y OpenVINO\@.
-    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando fastapi y OpenVINO\@.
+    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando Flask y TensorFlow.
+    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando FastApi y TensorFlow.
+    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando FastApi y TensorFlow.
+    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando Flask y TensorFlow.
+    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando Flask y OpenVINO\@.
+    \item 2000 muestras con un procesador de 2 núcleos físicos, 4 hilos usando FastApi y OpenVINO\@.
+    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando Flask y OpenVINO\@.
+    \item 2000 muestras con un procesador de 4 núcleos físicos, 8 hilos usando FastApi y OpenVINO\@.
 \end{itemize}
 
 Estas imágenes han sido testeadas por los distintos entornos productivos, sistemas de inferencia y frameworks web.
@@ -121,6 +121,7 @@ Al contrario que TensorFlow, no necesita ningún otro tipo de servicio adicional
     \begin{center}
         \begin{tabular}{| c | c | c | c | c | c |}
             \hline
+            \hline
             inference\_engine & physical\_core & system\_memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
             TensorFlow & 4 & 7.00GB & 0.066 & 0.188 \\
             OpenVINO & 4 & 7.00GB & 0.003 & 0.100 \\
@@ -138,10 +139,10 @@ TensorFlow mejora en 5 veces la velocidad de inferencia pasando de un procesador
 
 
 Se han configurado los distintos servidores web para que empleen todos los núcleos del procesador de manera concurrente, de modo que la capacidad de procesamiento de peticiones sea la máxima posible.
-En la Tabla~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de fastapi.
-TensorFlow se comporta mucho mejor con Flask, mejorando en 4 veces su tiempo de inferencia en la red, pasando de 348 ms con FastApi a 83 ms con Flask y 3.7 veces en el tiempo total de ejecución teniendo un rendimiento de 700 ms con fastapi a 200 ms con flask. Flask es un servidor web con los mínimos componentes para funcionar, pero configurado de la manera correcta puede ser el framework idóneo para realizar una tarea específica.
+En la Tabla~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto framework web} podemos contemplar que OpenVINO se mantiene estable con ambos framework, con un ligero aumento de la latencia haciendo uso de FastApi.
+TensorFlow se comporta mucho mejor con Flask, mejorando en 4 veces su tiempo de inferencia en la red, pasando de 348 ms con FastApi a 83 ms con Flask y 3.7 veces en el tiempo total de ejecución teniendo un rendimiento de 700 ms con FastApi a 200 ms con Flask. Flask es un servidor web con los mínimos componentes para funcionar, pero configurado de la manera correcta puede ser el framework idóneo para realizar una tarea específica.
 En este caso, la complejidad del servicio de TensorFlow convive mejor con un framework web sin demasiados componentes adicionales.
-Los componentes que proporciona fastapi como un sistema de logging detallado de las ejecuciones y algunas características adicionales para el desarrollador, pueden ocasionar cierto aumento de la latencia en los tiempos.
+Los componentes que proporciona FastApi como un sistema de logging detallado de las ejecuciones y algunas características adicionales para el desarrollador, pueden ocasionar cierto aumento de la latencia en los tiempos.
 Aun así, cuando la fiabilidad es uno de los requisitos y objetivos principales, estas mejoras pueden valer la pena a la hora de escalar nuestra aplicación.
 
 \begin{table}[ht]
@@ -160,11 +161,11 @@ Aun así, cuando la fiabilidad es uno de los requisitos y objetivos principales,
 \end{table}
 
 En general, FastApi requiere de un hardware más potente para sacar su máximo rendimiento, mientras que con una \textit{framework} minimalista como Flask podemos optar por reducir costes en hardware sin penalizar demasiado el rendimiento.
-En la Tabla\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
+En la Tabla~\ref{tab:Comparativa de tiempo de inferencia con OpenVINO y TensorFlow con distinto hardware y servidor web} podemos ver el rendimiento según hardware, servidor web y sistema de inferencia utilizado.
 
 \begin{table}[ht]
-    \footnotesize
     \begin{center}
+        \small
         \begin{tabular}{ | c | c | c | c| c | c | c |}
             \hline
             engine & cores & framework & memory & avg\_inference\_seconds & avg\_seconds\_total \\ \hline
@@ -201,7 +202,7 @@ Estos costes han sido recogidos haciendo uso de la calculadora de precios de Goo
     \item Cloud Functions, con un coste total de 0 dólares, haciendo uso de la modalidad gratuita, que permite hasta 2 millones de llamadas al mes.
 \end{itemize}
 
-Según la calculadora de salarios de Stack Overflow\footnote{\url{https://stackoverflow.blog/2019/10/16/coding-salaries-in-2019-updating-the-stack-overflow-salary-calculator/}}, el salario bruto de un ingeniero {data scientist} \textit{junior} en Madrid, que maneja herramientas como Docker, Google Cloud Platform, Python, TensorFlow y SQL , puede rondar los 28.000 y 42.000 euros brutos al año.
+Según la calculadora de salarios de Stack Overflow\footnote{\url{https://stackoverflow.blog/2019/10/16/coding-salaries-in-2019-updating-the-stack-overflow-salary-calculator/}}, el salario bruto de un ingeniero \textit{Data Scientist} \textit{junior} en Madrid, que maneja herramientas como Docker, Google Cloud Platform, Python, TensorFlow y SQL , puede rondar los 28.000 y 42.000 euros brutos al año.
 El total de semanas consumidas en la consecución de este proyecto es de 10.
 Si suponemos un entorno real de trabajo y un salario bruto de 28.000 euros, un desarrollador tendría que estar contratado durante 10 semanas a jornada completa para la elaboración del proyecto.
 El sueldo a percibir por el trabajdor durante los 2 meses y medio de trabajo sería de 5.832 euros brutos.
