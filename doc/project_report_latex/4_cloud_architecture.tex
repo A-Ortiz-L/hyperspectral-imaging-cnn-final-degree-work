@@ -24,7 +24,7 @@ En la figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arqu
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{images/chapter4/cloud_architecture.png}
-    \caption{Arquitectura Cloud}
+    \caption{Arquitectura Cloud.}
     \label{fig:Arquitectura Cloud}
 \end{figure}
 
@@ -89,7 +89,7 @@ En la siguiente Figura~\ref{fig:Arquitectura Google Cloud} podemos observar una 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{images/chapter4/google_cloud_architecture.png}
-    \caption{Arquitectura Google Cloud}
+    \caption{Arquitectura Google Cloud.}
     \label{fig:Arquitectura Google Cloud}
 \end{figure}
 Una imagen que es cargada en el sistema de almacenamiento~\ref{subsec:storage} dispara automáticamente un evento que se introduce en la cola de mensajería de la aplicación~\ref{subsec:pubsub}.
@@ -107,7 +107,7 @@ Todas las peticiones al servidor se realizan de manera interna, por lo que el tr
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{images/chapter4/http_request.png}
-    \caption{Petición HTTP al servidor}
+    \caption{Petición HTTP al servidor.}
     \label{fig:Petición HTTP al servidor}
 \end{figure}
 
@@ -130,7 +130,7 @@ Esta información consta de los siguientes campos:
     \item Versión del sistema operativo.
     \item Memoria RAM del sistema.
     \item Sistema de inferencia, en este caso puede ser OpenVINO o TensorFlow.
-    \item Framework web utilizado: flask o fastapi en esta apliación.
+    \item Framework web utilizado: Flask o FastApi en esta apliación.
     \item Campo booleano para determinar si se está usando Docker para encapsular la aplicación.
     Para realizar las pruebas siempre se ha usado Docker.
     \item Campo booleano para saber si la aplicación se está ejecutando en un entorno local o en cloud.
@@ -138,7 +138,7 @@ Esta información consta de los siguientes campos:
 \end{itemize}
 
 
-\begin{lstlisting}[caption=Clase Python para la API de la aplicación.
+\begin{lstlisting}[caption=Clase Python para la API de la aplicación.,
       label=c_label,
       language=Python,label={example3}]
     class Api:
@@ -178,7 +178,7 @@ La segunda clase~\ref{example4} es la encargada de generar y recabar toda esta i
 Se ha hecho uso de las librerías de psutil\footnote{\url{https://pypi.org/project/psutil/}} y platform\footnote{\url{https://docs.python.org/3/library/platform.html}} para conseguir la información necesaria del sistema.
 Contamos de manera adicional con un método de conversión de unidades para normalizar los datos a un estándar preestablecido.
 Este objeto de tipo \texit{SystemTrack} es el que será enviado por argumento a la clase \texit{API}, la cual procesará todos estos datos.
-\begin{lstlisting}[caption=Clase Python para generar información sobre el sistema,
+\begin{lstlisting}[caption=Clase Python para generar información sobre el sistema.,
       label=d_label,
       language=Python,label={example4}]
 
@@ -231,7 +231,7 @@ Este software es de código abierto y podemos encontrar su código fuente en su 
 Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
 muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
 
-A diferencia de fastapi, Flask\cite{python_flask} se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
+A diferencia de FastApi, Flask\cite{python_flask} se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
 Como servidor web se usará Gunicorn\footnote{\url{https://gunicorn.org/}} que sigue el estándar WSGI\footnote{\url{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface}} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
 \section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
@@ -253,7 +253,7 @@ En las Figuras~\ref{fig:Arquitectura de la máquina virtual de OpenVINO} y ~\ref
 
 Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores Docker\footnote{\url{https://www.docker.com/}}.
 Este contenedor de Docker se conectará con el host mediante el puerto 8080, permitiendo así el tráfico de información.
-Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando flask o fastapi respectivamente.
+Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando Flask o FastApi respectivamente.
 Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.
 Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de OpenVINO, la cual funcionará de manera directa, o, por el contrario, si usamos TensorFlow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
 De igual modo, en los servidores nunca existirá la posibilidad de tener instalados OpenVINO y TensorFlow al mismo tiempo, por lo que habrá que independizar su uso en función de los requisitos y necesidades del usuario.
