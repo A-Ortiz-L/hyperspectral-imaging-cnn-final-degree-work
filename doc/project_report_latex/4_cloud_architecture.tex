@@ -31,7 +31,7 @@ En la figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arqu
 Google Cloud posee multitud de herramientas específicas para cada situación, en este trabajo nos hemos centrado en las siguientes.
 
 \subsection{Google \texit{Storage}}\label{subsec:storage}
-Es el sistema de almacenamiento de Google.
+Es el sistema de almacenamiento de Google\cite{data_warehousing}.
 Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
 Esto se debe a que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
 Esta solución es la principal entrada de datos de la aplicación, por lo que nadie sin una clave de autenticación específica del proyecto puede subir archivos.
@@ -55,7 +55,7 @@ Las razones principales de su uso son:
     \item Posibilidad de almacenar los distintos conjuntos de datos en ubicaciones distintas, reduciendo así la latencia dependiendo del sitio donde se ejecuten los trabajos.
     \item Soporte para la ingesta de datos en tiempo real.
     \item Acceso a distintas API en varios lenguajes de programación.
-    \item Uso de SQL estándar como lenguaje de consulta.
+    \item Uso de SQL\cite{sql} estándar como lenguaje de consulta.
 \end{itemize}
 
 \subsection{Google Pub/Sub}\label{subsec:pubsub}
@@ -72,9 +72,10 @@ Sus características se pueden enumerar en:
 
 \subsection{Google Compute Engine}\label{subsec:computeengine}
 Es el servicio principal de Google para proporcionar máquinas virtuales totalmente configurables, tanto en su capacidad de cálculo seleccionando el tipo de procesador, GPU y memoria RAM que se necesite, como en el entorno
-en el que se va a ejecutar la aplicación, ya sea docker o las distintas distribuciones de sistemas operativos.
+en el que se va a ejecutar la aplicación, ya sea docker\cite{docker} o las distintas distribuciones de sistemas operativos.
 Este servidor usará como aplicación principal una imagen de docker almacenada en el registro de contenedores.
-Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+Será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+Se ha configurado este servidor con una distribución de Linux\cite{linux} Debian 9 como sistema operativo.
 \subsection{Google \texit{Cloud Function}}\label{subsec:cloudfunction}
 Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible, en una máquina virtual activada por eventos.
 Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre están disponibles y no hay apenas latencia.
@@ -100,7 +101,7 @@ El servidor~\ref{subsec:computeengine}, con toda la información acerca de la im
 Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para su posterior análisis, se necesita codificar un servidor web que realice todo este trabajo.
 Para ello, se ha elegido el lenguaje de programación Python, debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel de información sobre desarrollo con este lenguaje sea significativamente más alto que otros casos.
 Se ha empleado un paradigma de programación orientado a objetos, por la organización que proporcionan con aplicaciones de un tamaño considerable, además de la dotación de identidad que facilita a los distintos componentes. Debido a la multitud de framework web actuales, se han elegido varios para su puesta a prueba en la aplicación.
-En la figura~\ref{fig:Petición HTTP al servidor} podemos observar que las peticiones al servidor se han configurado para llegar al \textit{endpoint} \textit{image}, que es donde se procesan las imágenes.
+En la Figura~\ref{fig:Petición HTTP al servidor} podemos observar que las peticiones al servidor se han configurado para llegar al \textit{endpoint} \textit{image}, que es donde se procesan las imágenes.
 Todas las peticiones al servidor se realizan de manera interna, por lo que el tráfico HTTP está cerrado al exterior, evitando así posibles ataques de denegación de servicio y la explotación de la aplicación sin consentimiento del propietario.
 
 \begin{figure}
@@ -231,7 +232,7 @@ El software es de código abierto y podemos encontrar su código fuente en su re
 Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
 muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
 
-A diferencia de fastapi, Flask se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
+A diferencia de fastapi, Flask\cite{python_flask} se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
 Como servidor web se usará Gunicorn\footnote{\url{https://gunicorn.org/}} que sigue el estándar WSGI\footnote{\url{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface}} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
 \section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}

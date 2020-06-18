@@ -3,7 +3,7 @@
 
 \chapter{Entrenamiento del modelo mediante Google Colab}
 \label{ch:chapter2}
-Dentro del entrenamiento de modelos Deep Learning, la velocidad es uno de los parámetros fundamentales.
+Dentro del entrenamiento de modelos Deep Learning\cite{advanced_convolutional_network}, la velocidad es uno de los parámetros fundamentales.
 Los modelos pueden requerir entradas de tamaño masivo en las que la capacidad de cómputo se torne clave para acelerar el proceso;
 esto permite enfocarse plenamente en la mejora de rendimiento del modelo planteado.
 El objetivo es evitar la posible espera que pueda producir volver a entrenar el mismo con distintos parámetros.
@@ -11,16 +11,18 @@ Con ello, se puede reajustar constantemente el modelo para encontrar el punto ó
 
 En este trabajo se va a entrenar un modelo de \texit{Deep Learning} haciendo uso del framework de código abierto de TensorFlow\footnote{\url{https://www.tensorflow.org/}}, que está programada en el lenguaje de programación Python.
 Éste incluye una API de Deep Learning llamada Keras, que será la que utilicemos.
-El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes, así como los procedimientos que realizan las redes neuronales para hacer sus cálculos son, en muchas ocasiones,
+El tipo de operaciones que requiere nuestra aplicación en la parte del tratamiento de imágenes, así como los procedimientos que realizan las redes neuronales\cite{neural_network} para hacer sus cálculos son, en muchas ocasiones,
 operaciones matriciales.
 
 Nuestro objetivo será aprovechar al máximo el rendimiento que una GPU (Unidad de Procesamiento Gráfico) puede aportar en este tipo de operaciones, principalmente por su arquitectura de paralelización, idónea para este tipo de trabajo.
 La ventaja que aporta frente a la CPU (Unidad de Procesamiento Central) es la capacidad de cómputo con un mayor número de núcleos o cores (ver Figura~\ref{fig:Arquitectura de paralelización de una GPU}), gracias a su conectividad por PCI express y el ancho de banda que esta proporciona.
 
+Cabe mencionar que Google Colab, al ser una plataforma gratuita, no asegura la disponibilidad de sus componentes.
+Esto conlleva que tanto el hardware requerido como su memoria disponible puede variar según la demanda del sistema.
+En este trabajo se han matenido los mismos componentes hardware en Google Colab con la máxima memoria disponible.
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter2/cpu-and-gpu.jpg}
-    %\caption{Arquitectura de paralelización de una GPU.}
     \caption{Diferencia de núcleos para procesar cargas de trabajo en paralelo de forma eficiente entre CPU y GPU.}
     \label{fig:Arquitectura de paralelización de una GPU}
 \end{figure}
@@ -49,10 +51,10 @@ Para la construcción de este modelo haremos uso de las siguientes capas, sobre 
     En nuestro modelo aplicaremos una reducción a matrices de 2$\times$2.
 
     \begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/chapter2/relu.jpg}
-    \caption{Función de activación Relu.}
-    \label{fig:Función de activación Relu}
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/chapter2/relu.jpg}
+        \caption{Función de activación Relu.}
+        \label{fig:Función de activación Relu}
     \end{figure}
 
     \item \textbf{Dropout}: es una capa cuyo cometido es ignorar ciertas neuronas de forma aleatoria para no incluirlas en el entrenamiento, por lo que las neuronas restantes serán las encargadas de representar las predicciones de la red.
@@ -87,7 +89,7 @@ Para un mejor entendimiento, en la Figura~\ref{fig:Topología de la red del mode
 
 
 \section{Entorno Google Colab}\label{sec:entorno-Google-colab}
-La plataforma de Google Colab\footnote{\url{https://colab.research.Google.com/notebooks/intro.ipynb}} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python.
+La plataforma de Google Colab\footnote{\url{https://colab.research.Google.com/notebooks/intro.ipynb}} es un servicio gratuito de Google, mediante el cual podemos ejecutar e instalar librerías del lenguaje de programación Python\cite{python_object_oriented}.
 Una de las grandes ventajas de trabajar con este entorno es que no necesitamos configuración ninguna, se ejecuta de forma íntegra en el navegador sin necesidad de instalar nada previamente y podemos compartir
 nuestro trabajo con otras personas.
 Estas características permiten a Google Colab convertirse en un entorno muy válido para personas que están dando sus primeros pasos en este área de la inteligencia artificial, pero haciendo uso

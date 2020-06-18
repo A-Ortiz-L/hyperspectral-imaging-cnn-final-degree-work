@@ -163,10 +163,11 @@ bibliografía
 costes del proyecto
 colab recurso compartido
 
-- Bibliografía.
-- Mencionar posibilidad de otras gráficas google colab.
-- Plan de trabajo ( que sume más o menos total de créditos.
-- Resumen minimizar.
-- Conclusiones.
-- Pruebas experimentales si da tiempo.
-- Coste del trabajo en horas de ing software.
+- veriones S.O V
+- Bibliografía. V
+- Mencionar posibilidad de otras gráficas google colab. V
+- Plan de trabajo ( que sume más o menos total de créditos) . V
+- Resumen minimizar. V
+- Conclusiones. V
+- Pruebas experimentales si da tiempo. -
+- Coste del trabajo en horas de ing software. -

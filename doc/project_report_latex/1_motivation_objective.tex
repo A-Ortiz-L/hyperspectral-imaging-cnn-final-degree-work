@@ -1,13 +1,11 @@
 \cleardoublepage
-
-\usepackage{pgfgantt}
 \chapter{Introducción}
 \label{ch:chapter1}
 
 
 \section{Motivación y objetivos}\label{sec:motivación-y-objetivos}
 
-El área del \texit{Deep Learning} ha avanzado exponencialmente en los últimos años.
+El área del \texit{Deep Learning}\cite{deep_learning} ha avanzado exponencialmente en los últimos años.
 Esto ha permitido que a día de hoy se pueda contar con modelos predictivos capaces de procesar imágenes y clasificarlas según sus características primarias.
 La consecuencia principal de este proceso es la apertura de una ventana de oportunidad a la explotación de estos modelos en un entorno real, con el objetivo de que sean cruciales a
 la hora de detectar incendios, terremotos, así como todo tipo de desastres naturales.
@@ -17,11 +15,12 @@ El uso eficiente de estos modelos requiere una infraestructura capaz de soportar
 En estos casos, el procesamiento en tiempo real se vuelve algo indispensable para lograr optimizar recursos de emergencia, dirigir equipos a las zonas de desastre más afectadas y, en definitiva, prevenir los máximos riesgos posibles.
 
 
-Los ejes que vertebran este proyecto se sitúan en torno a dos polos: primeramente, la aceleración del tiempo de entrenamiento de un modelo de \texit{Deep Learning} usando una GPU en el servicio de Google Colab, y en segundo lugar, la optimización del tiempo de inferencia del modelo mediante el kit de herramientas Intel OpenVINO. Finalmente, el modelo se desplegará en un entorno cloud en el que pueda funcionar como servicio capaz de soportar miles de llamadas concurrentes.
-Para llevar a cabo el entrenamiento del modelo se ha utilizado como herramienta principal TensorFlow, un framework open source desarrollado por Google para la preparación de algoritmos de entrenamiento de redes neuronales.
-Este framework será totalmente codificado en el lenguaje de programación Python.
-Con la necesidad de que la aplicación sea robusta y flexible ante cambios se ha usado la tecnología de contendores Docker\footnote{\rule{https://www.docker.com/}}.
-Empleando esta tecnología se asegura que tanto las versiones del sistema operativo como de librerías externas sean compatibles entre sí, adicionalmente, se deja abierta la posibilidad de portar la aplicación a distintos entornos que aprovechen esta solución de contenedores.
+Los ejes que vertebran este proyecto se sitúan en torno a dos polos: primeramente, la aceleración del tiempo de entrenamiento de un modelo de \texit{Deep Learning} usando una GPU\cite{gpu_solution}
+en el servicio de Google Colab, y en segundo lugar, la optimización del tiempo de inferencia del modelo mediante el kit de herramientas Intel OpenVINO. Finalmente, el modelo se desplegará en un entorno cloud en el que pueda funcionar como servicio capaz de soportar miles de llamadas concurrentes.
+%Para llevar a cabo el entrenamiento del modelo se ha utilizado como herramienta principal TensorFlow\cite{deep_learning_tensorflow}, un framework open source desarrollado por Google para la preparación de algoritmos de entrenamiento de redes neuronales.
+%Este framework será totalmente codificado en el lenguaje de programación Python.
+%Con la necesidad de que la aplicación sea robusta y flexible ante cambios se ha usado la tecnología de contendores Docker\footnote{\rule{https://www.docker.com/}}.
+%Empleando esta tecnología se asegura que tanto las versiones del sistema operativo como de librerías externas sean compatibles entre sí, adicionalmente, se deja abierta la posibilidad de portar la aplicación a distintos entornos que aprovechen esta solución de contenedores.
 La consecución del objetivo general anteriormente mencionado se lleva a cabo en la presente memoria abordando una serie de objetivos específicos, los cuales se enumeran a
 continuación:
 \begin{itemize}
@@ -45,7 +44,7 @@ En la actualidad, los algoritmos de \texit{Deep Learning} son usados para todo t
 
 La digitalización y expansión de internet provee de innumerables fuentes de datos capaces de ser procesadas y analizadas por este tipo de algoritmos, que son usadas para distintos fines.
 
-El propio origen de los datos ha cambiado, ahora provienen interacciones que tienen los usuarios con sus dispostivos móviles, llamadas
+El propio origen de los datos ha cambiado, ahora provienen de interacciones que tienen los usuarios con sus dispostivos móviles, llamadas
 transacciones de dinero por internet, navegación de páginas web y, en el caso de este trabajo, imágenes de un satélite.
 El tratamiento de imágenes ha supuesto un avance en la sociedad del que ahora se aprovechan policías, usando estas para detección de matrículas o para reconocer posibles delincuente.
 Médicos, que utilizan estos sistemas para mejorar la detección prematura de algunos tipos de cáncer.
@@ -103,13 +102,22 @@ Los pesos de entrada de una capa tienen origen en una capa anterior y sus salida
 \end{figure}
 
 En este problema concreto nos centramos en clasificar imágenes multiespectrales con alta resolución espacial haciendo uso de las bandas espectrales RGB (Red, Green and Blue).
-%cuyo objetivo consiste en la captura de datos de imágenes dentro de rangos de longitud de onda específicos a través del espectro electromagnético.
 Nuestro conjunto de imágenes pertenece a una zona parcialmente destruida por un desastre natural en Haití ocurrido en el año 2010.
 Estas imágenes fueron adquiridas por el satélite de observación terrestre de alta resolución GeoEye-1, lanzado en septiembre de 2008.
 Por lo tanto, el fin de nuestro modelo de \texit{Deep Learning} es tener la capacidad de clasificar dichas imágenes dependiendo si la zona está dañada o, por el contrario, está en buenas condiciones.
 
 \section{Plan de trabajo}\label{sec:plan-de-trabajo}
+En la Figura~\ref{fig:Plan de trabajo} podemos observar el plan de consecución de objetivos seguidos en este trabajo.
+La métrica de esfuerzo que se aparece en ella hace referencia al número de jornadas invertidas en cada tarea con una suma total de 10 semanas.
+Las actividades están ordenadas de manera secuencial en su ejecución y presentan una dependencia entre si, por lo que nunca se ha
+pasado a otra tarea sin completar la anterior.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/chapter1/work_plan.png}
+    \caption{Plan de trabajo.}
+    \label{fig:Plan de trabajo}
+\end{figure}
 
 \section{Organización de esta memoria}\label{sec:organización-de-esta-memoria}
 
