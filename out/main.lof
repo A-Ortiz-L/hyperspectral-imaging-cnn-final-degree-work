@@ -6,21 +6,26 @@
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Plan de trabajo.}}{7}{figure.1.3}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Diferencia de núcleos para procesar cargas de trabajo en paralelo de forma eficiente entre CPU y GPU.}}{10}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Función de activación Relu.}}{12}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Topología de la red del modelo {Deep Learning} usado para la clasificación de daños.}}{14}{figure.2.3}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Ejemplo de imagen capturada por el satélite GeoEye-1. (a) Imagen de un terreno destruido. (b) Imagen de un terreno en buenas condiciones.}}{11}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Función de activación Relu.}}{12}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Topología de la red del modelo {Deep Learning} usado para la clasificación de daños.}}{14}{figure.2.4}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Arquitectura de optimización de modelos con OpenVINO.}}{18}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Arquitectura de TensorFlow serving.}}{23}{figure.3.2}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Arquitectura de TensorFlow serving.}}{22}{figure.3.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Arquitectura Cloud}}{28}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Arquitectura Google Cloud}}{31}{figure.4.2}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Petición HTTP al servidor}}{32}{figure.4.3}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Arquitectura de la máquina virtual de OpenVINO.}}{37}{figure.4.4}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Arquitectura de la máquina virtual de TensorFlow.}}{38}{figure.4.5}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Arquitectura Cloud.}}{26}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Arquitectura Google Cloud.}}{30}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Petición HTTP al servidor.}}{31}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Arquitectura de la máquina virtual de OpenVINO.}}{36}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Arquitectura de la máquina virtual de TensorFlow.}}{37}{figure.4.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 100 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}}{43}{figure.5.1}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 175 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}}{44}{figure.5.2}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU TeslaK80 con un batch-size de 256 y 100 epochs (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida}}{44}{figure.5.3}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU Tesla K80 con un Batch-size de 256 y 100 Epochs. (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida.}}{41}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU Tesla K80 con un Batch-size de 256 y 175 Epochs. (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida.}}{42}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Resultados de entrenamiento del modelo usando una GPU Tesla K80 con un Batch-size de 256 y 200 Epochs. (a) Rendimiento del modelo en acierto. (b) Rendimiento del modelo en pérdida.}}{42}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparativa de inferencias entre TensorFlow y OpenVINO en un entorno local.}}{49}{figure.5.4}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Survey of programming languages at StackOverflow 2019.}}{60}{figure.Alph1.1}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Perceptron example.}}{61}{figure.Alph1.2}%
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Work plan.}}{62}{figure.Alph1.3}%
 \addvspace {10\p@ }

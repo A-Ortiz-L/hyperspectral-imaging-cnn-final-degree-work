@@ -21,8 +21,8 @@ class TensorflowNetwork:
         return img
 
     def process_image(self, file_route) -> Tuple[bool, float]:
-        start = time.time()
         image = self.shape_image(file_route)
+        start = time.time()
         predict = self.network_request(image)
         return predict, (time.time() - start)
 

@@ -1,27 +1,51 @@
-\cleardoublepage
-\newpage
+%\cleardoublepage
+%\newpage
 %\thispagestyle{empty}
 \mbox{}
 
 \chapter{Conclusions and future work}
-\label{Appendix:Conclusion}
+\label{ch: chapte6}
 
-\section{Conclusions}
+\section{Conclusions}\label{sec: conclusions}
+The effects of the globalization of the internet are increasingly noticeable in our lives.
+The increase in the population that interacts through applications results in the generation of an infinite amount of data, which contains all the information of the users who use them. From web pages, mobile applications to systems that interact automatically, without the need for users to use or configure them. Until a few years ago, these fields barely escaped the academic and research sphere, while in these times they have become a real need for an increasingly interconnected world on a global scale.
 
-In this end-of-degree project, the design and implementation of the ATDCA-GS algorithm has been carried out, using Gram Schmidt orthogonalization in order to optimizing and improving the performance of complex operations such as the calculation of the inverse of a matrix. The programming languages VHDL and OpenCL have been used and the results of their execution in FPGA have been evaluated to subsequently make a performance comparison between both alternatives.
 
-As part of the design, an adaptation of the algorithm to the usual flow of a specific hardware design has been carried out, minimizing as much as possible the amount of resources to be used and parallelizing the operations carried out during the execution of the algorithm.
+As data grows on the network, the need for its analysis and exploitation increases.
+For this reason, platforms such as Google Cloud, Amazon Web Services carry out this process, providing all the self-managed computing power to users.
+Daily new analysis technologies specific to these data are born.
+This is the case of TensorFlow or OpenVINO, owned by commercial companies such as Google or Intel.
+The first of them was converted to open source format, while the second was placed as free since its launch; this gives due account of the growing community that makes use of these tools.
+These types of free resources, such as Google Colab, provide the community with solutions that used to be paid and accessible only to a certain audience within the technology sector.
+And, at the same time, it is the community which reports errors, proposes updates or directly codifies new solutions to incorporate.
 
-To make a comparison in terms of the performance in time of the two implementations, it has been compared the acceleration of one with respect to the other making use of real and synthetic images. In addition, it has been verified that, except for the implementation in OpenCL for large images, the processing in both alternatives does not exceed the time limit (maximum) and therefore the real-time analysis can be performed, fulfilling one of the main objectives of this proyect.
+In this work, it has been possible to train a \textit{Deep Learning} model with a 93\% accuracy on the training dataset.
+Furthermore, said model has been optimized to improve its inference using the Intel OpenVINO tool.
+The model has been deployed in the Google Cloud environment using an architecture that configures and orchestrates the entire process pipeline. All deployed applications are encapsulated within a Docker container.
+The production environment is prepared, on the one hand, to deploy the OpenVINO and TensorFlow inference network and, finally, to ingest their rankings in real time.
 
-The performance tests in terms of resources used in each implementation have revealed that the percentage of resources used increases linearly with the number of bands. It also revealed that for a large number of them (256), the resource with the highest use hardly reaches 86\% of use in VHDL and 48\% in OpenCL, so it is concluded that the performance is adequate.
+The inference time for both networks in the production environment is less than the second, being 67 ms in TensorFlow and 2 ms in OpenVINO\@. The total time per HTTP request is 212 ms for TensorFlow and 126 ms for OpenVINO, with the configuration options for these results supporting the most concurrent processing.
+The classification success rate in the productive environment is 97\%.
 
-\section{Lines of future work}
+It is the competitiveness among all these tools that drives constant improvement in all of them.
+TensorFlow was born as a framework focused on the generation of \texit{Deep Learning} models, but not with the main objective of accelerating model inference, as OpenVINO does. The symbiosis between them creates a complete combination that covers the needs of both creation and the use of deep learning models.
 
-In the first place, it would be convenient to improve the implementation optimizations in OpenCL so that it allows a real-time analysis as well as the other alternatives. In addition, since the tendency of the size of the images is to continue growing more and more, the future work option that seems more evident is to be able to process other real images of an even larger size.
 
-A possible future work path for this work would be to develop the algorithm by converting the floating-point arithmetic to whole arithmetic. In this way a better performance would be obtained since the calculations would be even simpler and, therefore, the number of necessary resources would decrease while increasing the clock frequency.
+\section{Future work}\label{sec: future-work}
+The platform has been configured so that its request processing capacity is scalable, that is, because the use of Docker container technology is prepared for integration into the Kubernetes\footnote{\url{https://clustersolution. kubernetes.io/es/docs/concepts/overview/what-is-Kubernetes/}}.
+This work has used Google Cloud as an application deployment platform, but exploring other solutions such as AWS or Azure would give a more general perspective of which environment is better prepared to build and use \texit{Deep Learning} models.
 
-Another possible way of continuation could be the modification of the test platform to use the PCIe 3x8 bus. In this way penalties due to I / O would be reduced.
+The visualization of results in this work has been done through SQL jobs\footnote{\url{https://cloud.google.com/bigquery/docs/jobs-overview}} in a distributed database, but it would be ideal to be able to look at the data in a more intuitive way.
+Docker allows us to easily port this container solution to other systems with different hardware, and consequently, it can work locally without having a web or cloud platform that supports it.
+The classification could occur within the element that generates the images, which would eliminate the latency time of other additional elements.
 
-Finally, another way would be to choose whether the implementation kernels in OpenCL can follow a parallel programming model at task level, so that the task refers to the execution of a kernel with a work-group that contains a work-item and, thus, the compiler tries to accelerate the only work-item to get a better performance.
+There is the possibility of introducing a new automatic process to train the model, as long as the new samples do not affect the current configuration.
+The data in this work are RGB images of a part of the planet, so they have exact latitude and longitude.
+The Heatmap\footnote{\url{https://en.wikipedia.org/wiki/Heat\_map}} visualization technique is ideal for seeing in real time the areas of the terrain most affected by the natural disaster and being able to redirect the emergency teams quickly.
+The configuration of the servers ingests the calls internally, so it is not open to public requests directly.
+If it were decided to open the classification of images to the public, all the necessary certificates would have to be configured on the servers to work with the secure HTTPS protocol. In addition, certain security measures against factors such as denial of service or attempted unwanted connection to servers through the application's open ports, in our case 8080 and 22, which we use to connect via SSH\footnote{\url{https://www.ssh.com/ssh/}}.
+
+In our problem, an aerial vehicle could carry the classification hardware and fly over the damaged terrain to classify the images it is collecting.
+This system would be similar to options that can already be found in the market, such as the AWS DeepLens\footnote{\url{https://aws.amazon.com/es/deeplens/}} from Amazon.
+
+Beyond business logic, it would be desirable for such solutions to be extended in an open source format. This format would allow the improvement of the project through the community, which would be free to make contributions.

@@ -14,12 +14,15 @@ class OpenVinoNetwork:
 
         self.input_blob = next(iter(self.net.inputs))
         self.out_blob = next(iter(self.net.outputs))
+        for f in self.net.inputs:
+            self.net.inputs[f].precision = 'FP16'
         self.net.batch_size = 1
         self.image_shape = 128
 
     def process_image(self, image_path) -> Tuple[bool, float]:
-        start = time.time()
+
         image = self.shape_image(image_path)
+        start = time.time()
         res = self.network_request(image)
         return res, time.time() - start
 

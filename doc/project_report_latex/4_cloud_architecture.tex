@@ -1,4 +1,4 @@
-\cleardoublepage
+%\cleardoublepage
 \mbox{}
 
 \lstset{
@@ -13,13 +13,15 @@ showstringspaces=false
 \chapter{Arquitectura Cloud propuesta}
 \label{ch:chapter4}
 La implementación y puesta en marcha de la aplicación se materializa en un entorno cloud, concretamente Google Cloud Platform.
+
 Los servicios que proporciona son de especial utilidad debido, principalmente, a que los mismos son mantenidos y actualizados por la propia plataforma.
 Ello tiene como consecuencia que no haya que dedicar un gran esfuerzo en su configuración, más allá del primer uso o cuando se quiera hacer cualquier modificación en un parámetro determinado.
+
 Entre las numerosas ventajas que otorga, también se puede citar su capacidad de escalar nuestras aplicaciones casi de manera infinita, según la demanda de la solución que hemos desarrollado.
-A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de Google sí son de pago.
-En muchos casos existe una modalidad gratuita;
-modalidad cuyos recursos en muchos casos quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
-En la figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arquitectura cloud a la que dotaremos de identidad con las soluciones que ofrece Google.
+
+A diferencia del resto de herramientas mencionadas hasta el momento, los servicios de Google sí son de pago. En muchos casos existe una modalidad gratuita; modalidad cuyos recursos en varias ocasiones quedan limitados en su capacidad de trabajo o en el tiempo que se pueden usar.
+
+En la Figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arquitectura cloud a la que dotaremos de identidad con las soluciones que ofrece Google.
 
 \begin{figure}
     \centering
@@ -29,60 +31,71 @@ En la figura~\ref{fig:Arquitectura Cloud} podemos observar el diseño de la arqu
 \end{figure}
 
 \section{Descripción del entorno y sus diferentes componentes}\label{sec:descripción-del-entorno-y-sus-diferentes-componentes}
-Google Cloud posee multitud de herramientas específicas para cada situación, en este trabajo nos hemos centrado en las siguientes.
+Google Cloud posee multitud de herramientas específicas para cada situación. La mayoría cuenta con un gran nivel de interoperabilidad con el resto de herramientas.
+
+La configuración de las herramientas es posible tanto por línea de comandos, gracias a su SDK\footnote{\url{https://www.google.com/search?client=firefox-b-d&q=SDK+google}}, por las múltiples APIs para los distintos lenguajes de programación, así como por la interfaz gráfica de la web.
 
 \subsection{Google \texit{Storage}}\label{subsec:storage}
-Es el sistema de almacenamiento de Google\cite{data_warehousing}.
-Su objetivo dentro de la aplicación es poder ser utilizada como sistema de copia de seguridad de todas las imágenes que se vayan procesando, así como también de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
+Es el sistema de almacenamiento de Google~\cite{data_warehousing}.
+Su objetivo dentro de la aplicación es poder ser utilizado como sistema de copia de seguridad de todas las imágenes que se vayan procesando, además de disparador para procesar dicha imagen en el pipeline del proceso principal y poder clasificarla.
 Esto se debe a que el servicio incorpora eventos automáticos cada vez que un archivo se ha descargado, subido o modificado.
+
 Esta solución es la principal entrada de datos de la aplicación, por lo que nadie sin una clave de autenticación específica del proyecto puede subir archivos.
+
 Las características principales que se han encontrado en el uso de esta aplicación para el trabajo son:
 \begin{itemize}
     \item Escalabilidad prácticamente infinita en el volumen de almacenamiento de los archivos.
-    \item Posibilidad de configurar distintas ubicaciones o múltiples para almacenar los datos, de modo que se pueden tener réplicas del historial en distintas partes del mundo de manera simultánea.
+    \item Posibilidad de configurar distintas o múltiples ubicaciones para almacenar los datos, de modo que se pueden tener réplicas del historial en distintas partes del mundo de manera simultánea.
     La replicación de los nodos a través de las distintas ubicaciones y su consistencia es una ventaja totalmente gestionada por Google.
-    \item Opción de carga en paralelo, la cual ha sido utilizada para los benchmark de la aplicación.
+    \item Opción de carga en paralelo, la cual sido utilizada para las pruebas de la aplicación.
     \item Encriptación de los datos y restricción de los accesos a los archivos de forma individual o colectiva.
     \item Interoperabilidad con el resto de servicios cloud.
 \end{itemize}
 
 \subsection{Google BigQuery}\label{subsec:bigquery}
 Es una base de datos columnar y distribuida mantenida por Google, de modo que no hay que configurar su funcionamiento interno.
+
 En la aplicación de este trabajo, \texit{BigQuery} funciona como herramienta de análisis y exploración de los resultados obtenidos en las distintas pruebas de carga.
-Todos los conjuntos de datos de esta base de datos han sido configurados en Europa para disminuir la latencia lo máximo posible.
+Todos los dataset de esta base de datos han sido configurados en Europa para disminuir la latencia lo máximo posible.
 Las razones principales de su uso son:
 \begin{itemize}
     \item Capacidad de análisis del orden de Petabytes en cuestión de segundos debido a los múltiples nodos que ejecutan las cargas de trabajo de manera distribuida.
     \item Posibilidad de almacenar los distintos conjuntos de datos en ubicaciones distintas, reduciendo así la latencia dependiendo del sitio donde se ejecuten los trabajos.
     \item Soporte para la ingesta de datos en tiempo real.
     \item Acceso a distintas API en varios lenguajes de programación.
-    \item Uso de SQL\cite{sql} estándar como lenguaje de consulta.
+    \item Uso de SQL~\cite{sql} estándar como lenguaje de consulta.
 \end{itemize}
 
 \subsection{Google Pub/Sub}\label{subsec:pubsub}
-Es un sistema de colas de mensajería diseñada para eventos,
-está basado en el patrón de diseño productor/consumidor.
+Es un sistema de colas de mensajería diseñado para eventos,basado en el patrón de diseño productor/consumidor.
+
 En el caso de esta arquitectura cloud, servirá de hilo conductor para las distintas partes de la aplicación cada vez que se produzca un evento como el de una nueva carga de imagen o la petición al servidor para realizar la clasificación.
-Sus características se pueden enumerar en:
+Algunas de sus ventajas son las siguientes:
 
 \begin{itemize}
-    \item Se pueden configurar distintas colas de mensajes, separando así de manera lógica los eventos de la aplicación.
-    \item Este tipo de eventos está pensado para ser consumido en tiempo real, con la mínima latencia posible.
-    \item Soporte para la ingesta de datos en tiempo real.
+    \item Configuración de distintas colas de mensajes, separando así de manera lógica los eventos de la aplicación.
+    \item Consumo de eventos en tiempo real, con la mínima latencia posible.
+    \item Ingesta asíncrona de los mensajes.
+    \item Encriptación del contenido de los mensajes.
 \end{itemize}
 
 \subsection{Google Compute Engine}\label{subsec:computeengine}
-Es el servicio principal de Google para proporcionar máquinas virtuales totalmente configurables, tanto en su capacidad de cálculo seleccionando el tipo de procesador, GPU y memoria RAM que se necesite, como en el entorno
-en el que se va a ejecutar la aplicación, ya sea Docker\cite{docker} o las distintas distribuciones de sistemas operativos.
-Este servidor usará como aplicación principal una imagen de Docker almacenada en el registro de contenedores.
-Este instrumento será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+Es el servicio principal de Google para proporcionar máquinas virtuales totalmente configurables, tanto su capacidad de cálculo seleccionando el tipo de procesador, GPU y memoria RAM que se necesite, como el entorno en el que se va a ejecutar la aplicación, ya sea Docker~\cite{docker} o las distintas distribuciones de sistemas operativos.
+
+Este servidor usará como aplicación principal una imagen de Docker almacenada en el registro de contenedores. El sistema operativo que soporta el servicio de Docker es la distribución de Linux Debian 9. Carece de interfaz gráfica, por lo que todas las interacciones se harán mediante conexión SSH.
+
+Google Compute Engine será el principal ejecutor de la aplicación, procesando y clasificando las nuevas imágenes que se carguen en el sistema de almacenamiento y volcando el resultado a la base de datos.
+
 \subsection{Google Cloud Function}\label{subsec:cloudfunction}
-Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible, en una máquina virtual activada por eventos.
+Este sistema nos permite ejecutar una pequeña porción de código en el mínimo tiempo posible en una máquina virtual activada por eventos.
+
 Estas máquinas escalan bajo demanda y no tienen que encenderse o apagarse cada vez que reciben una petición, por lo que siempre están disponibles y no hay apenas latencia.
-En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento, y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación.
+
+En esta aplicación servirán de puente entre el volcado de una imagen al sistema de almacenamiento y el procesamiento de la petición al servidor con la información y metadatos correspondientes, con el objetivo de realizar la clasificación de la imagen.
+
 \subsection{Container Registry}\label{subsec:container-registry}
 Dado que todo el desarrollo de la aplicación y su versionado ha sido efectuado mediante Docker, se ha usado un repositorio de imágenes para su almacenamiento y tagueado.
-En este repositorio se almacenan las distintas imágenes de Docker tanto para OpenVINO como para TensorFlow, ya que se han separado lógicamente para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones.
+En este repositorio se almacenan las distintas imágenes de Docker tanto para OpenVINO como para TensorFlow, ya que se han separado para optimizar el tamaño de la imagen origen que tiene cada una de las aplicaciones. Además, así se pueden evitar posibles colisiones entre las dependencias de cada sistema de inferencia.
 
 \section{Explicación del flujo de datos}\label{sec:explicación-del-flujo-de-la-arquitectura}
 En la siguiente Figura~\ref{fig:Arquitectura Google Cloud} podemos observar una imagen completa de la arquitectura mencionada anteriormente, así como el flujo de trabajo que seguiría una imagen desde que es volcada en el sistema de almacenamiento hasta que su clasificación es almacenada en la base de datos para su respectivo análisis.
@@ -92,19 +105,24 @@ En la siguiente Figura~\ref{fig:Arquitectura Google Cloud} podemos observar una 
     \caption{Arquitectura Google Cloud.}
     \label{fig:Arquitectura Google Cloud}
 \end{figure}
-Una imagen que es cargada en el sistema de almacenamiento~\ref{subsec:storage} dispara automáticamente un evento que se introduce en la cola de mensajería de la aplicación~\ref{subsec:pubsub}.
+
+Cuando una imagen es cargada en el sistema de almacenamiento~\ref{subsec:storage} dispara automáticamente un evento que se introduce en la cola de mensajería de la aplicación~\ref{subsec:pubsub}.
 El servicio de \texit{Cloud Functions}~\ref{subsec:cloudfunction} consume todos estos mensajes de manera inmediata porque está configurado para activarse cada vez que un nuevo evento de este tipo ocurre.
-Por cada evento consumido una máquina virtual que se se activa de manera instantánea será la encargada de formatear y enviar la petición al servidor.
+Por cada evento consumido una máquina virtual que se activa de manera instantánea será la encargada de formatear y enviar la petición al servidor.
 El servidor~\ref{subsec:computeengine}, con toda la información acerca de la imagen, procederá a usar la red de inferencia conveniente para finalmente insertar los resultados en la base de datos~\ref{subsec:bigquery}.
 
 \section{Codificación de los servidores web}\label{sec:codificación-de-los-servidores-web}
 Con el objetivo de poder procesar todas las peticiones y recoger todos los metadatos necesarios para su posterior análisis, se necesita codificar un servidor web que realice todo este trabajo.
-Para ello, se ha elegido el lenguaje de programación Python, debido a la creciente comunidad actual en el mundo de la informática y el desarrollo software, lo que hace que el nivel de información sobre desarrollo con este lenguaje sea significativamente más alto que otros casos.
-Se ha empleado un paradigma de programación orientado a objetos, por la organización que proporcionan con aplicaciones de un tamaño considerable, además de la dotación de identidad que facilita a los distintos componentes. Debido a la multitud de framework web actuales, se han elegido varios para su puesta a prueba en la aplicación.
-En la Figura~\ref{fig:Petición HTTP al servidor} podemos observar que las peticiones al servidor se han configurado para llegar al \textit{endpoint} \textit{image}, que es donde se procesan las imágenes.
+Para ello, se ha elegido el lenguaje de programación Python, debido a la creciente comunidad actual en el mundo del desarrollo software, lo que hace que el nivel de información sobre este lenguaje sea significativamente más alto que otros casos.
+
+Se ha empleado un paradigma de programación orientado a objetos, por la organización que proporcionan con aplicaciones de un tamaño considerable, además de la dotación de identidad que facilita la distinción de los componentes.
+
+Debido a la multitud de framework web actuales, se han elegido varios para su puesta a prueba en la aplicación.
+
+En la Figura~\ref{fig:Petición HTTP al servidor} podemos observar que las peticiones al servidor se han configurado para llegar al \textit{endpoint} `\textit{image}', que es donde se procesan las imágenes.
 Todas las peticiones al servidor se realizan de manera interna, por lo que el tráfico HTTP está cerrado al exterior, evitando así posibles ataques de denegación de servicio y la explotación de la aplicación sin consentimiento del propietario.
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1.0\textwidth]{images/chapter4/http_request.png}
     \caption{Petición HTTP al servidor.}
@@ -112,33 +130,10 @@ Todas las peticiones al servidor se realizan de manera interna, por lo que el tr
 \end{figure}
 
 Para el procesamiento generalizado de imágenes y el sistema de recogida de metadatos se han codificado dos clases principales.
-La primera~\ref{example3} es la encargada de la inicialización de los servicios de \texit{Storage}~\ref{subsec:storage} y \texit{BigQuery}~\ref{subsec:bigquery}, para los cuales se han codificado métodos para descarga y carga de información.
-Se presenta un método principal para procesar las peticiones al servidor, que modela toda la información que va a ser incluida en la base datos.
-Esta información consta de los siguientes campos:
-
-\begin{itemize}
-    \item Nombre de la imagen.
-    \item Tipo de archivo, que especifica el formato del fichero.
-    \item Fecha exacta de creación del archivo en el sistema de almacenamiento.
-    \item Clasificación de la imagen, para saber si el terreno de esta está dañado o no.
-    \item Tiempo de inferencia en la red.
-    En este caso dependerá de si estamos usando OpenVINO o TensorFlow serving para realizar esta tarea.
-    \item Tiempo total de ejecución desde que se que llega una petición al servidor hasta que se procesa.
-    \item Número de núcleos físicos del procesador.
-    \item Número de núcleos virtuales del procesador.
-    \item Sistema operativo.
-    \item Versión del sistema operativo.
-    \item Memoria RAM del sistema.
-    \item Sistema de inferencia, en este caso puede ser OpenVINO o TensorFlow.
-    \item Framework web utilizado: Flask o FastApi en esta apliación.
-    \item Campo booleano para determinar si se está usando Docker para encapsular la aplicación.
-    Para realizar las pruebas siempre se ha usado Docker.
-    \item Campo booleano para saber si la aplicación se está ejecutando en un entorno local o en cloud.
-    En este caso siempre se ejecuta la aplicación en un entorno cloud.
-\end{itemize}
+El primer Código~\ref{example3} es el encargado de la inicialización de los servicios de \texit{Storage}~\ref{subsec:storage} y \texit{BigQuery}~\ref{subsec:bigquery}, para los cuales se han codificado métodos para descarga y carga de información.
 
 
-\begin{lstlisting}[caption=Clase Python para la API de la aplicación.,
+\begin{lstlisting}[caption=Código Python para la API de la aplicación.,
       label=c_label,
       language=Python,label={example3}]
     class Api:
@@ -174,10 +169,41 @@ Esta información consta de los siguientes campos:
         self.__big_query.insert_row(row)
         os.remove(image_path)
 \end{lstlisting}
-La segunda clase~\ref{example4} es la encargada de generar y recabar toda esta información para que la clase anterior~\ref{example3} pueda procesarla.
+
+
+Se presenta un método principal para procesar las peticiones al servidor, que modela toda la información que va a ser incluida en la base datos.
+Esta información consta de los siguientes campos:
+
+\begin{itemize}
+    \item Nombre de la imagen.
+    \item Tipo de archivo, que especifica el formato del fichero.
+    \item Fecha exacta de creación del archivo en el sistema de almacenamiento.
+    \item Clasificación de la imagen, para saber si el terreno de esta está dañado o no.
+    \item Tiempo de inferencia en la red.
+    En este caso dependerá de si estamos usando OpenVINO o TensorFlow serving para realizar esta tarea.
+    \item Tiempo total de ejecución desde que se que llega una petición al servidor hasta que se procesa.
+    \item Número de núcleos físicos del procesador.
+    \item Número de núcleos virtuales del procesador.
+    \item Sistema operativo.
+    \item Versión del sistema operativo.
+    \item Memoria RAM del sistema.
+    \item Sistema de inferencia, en este caso puede ser OpenVINO o TensorFlow.
+    \item Framework web utilizado: Flask o FastAPI en esta aplicación.
+    \item Campo booleano para determinar si se está usando Docker para encapsular la aplicación.
+    Para realizar las pruebas siempre se ha usado Docker.
+    \item Campo booleano para saber si la aplicación se está ejecutando en un entorno local o en cloud.
+    En este caso siempre se ejecuta la aplicación en un entorno cloud.
+\end{itemize}
+
+
+
+El segundo Código~\ref{example4} es el encargado de generar y recabar toda esta información para que la clase anterior~\ref{example3} pueda procesarla.
 Se ha hecho uso de las librerías de psutil\footnote{\url{https://pypi.org/project/psutil/}} y platform\footnote{\url{https://docs.python.org/3/library/platform.html}} para conseguir la información necesaria del sistema.
 Contamos de manera adicional con un método de conversión de unidades para normalizar los datos a un estándar preestablecido.
-Este objeto de tipo \texit{SystemTrack} es el que será enviado por argumento a la clase \texit{API}, la cual procesará todos estos datos.
+
+Este objeto de tipo \texit{SystemTrack} es el que será enviado por argumento a la clase \texit{API}, que procesará todos estos datos.
+
+
 \begin{lstlisting}[caption=Clase Python para generar información sobre el sistema.,
       label=d_label,
       language=Python,label={example4}]
@@ -210,16 +236,22 @@ class SystemTrack:
                 return f'{num_bytes:.2f}{unit}{suffix}'
             num_bytes /= factor
 \end{lstlisting}
-\subsection{Framework FastApi}\label{subsec:framework-fastapi}
-FastApi\footnote{https://fastapi.tiangolo.com/} es un framework web de alto rendimiento preparado para su puesta en producción.
+
+
+\subsection{Framework FastAPI}\label{subsec:framework-fastapi}
+FastAPI\footnote{\url{https://fastapi.tiangolo.com/}} es un framework web de alto rendimiento preparado para su puesta en producción.
+
 Las características principales de este framework son las siguientes :
 
 \begin{itemize}
     \item Desarrollo rápido debido a la arquitectura de componentes del framework.
     \item Documentación detallada para cada componente.
-    \item Incorpora un sistema de tipado de objetos para su fácil identificación.
-    \item Estándar OpenApi\footnote{\url{https://github.com/OAI/OpenAPI-Specification}} para la especificación del formato de las peticiones entrantes y las respuestas del servidor.
+    \item Incorpora un sistema de tipado de objetos para su fácil identificación a la hora de codificar.
+    \item Estándar OpenApi\footnote{\url{https://github.com/OAI/OpenAPI-Specification}} para la especificación del formato de las peticiones HTTP entrantes y las respuestas del servidor.
 \end{itemize}
+
+
+
 
 Para soportar este framework se usará Uvicorn\footnote{\url{https://www.uvicorn.org/}} como servidor ASGI\footnote{\url{https://asgi.readthedocs.io/en/latest/}} (Asynchronous Server Gateway Interface), lo que significa que el servidor puede procesar tanto peticiones asíncronas como síncronas.
 Ademas, nos proporcionará las herramientas necesarias para paralelizar la carga de las peticiones entre los distintos nodos e hilos de la aplicación.
@@ -227,49 +259,54 @@ Adicionalmente, se dispondrán de opciones de configuración de certificados SSL
 Este servidor soporta actualmente el protocolo de transmisión de datos HTTP/1.1 y está preparado para recibir peticiones asíncronas.
 Este software es de código abierto y podemos encontrar su código fuente en su repositorio oficial.
 
+
 \subsection{Framework Flask}\label{subsec:framework-flask}
-Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python, está desarrollado de manera sencilla y ligera, diferenciándose así de otros frameworks pesados como Djando, que incluyen
-muchas dependencias y acaban ocupando mucho espacio en disco y en memoria.
+Flask\footnote{\url{https://flask.palletsprojects.com/en/1.1.x/}} es el framework ligero por excelencia de Python. Está desarrollado de manera sencilla y sin componentes adicionales, diferenciándose así de otros frameworks pesados como Django\footnote{\url{https://www.djangoproject.com/}}, que incluyen
+muchas dependencias y acaban ocupando mucho espacio en disco y en memoria cuando son ejecutados.
 
-A diferencia de FastApi, Flask\cite{python_flask} se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
-Como servidor web se usará Gunicorn\footnote{\url{https://gunicorn.org/}} que sigue el estándar WSGI\footnote{\url{https://en.wikipedia.org/wiki/Web\_Server\_Gateway\_Interface}} (Web Server Gateway Interface), que es una convención simple para gestionar llamadas síncronas al servidor.
+A diferencia de FastAPI, Flask~\cite{python_flask} se centra en la simplicidad de sus elementos y dota a sus usuarios se una serie de interfaces y decoradores simples para su codificación.
+
+Como servidor web se usará Gunicorn\footnote{\url{https://gunicorn.org/}} que sigue el estándar WSGI\footnote{\url{https://wsgi.readthedocs.io/en/latest/learn.html}} (Web Server Gateway Interface), una convención simple para gestionar llamadas síncronas al servidor.
 Con este servidor podremos seleccionar la paralelización y distribución de carga del procesador.
-\section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
-En las Figuras~\ref{fig:Arquitectura de la máquina virtual de OpenVINO} y ~\ref{fig:Arquitectura de la máquina virtual de TensorFlow} podemos observar la arquitectura de máquina virtual para OpenVINO y TensorFlow respectivamente, ambos se desplegarán en las máquinas virtuales de Google.
 
-\begin{figure}[H]
+\section{Encapsulación de entorno con Docker}\label{sec:encapsulación-de-entorno-con-docker}
+En las Figuras~\ref{fig:Arquitectura de la máquina virtual de OpenVINO} y \ref{fig:Arquitectura de la máquina virtual de TensorFlow} podemos observar la arquitectura de máquina virtual para OpenVINO y TensorFlow respectivamente. Las dos soluciones se desplegarán en las máquinas virtuales de Google.
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/chapter4/openvino_ce.png}
     \caption{Arquitectura de la máquina virtual de OpenVINO.}
     \label{fig:Arquitectura de la máquina virtual de OpenVINO}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/chapter4/tensorflow_ce.png}
     \caption{Arquitectura de la máquina virtual de TensorFlow.}
     \label{fig:Arquitectura de la máquina virtual de TensorFlow}
 \end{figure}
 
-Buscando la máxima portabilidad entre entornos, y así no cerrar la posibilidad de traslado de estas a otra plataforma, se han encapsulado todas las aplicaciones usando la tecnología de contenedores Docker\footnote{\url{https://www.docker.com/}}.
-Este contenedor de Docker se conectará con el host mediante el puerto 8080, permitiendo así el tráfico de información.
-Dentro del mismo se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando Flask o FastApi respectivamente.
+Se han encapsulado todas las aplicaciones usando la tecnología de contenedores Docker\footnote{\url{https://www.docker.com/}} buscando la máxima portabilidad entre entornos y así no cerrar la posibilidad de traslado a otra plataforma.
+
+Los contenedores de Docker se conectarán con el host mediante el puerto 8080, permitiendo así el tráfico de información.
+Dentro del contenedor se levantarán los correspondientes servidores WSGI o ASGI, dependiendo de si estamos usando Flask o FastAPI respectivamente.
+
 Es necesario clarificar que nunca habrá dos servidores activos al mismo tiempo, por lo que se dispondrán de distintas versiones de las aplicaciones en el registro de contenedores, preparadas para usar cada servidor de manera independiente.
-Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de OpenVINO, la cual funcionará de manera directa, o, por el contrario, si usamos TensorFlow tendremos otro servidor rest api que procesará las peticiones dentro del contenedor por el puerto 8501.
+
+Dentro de estos contenedores, y dependiendo de la aplicación a usar, se puede encontrar directamente la aplicación de inferencia de OpenVINO, la cual funcionará de manera directa, o, por el contrario, si usamos TensorFlow tendremos otro servidor REST API que procesará las peticiones dentro del contenedor por el puerto 8501.
 De igual modo, en los servidores nunca existirá la posibilidad de tener instalados OpenVINO y TensorFlow al mismo tiempo, por lo que habrá que independizar su uso en función de los requisitos y necesidades del usuario.
 
-Se han versionado las siguientes imágenes para la aplicación :
+Se han versionado las siguientes imágenes de Docker para la aplicación :
 \begin{itemize}
-    \item Imagen para la aplicación de entrenamiento del modelo de \texit{Deep Learning}, que ha sido utilizada para realizar pruebas de concepto en un entorno de desarrollo local antes de usar su funcionalidad
-    interna en Google Colab.
-    Se ha encontrado útil su uso debido a que el proceso de desarrollo se ha llevado acabo en distintos entornos y sistemas operativos como MacOS, Windows o Linux dependiendo de las necesidades del programador.
+    \item Imagen para la aplicación de entrenamiento del modelo de \texit{Deep Learning}, que ha sido utilizada para realizar pruebas de concepto en un entorno de desarrollo local antes de usar su funcionalidad interna en Google Colab.
+    Se ha encontrado útil su uso debido a que el proceso de desarrollo se ha llevado a cabo en distintos entornos y sistemas operativos como MacOS, Windows o Linux dependiendo de las necesidades del programador.
     \item Imagen para la red de inferencia de OpenVINO, que contiene las librerías necesarias para su ejecución y puesta en producción.
-    \item Imagen para la red de inferencia de TensorFlow, configurando el servidor interno que proporciona las inferencias al contenedor, y este, a la base de datos.
+    \item Imagen para la red de inferencia de TensorFlow, configurando el servidor interno que proporciona las inferencias al contenedor, y este a la base de datos.
 \end{itemize}
 
 Para la construcción de estas imágenes se han codificado de manera explícita cada una de ellas y constan en el repositorio de este trabajo\footnote{\url{https://github.com/A-Ortiz-L/multispectral-imaging-cnn-final-degree-work/tree/master/docker}}. En su configuración se especifican los siguientes puntos:
 \begin{itemize}
-    \item Sistema operativo base o imagen de la que hereda el contenedor.
+    \item Sistema operativo base o imagen de la que hereda.
     \item Puertos necesarios para ejecutar la aplicación, que son expuestos al exterior.
     \item Paquetes y actualizaciones del sistema operativo necesarios para funcionar.
     \item Librerías de Python.
@@ -278,4 +315,4 @@ Para la construcción de estas imágenes se han codificado de manera explícita 
 \end{itemize}
 
 Como herramienta adicional y enlazada al uso de Docker se ha utilizado Docker Compose\footnote{\url{https://docs.docker.com/compose/}} para las pruebas de funcionamiento y testeo de todas estas imágenes.
-Con esta aplicación podemos describir exactamente cómo se va a ejecutar cada una de las imágenes de docker y los comandos que queremos que se ejecuten de manera automática al iniciarse el contenedor.
+Con esta aplicación podemos describir exactamente cómo se va a ejecutar cada una de las imágenes de Docker y cuáles son los comandos que queremos que se ejecuten de manera automática al iniciarse el contenedor.

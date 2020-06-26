@@ -1,10 +1,10 @@
 \BOOKMARK [0][-]{PDFCoverPage.0}{Cover}{}% 1
-\BOOKMARK [0][-]{section*.2}{\315ndice general}{}% 2
-\BOOKMARK [0][-]{chapter*.4}{\315ndice de figuras}{}% 3
-\BOOKMARK [0][-]{chapter*.5}{\315ndice de tablas}{}% 4
-\BOOKMARK [0][-]{chapter*.5}{Resumen}{}% 5
+\BOOKMARK [0][-]{section*.1}{\315ndice general}{}% 2
+\BOOKMARK [0][-]{chapter*.3}{\315ndice de figuras}{}% 3
+\BOOKMARK [0][-]{chapter*.4}{\315ndice de tablas}{}% 4
+\BOOKMARK [0][-]{chapter*.4}{Resumen}{}% 5
 \BOOKMARK [0][-]{PDFSummaryPage.0}{Summary}{}% 6
-\BOOKMARK [0][-]{chapter*.5}{Abstract}{}% 7
+\BOOKMARK [0][-]{chapter*.4}{Abstract}{}% 7
 \BOOKMARK [0][-]{PDFAbstractPage.0}{Abstract}{}% 8
 \BOOKMARK [0][-]{chapter.1}{Introducci\363n}{}% 9
 \BOOKMARK [1][-]{section.1.1}{Motivaci\363n y objetivos}{chapter.1}% 10
@@ -21,7 +21,7 @@
 \BOOKMARK [2][-]{subsection.3.1.1}{Optimizador de modelos de Deep Learning}{section.3.1}% 21
 \BOOKMARK [2][-]{subsection.3.1.2}{Interfaz de inferencia de modelos de Deep Learning}{section.3.1}% 22
 \BOOKMARK [1][-]{section.3.2}{Conversi\363n del modelo a la plataforma OpenVINO}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.3}{Inferencias.TensorFlow vs OpenVINO}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.3}{Inferencias. TensorFlow vs OpenVINO}{chapter.3}% 24
 \BOOKMARK [0][-]{chapter.4}{Arquitectura Cloud propuesta}{}% 25
 \BOOKMARK [1][-]{section.4.1}{Descripci\363n del entorno y sus diferentes componentes}{chapter.4}% 26
 \BOOKMARK [2][-]{subsection.4.1.1}{Google Storage}{section.4.1}% 27
@@ -32,22 +32,35 @@
 \BOOKMARK [2][-]{subsection.4.1.6}{Container Registry}{section.4.1}% 32
 \BOOKMARK [1][-]{section.4.2}{Explicaci\363n del flujo de datos}{chapter.4}% 33
 \BOOKMARK [1][-]{section.4.3}{Codificaci\363n de los servidores web}{chapter.4}% 34
-\BOOKMARK [2][-]{subsection.4.3.1}{Framework FastApi}{section.4.3}% 35
+\BOOKMARK [2][-]{subsection.4.3.1}{Framework FastAPI}{section.4.3}% 35
 \BOOKMARK [2][-]{subsection.4.3.2}{Framework Flask}{section.4.3}% 36
 \BOOKMARK [1][-]{section.4.4}{Encapsulaci\363n de entorno con Docker}{chapter.4}% 37
 \BOOKMARK [0][-]{chapter.5}{Resultados experimentales}{}% 38
 \BOOKMARK [1][-]{section.5.1}{Dataset y Hardware}{chapter.5}% 39
 \BOOKMARK [1][-]{section.5.2}{Rendimiento en fase de entrenamiento}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.3}{Rendimiento en fase de inferencias}{chapter.5}% 41
-\BOOKMARK [1][-]{section.5.4}{Costes del proyecto}{chapter.5}% 42
-\BOOKMARK [0][-]{chapter.6}{Conclusiones y trabajo futuro}{}% 43
-\BOOKMARK [1][-]{section.6.1}{Conclusiones}{chapter.6}% 44
-\BOOKMARK [1][-]{section.6.2}{Trabajo futuro}{chapter.6}% 45
-\BOOKMARK [0][-]{section.6.2}{Bibliograf\355a}{}% 46
-\BOOKMARK [0][-]{appendix.Alph1}{Introduction}{}% 47
-\BOOKMARK [1][-]{section.Alph1.1}{Motivation}{appendix.Alph1}% 48
-\BOOKMARK [1][-]{section.Alph1.2}{Objectives}{appendix.Alph1}% 49
-\BOOKMARK [1][-]{section.Alph1.3}{Organization of this memory}{appendix.Alph1}% 50
-\BOOKMARK [0][-]{appendix.Alph2}{Conclusions and future work}{}% 51
-\BOOKMARK [1][-]{section.Alph2.1}{Conclusions}{appendix.Alph2}% 52
-\BOOKMARK [1][-]{section.Alph2.2}{Lines of future work}{appendix.Alph2}% 53
+\BOOKMARK [2][-]{subsection.5.2.1}{Configuraci\363n de 100 Epochs y 256 Batch-size}{section.5.2}% 41
+\BOOKMARK [2][-]{subsection.5.2.2}{Configuraci\363n de 175 Epochs y 256 Batch-size}{section.5.2}% 42
+\BOOKMARK [2][-]{subsection.5.2.3}{Configuraci\363n de 200 Epochs y 256 Batch-size}{section.5.2}% 43
+\BOOKMARK [1][-]{section.5.3}{Rendimiento en fase de inferencias}{chapter.5}% 44
+\BOOKMARK [2][-]{subsection.5.3.1}{Rendimiento de acierto en la predicci\363n.}{section.5.3}% 45
+\BOOKMARK [2][-]{subsection.5.3.2}{Rendimiento en tiempo de inferencia.}{section.5.3}% 46
+\BOOKMARK [2][-]{subsection.5.3.3}{Rendimiento en tiempo de inferencia con distinto hardware.}{section.5.3}% 47
+\BOOKMARK [2][-]{subsection.5.3.4}{Rendimiento en tiempo de inferencia con distinto framework web.}{section.5.3}% 48
+\BOOKMARK [2][-]{subsection.5.3.5}{Rendimiento en tiempo de inferencia con distinto framework web y hardware.}{section.5.3}% 49
+\BOOKMARK [2][-]{subsection.5.3.6}{N\372mero de peticiones por segundo soportadas por el servidor.}{section.5.3}% 50
+\BOOKMARK [2][-]{subsection.5.3.7}{Rendimiento de inferencia en un entorno local.}{section.5.3}% 51
+\BOOKMARK [1][-]{section.5.4}{Costes del proyecto}{chapter.5}% 52
+\BOOKMARK [0][-]{chapter.6}{Conclusiones y trabajo futuro}{}% 53
+\BOOKMARK [1][-]{section.6.1}{Conclusiones}{chapter.6}% 54
+\BOOKMARK [1][-]{section.6.2}{Trabajo futuro}{chapter.6}% 55
+\BOOKMARK [0][-]{section.6.2}{Bibliograf\355a}{}% 56
+\BOOKMARK [0][-]{appendix.Alph1}{Introduction}{}% 57
+\BOOKMARK [1][-]{section.Alph1.1}{Motivation and objectives}{appendix.Alph1}% 58
+\BOOKMARK [1][-]{section.Alph1.2}{State of the art}{appendix.Alph1}% 59
+\BOOKMARK [2][-]{subsection.Alph1.2.1}{Deep Learning concept}{section.Alph1.2}% 60
+\BOOKMARK [2][-]{subsection.Alph1.2.2}{Neural networks in image processing}{section.Alph1.2}% 61
+\BOOKMARK [1][-]{section.Alph1.3}{Work plan}{appendix.Alph1}% 62
+\BOOKMARK [1][-]{section.Alph1.4}{Organization of this project}{appendix.Alph1}% 63
+\BOOKMARK [0][-]{appendix.Alph2}{Conclusions and future work}{}% 64
+\BOOKMARK [1][-]{section.Alph2.1}{Conclusions}{appendix.Alph2}% 65
+\BOOKMARK [1][-]{section.Alph2.2}{Future work}{appendix.Alph2}% 66
