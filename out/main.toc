@@ -1,10 +1,10 @@
 \babel@toc {spanish}{}
 \babel@toc {spanish}{}
 \contentsline {chapter}{Índice general}{\es@scroman {ii}}{section*.1}%
-\contentsline {chapter}{Índice de figuras}{\es@scroman {iii}}{chapter*.3}%
-\contentsline {chapter}{Índice de tablas}{\es@scroman {iv}}{chapter*.4}%
-\contentsline {chapter}{Resumen}{\es@scroman {v}}{chapter*.4}%
-\contentsline {chapter}{Abstract}{\es@scroman {vi}}{chapter*.4}%
+\contentsline {chapter}{Índice de figuras}{\es@scroman {v}}{chapter*.3}%
+\contentsline {chapter}{Índice de tablas}{\es@scroman {vii}}{chapter*.4}%
+\contentsline {chapter}{Resumen}{\es@scroman {viii}}{chapter*.4}%
+\contentsline {chapter}{Abstract}{\es@scroman {ix}}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivación y objetivos}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Estado del arte}{3}{section.1.2}%
